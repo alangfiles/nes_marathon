@@ -1,6 +1,8 @@
 
 #pragma bss-name(push, "ZEROPAGE")
 
+#define FRAMES_PER_STEP 12
+
 // GLOBAL VARIABLES
 unsigned int powerpad_cur;
 unsigned int powerpad_old; //don't use this
@@ -27,6 +29,14 @@ unsigned char ones_hours;
 unsigned char tens_hours;
 
 unsigned char frame_counter;
+unsigned char step_button_lockout;
+unsigned char motion;
+
+enum {
+  RUNNING,
+  WALKING,
+  STANDING
+};
 
 void add_step(void);
 void add_second(void);

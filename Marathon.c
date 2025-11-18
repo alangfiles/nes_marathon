@@ -64,6 +64,7 @@ void main (void) {
 	ppu_on_all(); // turn on screen
 
 
+	//setting these here so we can use gamegenie later
 	steps = 1232;
 	seconds = 521;
 
@@ -76,12 +77,19 @@ void main (void) {
 		// infinite loop
 
 		ppu_wait_nmi(); // wait till beginning of the frame
+
+		//timer stuff
 		++frame_counter;
+
+		if(step_button_lockout > 0){
+			--step_button_lockout;
+		}
 
 		if(frame_counter >= 60){
 			frame_counter = 0;
 			add_second();
 		}
+		//end timer stuff
 
 		oam_clear();
 		
@@ -213,7 +221,12 @@ void add_second(void){
 }
 
 void add_step(void){
+	if(step_button_lockout > 0){
+		return; //still in lockout period
+	}
+	
 	steps++;
+	step_button_lockout = FRAMES_PER_STEP; //lock out for a few frames to avoid double counting
 
 	if(ones_step == 9){
 		ones_step = 0;
