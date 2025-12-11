@@ -287,4 +287,4 @@ sounds_data:
 
 .segment "CHARS"
 
-	.incbin "AlphaP.chr"
+	.incbin "marathon.chr"

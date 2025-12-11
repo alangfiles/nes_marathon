@@ -21,13 +21,13 @@ $(NAME).nes: $(NAME).o crt0.o $(CFG)
 	rm *.o
 	@echo $(NAME).nes created
 
-crt0.o: crt0.s AlphaP.chr
+crt0.o: crt0.s marathon.chr
 	$(CA65) crt0.s
 
 $(NAME).o: $(NAME).s
 	$(CA65) $(NAME).s -g
 
-$(NAME).s: $(NAME).c Marathon.h NES_ST/Marathon.h
+$(NAME).s: $(NAME).c Marathon.h
 	$(CC65) -Oirs $(NAME).c --add-source
 
 clean:
