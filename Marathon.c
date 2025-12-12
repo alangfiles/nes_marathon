@@ -12,11 +12,19 @@
 
 #include "Marathon.h"
 #include "Track.h"
+#include "sprites.h"
 
+const unsigned char palette_sprites[16]={
+	 0x1b,0x26,0x07,0x21,
+	 0x1b,0x0c,0x21,0x32,
+	 0x1b,0x36,0x06,0x15,
+	 0x1b,0x27,0x16,0x29 };
 
-const unsigned char palette_sprites[16]={ 0x1b,0x26,0x07,0x21,0x1b,0x0c,0x21,0x32,0x1b,0x36,0x06,0x15,0x1b,0x27,0x16,0x29 };
-
-const unsigned char palette_bg[16]={ 0x0f,0x30,0x07,0x21,0x0f,0x00,0x19,0x10,0x0f,0x17,0x06,0x19,0x0f,0x29,0x19,0x09 };
+const unsigned char palette_bg[16]={ 
+	0x0f,0x30,0x07,0x21,
+	0x0f,0x00,0x19,0x10,
+	0x0f,0x17,0x06,0x19,
+	0x0f,0x29,0x19,0x09 };
 
 
 // do after the read
@@ -30,23 +38,21 @@ void process_powerpad(void){
 	
 	
 void main (void) {
+
+	clear_vram_buffer(); 
+	set_vram_buffer();
+	set_scroll_y(0xff); // shift the bg down one pixel
 	
 	ppu_off(); // screen off
 	
 	// load the palettes
-	pal_bg(palette_bg);
+	pal_bg(palette_bg); 
 	pal_spr(palette_sprites);
 
 	// use the second set of tiles for sprites
 	bank_spr(1);
+	load_room();
 
-	clear_vram_buffer();
-	set_vram_buffer();
-	//draw step count
-	multi_vram_buffer_horz("STEPS:  00,000", 14, NTADR_A(2, 4));
-
-	//and Timer
-	multi_vram_buffer_horz("TIME: 00:00:00", 14, NTADR_A(2, 2));
 	ppu_on_all(); // turn on screen
 
 
@@ -60,13 +66,12 @@ void main (void) {
 
 	motion = STANDING;
 	motion_counter = 0;
-	multi_vram_buffer_horz("STAND", 5, NTADR_A(2, 6));
 
 	//END INITIALIZATION
 	
 	
 
-	load_room();
+	
 	
 	while (1){
 		// infinite loop
@@ -75,10 +80,25 @@ void main (void) {
 
 		//timer stuff
 		++frame_counter;
+		++scroll_timer;
+		++stepperminute_counter;
 		if(time_since_button_press < 255){
 			++time_since_button_press;
 		}
+
+		if(stepperminute_counter >= 180){
+			//it's been 3 seconds.
+			last_steps_per_minute = stepperminute_steps * 20; // extrapolate to per minute
+			stepperminute_steps = 0;
+			stepperminute_counter = 0;
+		}
 		
+
+		if(scroll_timer >= 8){
+			scroll_timer = 0;
+			// ++scroll_x ; //debug no scrolling
+			set_scroll_x(scroll_x);
+		}
 		
 
 		if(step_button_lockout > 0){
@@ -94,9 +114,10 @@ void main (void) {
 			add_second();
 		}
 		//end timer stuff
-
-		oam_clear();
 		
+		debug_controller = pad_poll(0); //for debugging only
+		debug_controller_new = get_pad_new(0);  
+
 		powerpad_cur = read_powerpad(1);
 		process_powerpad(); // goes after the read
 							// transfers only new presses to powerpad_new
@@ -108,68 +129,109 @@ void main (void) {
 			update_motion();
 		}
 
-		//if a new button is pressed down, we call it a step.
+		draw_sprite();
+		draw_hud();
+
+		process_controller();
+
+		
+	}
+}
+
+void draw_hud(void){
+
+	temp_int = scroll_x / 8;
+
+	multi_vram_buffer_horz("  STEPS: ", 9, NTADR_A(1, 4)+temp_int);
+	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4)+temp_int);
+	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4)+temp_int);
+	one_vram_buffer(',', NTADR_A(12, 4)+temp_int);
+	one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4)+temp_int);
+	one_vram_buffer(0x30+tens_step, NTADR_A(14, 4)+temp_int);
+	one_vram_buffer(0x30+ones_step, NTADR_A(15, 4)+temp_int);
+	
+	multi_vram_buffer_horz("  TIME:", 7, NTADR_A(1, 2)+temp_int);
+	one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2)+temp_int);
+	one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2)+temp_int);
+	one_vram_buffer(':', NTADR_A(10, 2)+temp_int);
+	one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2)+temp_int);
+	one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2)+temp_int);
+	one_vram_buffer(':', NTADR_A(13, 2)+temp_int);
+	one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2)+temp_int);
+	one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2)+temp_int);
+
+	multi_vram_buffer_horz("  SPM:", 6, NTADR_A(1, 6)+temp_int);
+	//last_steps per minute is between 0 and 200 ish
+	one_vram_buffer(0x30+(last_steps_per_minute / 100), NTADR_A(8, 6)+temp_int);
+	one_vram_buffer(0x30+((last_steps_per_minute / 10) % 10), NTADR_A(9, 6)+temp_int);
+	one_vram_buffer(0x30+(last_steps_per_minute % 10), NTADR_A(10, 6)+temp_int);
+
+}
+
+void process_controller(void){
+	if(debug_controller_new & PAD_A || debug_controller_new & PAD_B){
+		add_step();
+	}
+	//if a new button is pressed down, we call it a step.
 		if(powerpad_new & POWERPAD_1){
-			oam_spr(84, 83, 0, 0);
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_2){
-			oam_spr(100, 83, 0, 0);
+			
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_3){
-			oam_spr(116, 83, 0, 0);
+			
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_4){
-			oam_spr(132, 83, 0, 0);
+			
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_5){
-			oam_spr(84, 107, 0, 0);
+			
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_6){
-			oam_spr(100, 107, 0, 0);
+			
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_7){
-			oam_spr(116, 107, 0, 0);
+			
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_8){
-			oam_spr(132, 107, 0, 0);
+			
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_9){
-			oam_spr(84, 131, 0, 0);
+			
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_10){
-			oam_spr(100, 131, 0, 0);
+			
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_11){
-			oam_spr(116, 131, 0, 0);
+			
 			add_step();
 		}
 		
 		if(powerpad_new & POWERPAD_12){
-			oam_spr(132, 131, 0, 0);
+			
 			add_step();
 		}
 		
-	}
 }
 
 void add_second(void){
@@ -177,93 +239,86 @@ void add_second(void){
 	
 	if(ones_seconds == 9){
 		ones_seconds = 0;
-		one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
+
 		if(tens_seconds == 5){
 			tens_seconds = 0;
-			one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2));
+
 			if(ones_minutes == 9){
 				ones_minutes = 0;
-				one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2));
+
 				if(tens_minutes == 5){
 					tens_minutes = 0;
-					one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2));
+
 					if(ones_hours == 9){
 						ones_hours = 0;
-						one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
+
 						if(tens_hours == 2){
 							tens_hours = 0;
-							one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
+
 						} else {
 							tens_hours++;
-							one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
+
 						}
 					} else {
 						ones_hours++;
-						one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
+
 					}
 				} else {
 					tens_minutes++;
-					one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2));
+
 				}
 			} else {
 				ones_minutes++;
-				one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2));
+
 			}
 		} else {
 			tens_seconds++;
-			one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2));
+
 		}
 	} else {
 		ones_seconds++;
-		one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
 	}
 	
-	
+	 
 }
 
 void add_step(void){
+	
 	if(step_button_lockout > 0){
 		return; //still in lockout period
 	}
+	sprite_timer = 0; //used for animation
 
 	time_since_button_press = 0;
 	steps++;
+	stepperminute_steps++;
+
 	step_button_lockout = FRAMES_PER_STEP; //lock out for a few frames to avoid double counting
 
 	if(ones_step == 9){
 		ones_step = 0;
-		one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
 		if(tens_step == 9){
 			tens_step = 0;
-			one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
 			if(hundreds_step == 9){
 				hundreds_step = 0;
-				one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4));
 				if(thousands_step == 9){
 					thousands_step = 0;
-					one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
 					if(ten_thousands_step == 9){
 						ten_thousands_step = 0;
-						one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
 					} else {
 						ten_thousands_step++;
-						one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
 					}
 				} else {
 					thousands_step++;
-					one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
 				}
 			} else {
 				hundreds_step++;
-				one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4));
 			}
 		} else {
 			tens_step++;
-			one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
 		}
 	} else {
 		ones_step++;
-		one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
 	}
 
 }
@@ -294,16 +349,6 @@ void update_motion(void){
 	}
 	was_walking = 0;
 	was_running = 0;
-	
-	if(motion == WALKING){
-		multi_vram_buffer_horz("WALK ", 5, NTADR_A(2, 6));
-	}
-	if(motion == RUNNING){
-		multi_vram_buffer_horz("RUN  ", 5, NTADR_A(2, 6));
-	}
-	if(motion == STANDING){
-		multi_vram_buffer_horz("STAND", 5, NTADR_A(2, 6));
-	}
 	
 
 }
@@ -363,13 +408,38 @@ void initial_timer_conversion(void){
 
 }
 
+void draw_sprite(){
+	oam_clear();
+	//draw the player sprite based on motion type
+	++sprite_frame_counter;
+
+	if(sprite_frame_counter <10){
+		oam_meta_spr(120, 120, running_man_3_data);	
+	} else if (sprite_frame_counter <20){
+		oam_meta_spr(120, 120, running_man_5_data);
+	} else if (sprite_frame_counter <30){
+		oam_meta_spr(120, 120, running_man_6_data);
+	} else if (sprite_frame_counter <40){
+		oam_meta_spr(120, 120, running_man_7_data);
+	} else if (sprite_frame_counter <50){
+		oam_meta_spr(120, 120, running_man_1_data);
+	} else if (sprite_frame_counter < 59){
+		oam_meta_spr(120, 120, running_man_2_data);
+	} else {
+		sprite_frame_counter = 0;
+		oam_meta_spr(120, 120, running_man_2_data);
+	}
+
+
+}
+
 
 void load_room(){
 	ppu_off();
 	vram_adr(NAMETABLE_A);
 	for (largeindex = 0; largeindex < 1024; ++largeindex)
-	{
-		vram_put(Track[largeindex]);
+	{ 
+		vram_put(track[largeindex]);
 		flush_vram_update2();
 	}
 	ppu_on_all();

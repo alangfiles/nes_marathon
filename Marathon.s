@@ -17,7 +17,8 @@
 	.import		_ppu_off
 	.import		_ppu_on_all
 	.import		_oam_clear
-	.import		_oam_spr
+	.import		_oam_meta_spr
+	.import		_pad_poll
 	.import		_bank_spr
 	.import		_vram_adr
 	.import		_vram_put
@@ -25,11 +26,16 @@
 	.import		_one_vram_buffer
 	.import		_multi_vram_buffer_horz
 	.import		_clear_vram_buffer
+	.import		_get_pad_new
+	.import		_set_scroll_x
+	.import		_set_scroll_y
 	.import		_flush_vram_update2
 	.import		_read_powerpad
 	.export		_powerpad_cur
 	.export		_powerpad_old
 	.export		_powerpad_new
+	.export		_debug_controller
+	.export		_debug_controller_new
 	.export		_temp_int
 	.export		_last_step
 	.export		_steps
@@ -52,7 +58,19 @@
 	.export		_motion
 	.export		_was_running
 	.export		_was_walking
+	.export		_current_steps_per_minute
+	.export		_last_steps_per_minute
+	.export		_stepperminute_counter
+	.export		_stepperminute_steps
+	.export		_mph_counter
+	.export		_mph_steps
+	.export		_mph_steps_per_minute
+	.export		_mph
+	.export		_sprite_timer
+	.export		_sprite_frame_counter
+	.export		_scroll_x
 	.export		_largeindex
+	.export		_scroll_timer
 	.export		_add_step
 	.export		_add_second
 	.export		_initial_steps_conversion
@@ -60,15 +78,25 @@
 	.export		_check_motion
 	.export		_update_motion
 	.export		_load_room
-	.export		_Track
-	.export		_process_powerpad
+	.export		_draw_sprite
+	.export		_draw_hud
+	.export		_process_controller
+	.export		_track
+	.export		_running_man_1_data
+	.export		_running_man_2_data
+	.export		_running_man_3_data
+	.export		_running_man_5_data
+	.export		_running_man_6_data
+	.export		_running_man_7_data
+	.export		_mansprite_list
 	.export		_palette_sprites
 	.export		_palette_bg
+	.export		_process_powerpad
 	.export		_main
 
 .segment	"RODATA"
 
-_Track:
+_track:
 	.byte	$00
 	.byte	$00
 	.byte	$00
@@ -1093,6 +1121,649 @@ _Track:
 	.byte	$00
 	.byte	$00
 	.byte	$00
+_running_man_1_data:
+	.byte	$FE
+	.byte	$02
+	.byte	$04
+	.byte	$00
+	.byte	$07
+	.byte	$02
+	.byte	$05
+	.byte	$00
+	.byte	$07
+	.byte	$0A
+	.byte	$15
+	.byte	$00
+	.byte	$FF
+	.byte	$0A
+	.byte	$14
+	.byte	$00
+	.byte	$06
+	.byte	$19
+	.byte	$08
+	.byte	$00
+	.byte	$0C
+	.byte	$18
+	.byte	$08
+	.byte	$00
+	.byte	$00
+	.byte	$02
+	.byte	$06
+	.byte	$02
+	.byte	$08
+	.byte	$02
+	.byte	$07
+	.byte	$02
+	.byte	$00
+	.byte	$0A
+	.byte	$16
+	.byte	$02
+	.byte	$08
+	.byte	$0A
+	.byte	$17
+	.byte	$02
+	.byte	$00
+	.byte	$10
+	.byte	$2A
+	.byte	$02
+	.byte	$08
+	.byte	$10
+	.byte	$2B
+	.byte	$02
+	.byte	$F8
+	.byte	$18
+	.byte	$39
+	.byte	$02
+	.byte	$F8
+	.byte	$10
+	.byte	$29
+	.byte	$02
+	.byte	$00
+	.byte	$18
+	.byte	$3A
+	.byte	$02
+	.byte	$08
+	.byte	$18
+	.byte	$3B
+	.byte	$02
+	.byte	$00
+	.byte	$20
+	.byte	$4A
+	.byte	$02
+	.byte	$08
+	.byte	$20
+	.byte	$4B
+	.byte	$02
+	.byte	$00
+	.byte	$28
+	.byte	$5A
+	.byte	$02
+	.byte	$08
+	.byte	$28
+	.byte	$5B
+	.byte	$02
+	.byte	$08
+	.byte	$30
+	.byte	$6B
+	.byte	$02
+	.byte	$08
+	.byte	$38
+	.byte	$7B
+	.byte	$02
+	.byte	$10
+	.byte	$38
+	.byte	$7C
+	.byte	$02
+	.byte	$F8
+	.byte	$30
+	.byte	$69
+	.byte	$02
+	.byte	$00
+	.byte	$30
+	.byte	$6A
+	.byte	$02
+	.byte	$F8
+	.byte	$28
+	.byte	$59
+	.byte	$02
+	.byte	$F0
+	.byte	$28
+	.byte	$58
+	.byte	$02
+	.byte	$F0
+	.byte	$30
+	.byte	$68
+	.byte	$02
+	.byte	$80
+_running_man_2_data:
+	.byte	$FF
+	.byte	$03
+	.byte	$04
+	.byte	$00
+	.byte	$07
+	.byte	$03
+	.byte	$05
+	.byte	$00
+	.byte	$FF
+	.byte	$0B
+	.byte	$14
+	.byte	$00
+	.byte	$07
+	.byte	$0B
+	.byte	$15
+	.byte	$00
+	.byte	$08
+	.byte	$1A
+	.byte	$08
+	.byte	$00
+	.byte	$00
+	.byte	$03
+	.byte	$06
+	.byte	$02
+	.byte	$08
+	.byte	$03
+	.byte	$07
+	.byte	$02
+	.byte	$00
+	.byte	$0B
+	.byte	$16
+	.byte	$02
+	.byte	$08
+	.byte	$0B
+	.byte	$17
+	.byte	$02
+	.byte	$00
+	.byte	$10
+	.byte	$A1
+	.byte	$02
+	.byte	$08
+	.byte	$10
+	.byte	$A2
+	.byte	$02
+	.byte	$F8
+	.byte	$18
+	.byte	$B0
+	.byte	$02
+	.byte	$00
+	.byte	$18
+	.byte	$B1
+	.byte	$02
+	.byte	$08
+	.byte	$18
+	.byte	$B2
+	.byte	$02
+	.byte	$00
+	.byte	$20
+	.byte	$C1
+	.byte	$02
+	.byte	$08
+	.byte	$20
+	.byte	$C2
+	.byte	$02
+	.byte	$00
+	.byte	$28
+	.byte	$D1
+	.byte	$02
+	.byte	$08
+	.byte	$28
+	.byte	$D2
+	.byte	$02
+	.byte	$10
+	.byte	$30
+	.byte	$E3
+	.byte	$02
+	.byte	$08
+	.byte	$30
+	.byte	$E2
+	.byte	$02
+	.byte	$00
+	.byte	$30
+	.byte	$E1
+	.byte	$02
+	.byte	$F8
+	.byte	$30
+	.byte	$E0
+	.byte	$02
+	.byte	$08
+	.byte	$38
+	.byte	$F2
+	.byte	$02
+	.byte	$00
+	.byte	$38
+	.byte	$F1
+	.byte	$02
+	.byte	$80
+_running_man_3_data:
+	.byte	$FF
+	.byte	$02
+	.byte	$04
+	.byte	$00
+	.byte	$07
+	.byte	$02
+	.byte	$05
+	.byte	$00
+	.byte	$FF
+	.byte	$0A
+	.byte	$14
+	.byte	$00
+	.byte	$07
+	.byte	$0A
+	.byte	$15
+	.byte	$00
+	.byte	$0B
+	.byte	$16
+	.byte	$08
+	.byte	$00
+	.byte	$00
+	.byte	$02
+	.byte	$06
+	.byte	$02
+	.byte	$08
+	.byte	$02
+	.byte	$07
+	.byte	$02
+	.byte	$00
+	.byte	$0A
+	.byte	$16
+	.byte	$02
+	.byte	$08
+	.byte	$0A
+	.byte	$17
+	.byte	$02
+	.byte	$00
+	.byte	$10
+	.byte	$A5
+	.byte	$02
+	.byte	$08
+	.byte	$10
+	.byte	$A6
+	.byte	$02
+	.byte	$00
+	.byte	$18
+	.byte	$B5
+	.byte	$02
+	.byte	$08
+	.byte	$18
+	.byte	$B6
+	.byte	$02
+	.byte	$00
+	.byte	$20
+	.byte	$C5
+	.byte	$02
+	.byte	$08
+	.byte	$20
+	.byte	$C6
+	.byte	$02
+	.byte	$00
+	.byte	$28
+	.byte	$D5
+	.byte	$02
+	.byte	$F8
+	.byte	$28
+	.byte	$D4
+	.byte	$02
+	.byte	$08
+	.byte	$28
+	.byte	$D6
+	.byte	$02
+	.byte	$00
+	.byte	$30
+	.byte	$E5
+	.byte	$02
+	.byte	$F8
+	.byte	$30
+	.byte	$E4
+	.byte	$02
+	.byte	$F8
+	.byte	$38
+	.byte	$F4
+	.byte	$02
+	.byte	$08
+	.byte	$30
+	.byte	$E6
+	.byte	$02
+	.byte	$10
+	.byte	$30
+	.byte	$E7
+	.byte	$02
+	.byte	$08
+	.byte	$38
+	.byte	$F6
+	.byte	$02
+	.byte	$00
+	.byte	$38
+	.byte	$F5
+	.byte	$02
+	.byte	$80
+_running_man_5_data:
+	.byte	$FF
+	.byte	$02
+	.byte	$04
+	.byte	$00
+	.byte	$07
+	.byte	$02
+	.byte	$05
+	.byte	$00
+	.byte	$FF
+	.byte	$0A
+	.byte	$14
+	.byte	$00
+	.byte	$07
+	.byte	$0A
+	.byte	$15
+	.byte	$00
+	.byte	$0C
+	.byte	$15
+	.byte	$08
+	.byte	$00
+	.byte	$00
+	.byte	$02
+	.byte	$06
+	.byte	$02
+	.byte	$08
+	.byte	$02
+	.byte	$07
+	.byte	$02
+	.byte	$00
+	.byte	$0A
+	.byte	$16
+	.byte	$02
+	.byte	$08
+	.byte	$0A
+	.byte	$17
+	.byte	$02
+	.byte	$00
+	.byte	$10
+	.byte	$AA
+	.byte	$02
+	.byte	$08
+	.byte	$10
+	.byte	$AB
+	.byte	$02
+	.byte	$00
+	.byte	$18
+	.byte	$BA
+	.byte	$02
+	.byte	$08
+	.byte	$18
+	.byte	$BB
+	.byte	$02
+	.byte	$00
+	.byte	$20
+	.byte	$CA
+	.byte	$02
+	.byte	$08
+	.byte	$20
+	.byte	$CB
+	.byte	$02
+	.byte	$00
+	.byte	$28
+	.byte	$DA
+	.byte	$02
+	.byte	$08
+	.byte	$28
+	.byte	$DB
+	.byte	$02
+	.byte	$00
+	.byte	$30
+	.byte	$EA
+	.byte	$02
+	.byte	$08
+	.byte	$30
+	.byte	$EB
+	.byte	$02
+	.byte	$10
+	.byte	$30
+	.byte	$EC
+	.byte	$02
+	.byte	$08
+	.byte	$38
+	.byte	$FB
+	.byte	$02
+	.byte	$10
+	.byte	$38
+	.byte	$FC
+	.byte	$02
+	.byte	$F8
+	.byte	$30
+	.byte	$E9
+	.byte	$02
+	.byte	$F8
+	.byte	$38
+	.byte	$F9
+	.byte	$02
+	.byte	$F0
+	.byte	$38
+	.byte	$F8
+	.byte	$02
+	.byte	$F0
+	.byte	$30
+	.byte	$E8
+	.byte	$02
+	.byte	$F8
+	.byte	$28
+	.byte	$D9
+	.byte	$02
+	.byte	$18
+	.byte	$38
+	.byte	$FD
+	.byte	$02
+	.byte	$F0
+	.byte	$28
+	.byte	$D8
+	.byte	$02
+	.byte	$F8
+	.byte	$18
+	.byte	$B9
+	.byte	$02
+	.byte	$F8
+	.byte	$10
+	.byte	$A9
+	.byte	$02
+	.byte	$80
+_running_man_6_data:
+	.byte	$FF
+	.byte	$03
+	.byte	$04
+	.byte	$00
+	.byte	$07
+	.byte	$03
+	.byte	$05
+	.byte	$00
+	.byte	$FF
+	.byte	$0B
+	.byte	$14
+	.byte	$00
+	.byte	$07
+	.byte	$0B
+	.byte	$15
+	.byte	$00
+	.byte	$0B
+	.byte	$16
+	.byte	$08
+	.byte	$00
+	.byte	$00
+	.byte	$03
+	.byte	$06
+	.byte	$02
+	.byte	$08
+	.byte	$03
+	.byte	$07
+	.byte	$02
+	.byte	$00
+	.byte	$0B
+	.byte	$16
+	.byte	$02
+	.byte	$08
+	.byte	$0B
+	.byte	$17
+	.byte	$02
+	.byte	$00
+	.byte	$10
+	.byte	$21
+	.byte	$02
+	.byte	$08
+	.byte	$10
+	.byte	$22
+	.byte	$02
+	.byte	$00
+	.byte	$18
+	.byte	$31
+	.byte	$02
+	.byte	$08
+	.byte	$18
+	.byte	$32
+	.byte	$02
+	.byte	$00
+	.byte	$20
+	.byte	$41
+	.byte	$02
+	.byte	$08
+	.byte	$20
+	.byte	$42
+	.byte	$02
+	.byte	$00
+	.byte	$28
+	.byte	$51
+	.byte	$02
+	.byte	$08
+	.byte	$28
+	.byte	$52
+	.byte	$02
+	.byte	$08
+	.byte	$30
+	.byte	$62
+	.byte	$02
+	.byte	$08
+	.byte	$38
+	.byte	$72
+	.byte	$02
+	.byte	$00
+	.byte	$38
+	.byte	$71
+	.byte	$02
+	.byte	$00
+	.byte	$30
+	.byte	$61
+	.byte	$02
+	.byte	$F8
+	.byte	$30
+	.byte	$60
+	.byte	$02
+	.byte	$80
+_running_man_7_data:
+	.byte	$FF
+	.byte	$02
+	.byte	$04
+	.byte	$00
+	.byte	$07
+	.byte	$02
+	.byte	$05
+	.byte	$00
+	.byte	$FF
+	.byte	$0A
+	.byte	$14
+	.byte	$00
+	.byte	$07
+	.byte	$0A
+	.byte	$15
+	.byte	$00
+	.byte	$08
+	.byte	$19
+	.byte	$08
+	.byte	$00
+	.byte	$00
+	.byte	$02
+	.byte	$06
+	.byte	$02
+	.byte	$08
+	.byte	$02
+	.byte	$07
+	.byte	$02
+	.byte	$00
+	.byte	$0A
+	.byte	$16
+	.byte	$02
+	.byte	$08
+	.byte	$0A
+	.byte	$17
+	.byte	$02
+	.byte	$00
+	.byte	$10
+	.byte	$25
+	.byte	$02
+	.byte	$08
+	.byte	$10
+	.byte	$26
+	.byte	$02
+	.byte	$00
+	.byte	$18
+	.byte	$35
+	.byte	$02
+	.byte	$08
+	.byte	$18
+	.byte	$36
+	.byte	$02
+	.byte	$00
+	.byte	$20
+	.byte	$45
+	.byte	$02
+	.byte	$08
+	.byte	$20
+	.byte	$46
+	.byte	$02
+	.byte	$00
+	.byte	$28
+	.byte	$55
+	.byte	$02
+	.byte	$08
+	.byte	$28
+	.byte	$56
+	.byte	$02
+	.byte	$08
+	.byte	$30
+	.byte	$66
+	.byte	$02
+	.byte	$08
+	.byte	$38
+	.byte	$76
+	.byte	$02
+	.byte	$00
+	.byte	$38
+	.byte	$75
+	.byte	$02
+	.byte	$F8
+	.byte	$38
+	.byte	$74
+	.byte	$02
+	.byte	$F8
+	.byte	$30
+	.byte	$64
+	.byte	$02
+	.byte	$F8
+	.byte	$28
+	.byte	$54
+	.byte	$02
+	.byte	$00
+	.byte	$30
+	.byte	$65
+	.byte	$02
+	.byte	$F8
+	.byte	$18
+	.byte	$34
+	.byte	$02
+	.byte	$F8
+	.byte	$10
+	.byte	$24
+	.byte	$02
+	.byte	$80
+_mansprite_list:
+	.addr	_running_man_1_data
+	.addr	_running_man_2_data
+	.addr	_running_man_3_data
+	.addr	_running_man_5_data
+	.addr	_running_man_6_data
+	.addr	_running_man_7_data
 _palette_sprites:
 	.byte	$1B
 	.byte	$26
@@ -1127,17 +1798,12 @@ _palette_bg:
 	.byte	$29
 	.byte	$19
 	.byte	$09
-L0436:
-	.byte	$53,$54,$45,$50,$53,$3A,$20,$20,$30,$30,$2C,$30,$30,$30,$00
-L0440:
-	.byte	$54,$49,$4D,$45,$3A,$20,$30,$30,$3A,$30,$30,$3A,$30,$30,$00
-L0626:
-	.byte	$52,$55,$4E,$20,$20,$00
-L0632:
-	.byte	$53,$54,$41,$4E,$44,$00
-L0455	:=	L0632+0
-L061A:
-	.byte	$57,$41,$4C,$4B,$20,$00
+L06F8:
+	.byte	$20,$20,$53,$54,$45,$50,$53,$3A,$20,$00
+L0737:
+	.byte	$20,$20,$54,$49,$4D,$45,$3A,$00
+L0787:
+	.byte	$20,$20,$53,$50,$4D,$3A,$00
 
 .segment	"BSS"
 
@@ -1148,6 +1814,10 @@ _powerpad_old:
 	.res	2,$00
 _powerpad_new:
 	.res	2,$00
+_debug_controller:
+	.res	1,$00
+_debug_controller_new:
+	.res	1,$00
 _temp_int:
 	.res	2,$00
 _last_step:
@@ -1192,8 +1862,32 @@ _was_running:
 	.res	1,$00
 _was_walking:
 	.res	1,$00
+_current_steps_per_minute:
+	.res	1,$00
+_last_steps_per_minute:
+	.res	1,$00
+_stepperminute_counter:
+	.res	1,$00
+_stepperminute_steps:
+	.res	1,$00
+_mph_counter:
+	.res	1,$00
+_mph_steps:
+	.res	1,$00
+_mph_steps_per_minute:
+	.res	1,$00
+_mph:
+	.res	1,$00
+_sprite_timer:
+	.res	1,$00
+_sprite_frame_counter:
+	.res	1,$00
+_scroll_x:
+	.res	2,$00
 _largeindex:
 	.res	2,$00
+_scroll_timer:
+	.res	1,$00
 
 ; ---------------------------------------------------------------
 ; void __near__ add_step (void)
@@ -1212,15 +1906,15 @@ _largeindex:
 ;
 ; return; //still in lockout period
 ;
-	beq     L06E6
+	bne     L0827
 ;
-; }
+; sprite_timer = 0; //used for animation
 ;
-	rts
+	sta     _sprite_timer
 ;
 ; time_since_button_press = 0;
 ;
-L06E6:	sta     _time_since_button_press
+	sta     _time_since_button_press
 ;
 ; steps++;
 ;
@@ -1228,10 +1922,14 @@ L06E6:	sta     _time_since_button_press
 	ldx     _steps+1
 	clc
 	adc     #$01
-	bcc     L0575
+	bcc     L0807
 	inx
-L0575:	sta     _steps
+L0807:	sta     _steps
 	stx     _steps+1
+;
+; stepperminute_steps++;
+;
+	inc     _stepperminute_steps
 ;
 ; step_button_lockout = FRAMES_PER_STEP; //lock out for a few frames to avoid double counting
 ;
@@ -1242,180 +1940,100 @@ L0575:	sta     _steps
 ;
 	lda     _ones_step
 	cmp     #$09
-	jne     L06E5
+	bne     L092A
 ;
 ; ones_step = 0;
 ;
 	lda     #$00
 	sta     _ones_step
 ;
-; one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$8F
-	jsr     _one_vram_buffer
-;
 ; if(tens_step == 9){
 ;
 	lda     _tens_step
 	cmp     #$09
-	jne     L06E4
+	bne     L0929
 ;
 ; tens_step = 0;
 ;
 	lda     #$00
 	sta     _tens_step
 ;
-; one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$8E
-	jsr     _one_vram_buffer
-;
 ; if(hundreds_step == 9){
 ;
 	lda     _hundreds_step
 	cmp     #$09
-	bne     L06E3
+	bne     L0928
 ;
 ; hundreds_step = 0;
 ;
 	lda     #$00
 	sta     _hundreds_step
 ;
-; one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$8D
-	jsr     _one_vram_buffer
-;
 ; if(thousands_step == 9){
 ;
 	lda     _thousands_step
 	cmp     #$09
-	bne     L06E2
+	bne     L0927
 ;
 ; thousands_step = 0;
 ;
 	lda     #$00
 	sta     _thousands_step
 ;
-; one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$8B
-	jsr     _one_vram_buffer
-;
 ; if(ten_thousands_step == 9){
 ;
 	lda     _ten_thousands_step
 	cmp     #$09
-	bne     L06E1
+	bne     L0926
 ;
 ; ten_thousands_step = 0;
 ;
 	lda     #$00
 	sta     _ten_thousands_step
 ;
-; one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$8A
-;
 ; } else {
 ;
-	jmp     _one_vram_buffer
+	rts
 ;
 ; ten_thousands_step++;
 ;
-L06E1:	inc     _ten_thousands_step
-;
-; one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
-;
-	lda     _ten_thousands_step
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$8A
+L0926:	inc     _ten_thousands_step
 ;
 ; } else {
 ;
-	jmp     _one_vram_buffer
+	rts
 ;
 ; thousands_step++;
 ;
-L06E2:	inc     _thousands_step
-;
-; one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
-;
-	lda     _thousands_step
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$8B
+L0927:	inc     _thousands_step
 ;
 ; } else {
 ;
-	jmp     _one_vram_buffer
+	rts
 ;
 ; hundreds_step++;
 ;
-L06E3:	inc     _hundreds_step
+L0928:	inc     _hundreds_step
 ;
-; one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4));
+; } else {
 ;
-	lda     _hundreds_step
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$8D
-	jmp     _one_vram_buffer
+	rts
 ;
 ; tens_step++;
 ;
-L06E4:	inc     _tens_step
+L0929:	inc     _tens_step
 ;
-; one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
+; } else {
 ;
-	lda     _tens_step
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$8E
-	jmp     _one_vram_buffer
+	rts
 ;
 ; ones_step++;
 ;
-L06E5:	inc     _ones_step
+L092A:	inc     _ones_step
 ;
-; one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
+; }
 ;
-	lda     _ones_step
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$8F
-	jmp     _one_vram_buffer
+L0827:	rts
 
 .endproc
 
@@ -1436,226 +2054,128 @@ L06E5:	inc     _ones_step
 	ldx     _seconds+1
 	clc
 	adc     #$01
-	bcc     L04DE
+	bcc     L07DA
 	inx
-L04DE:	sta     _seconds
+L07DA:	sta     _seconds
 	stx     _seconds+1
 ;
 ; if(ones_seconds == 9){
 ;
 	lda     _ones_seconds
 	cmp     #$09
-	jne     L06F0
+	bne     L0930
 ;
 ; ones_seconds = 0;
 ;
 	lda     #$00
 	sta     _ones_seconds
 ;
-; one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$4F
-	jsr     _one_vram_buffer
-;
 ; if(tens_seconds == 5){
 ;
 	lda     _tens_seconds
 	cmp     #$05
-	jne     L06EF
+	bne     L092F
 ;
 ; tens_seconds = 0;
 ;
 	lda     #$00
 	sta     _tens_seconds
 ;
-; one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$4E
-	jsr     _one_vram_buffer
-;
 ; if(ones_minutes == 9){
 ;
 	lda     _ones_minutes
 	cmp     #$09
-	jne     L06EE
+	bne     L092E
 ;
 ; ones_minutes = 0;
 ;
 	lda     #$00
 	sta     _ones_minutes
 ;
-; one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$4C
-	jsr     _one_vram_buffer
-;
 ; if(tens_minutes == 5){
 ;
 	lda     _tens_minutes
 	cmp     #$05
-	bne     L06ED
+	bne     L092D
 ;
 ; tens_minutes = 0;
 ;
 	lda     #$00
 	sta     _tens_minutes
 ;
-; one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$4B
-	jsr     _one_vram_buffer
-;
 ; if(ones_hours == 9){
 ;
 	lda     _ones_hours
 	cmp     #$09
-	bne     L06EC
+	bne     L092C
 ;
 ; ones_hours = 0;
 ;
 	lda     #$00
 	sta     _ones_hours
 ;
-; one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$49
-	jsr     _one_vram_buffer
-;
 ; if(tens_hours == 2){
 ;
 	lda     _tens_hours
 	cmp     #$02
-	bne     L06EB
+	bne     L092B
 ;
 ; tens_hours = 0;
 ;
 	lda     #$00
 	sta     _tens_hours
 ;
-; one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
-;
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$48
-;
 ; } else {
 ;
-	jmp     _one_vram_buffer
+	rts
 ;
 ; tens_hours++;
 ;
-L06EB:	inc     _tens_hours
-;
-; one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
-;
-	lda     _tens_hours
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$48
+L092B:	inc     _tens_hours
 ;
 ; } else {
 ;
-	jmp     _one_vram_buffer
+	rts
 ;
 ; ones_hours++;
 ;
-L06EC:	inc     _ones_hours
-;
-; one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
-;
-	lda     _ones_hours
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$49
+L092C:	inc     _ones_hours
 ;
 ; } else {
 ;
-	jmp     _one_vram_buffer
+	rts
 ;
 ; tens_minutes++;
 ;
-L06ED:	inc     _tens_minutes
-;
-; one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2));
-;
-	lda     _tens_minutes
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$4B
+L092D:	inc     _tens_minutes
 ;
 ; } else {
 ;
-	jmp     _one_vram_buffer
+	rts
 ;
 ; ones_minutes++;
 ;
-L06EE:	inc     _ones_minutes
+L092E:	inc     _ones_minutes
 ;
-; one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2));
+; } else {
 ;
-	lda     _ones_minutes
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$4C
-	jmp     _one_vram_buffer
+	rts
 ;
 ; tens_seconds++;
 ;
-L06EF:	inc     _tens_seconds
+L092F:	inc     _tens_seconds
 ;
-; one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2));
+; } else {
 ;
-	lda     _tens_seconds
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$4E
-	jmp     _one_vram_buffer
+	rts
 ;
 ; ones_seconds++;
 ;
-L06F0:	inc     _ones_seconds
+L0930:	inc     _ones_seconds
 ;
-; one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
+; }
 ;
-	lda     _ones_seconds
-	clc
-	adc     #$30
-	jsr     pusha
-	ldx     #$20
-	lda     #$4F
-	jmp     _one_vram_buffer
+	rts
 
 .endproc
 
@@ -1989,13 +2509,13 @@ L06F0:	inc     _ones_seconds
 ;
 	lda     _powerpad_cur
 	and     #$0F
-	beq     L05F1
+	beq     L082A
 	lda     _powerpad_cur
 	and     #$F0
-	beq     L05F1
+	beq     L082A
 	lda     _time_since_button_press
 	cmp     #$B4
-	bcs     L05F1
+	bcs     L082A
 ;
 ; was_walking = 1;
 ;
@@ -2005,17 +2525,17 @@ L06F0:	inc     _ones_seconds
 ; }else if(powerpad_cur == 0 && time_since_button_press < 60){ //nothing is pressed
 ;
 	rts
-L05F1:	lda     _powerpad_cur
+L082A:	lda     _powerpad_cur
 	ora     _powerpad_cur+1
-	bne     L06F4
+	bne     L0934
 	lda     _time_since_button_press
 	cmp     #$3C
-	bcc     L06F5
-L06F4:	rts
+	bcc     L0935
+L0934:	rts
 ;
 ; was_running = 1;
 ;
-L06F5:	lda     #$01
+L0935:	lda     #$01
 	sta     _was_running
 ;
 ; }
@@ -2038,7 +2558,7 @@ L06F5:	lda     #$01
 ; if(was_running){
 ;
 	lda     _was_running
-	beq     L0603
+	beq     L083C
 ;
 ; motion = RUNNING;
 ;
@@ -2052,9 +2572,9 @@ L06F5:	lda     #$01
 ;
 ; else if(was_walking){
 ;
-	jmp     L06F6
-L0603:	lda     _was_walking
-	beq     L060A
+	jmp     L0936
+L083C:	lda     _was_walking
+	beq     L0843
 ;
 ; motion = WALKING;
 ;
@@ -2068,90 +2588,25 @@ L0603:	lda     _was_walking
 ;
 ; else {
 ;
-	jmp     L06F6
+	jmp     L0936
 ;
 ; motion = STANDING;
 ;
-L060A:	lda     #$02
+L0843:	lda     #$02
 	sta     _motion
 ;
 ; was_walking = 0;
 ;
-L06F6:	lda     #$00
+L0936:	lda     #$00
 	sta     _was_walking
 ;
 ; was_running = 0;
 ;
 	sta     _was_running
 ;
-; if(motion == WALKING){
-;
-	lda     _motion
-	cmp     #$01
-	bne     L06F7
-;
-; multi_vram_buffer_horz("WALK ", 5, NTADR_A(2, 6));
-;
-	jsr     decsp3
-	lda     #<(L061A)
-	ldy     #$01
-	sta     (sp),y
-	iny
-	lda     #>(L061A)
-	sta     (sp),y
-	lda     #$05
-	ldy     #$00
-	sta     (sp),y
-	ldx     #$20
-	lda     #$C2
-	jsr     _multi_vram_buffer_horz
-;
-; if(motion == RUNNING){
-;
-L06F7:	lda     _motion
-	bne     L06F8
-;
-; multi_vram_buffer_horz("RUN  ", 5, NTADR_A(2, 6));
-;
-	jsr     decsp3
-	lda     #<(L0626)
-	ldy     #$01
-	sta     (sp),y
-	iny
-	lda     #>(L0626)
-	sta     (sp),y
-	lda     #$05
-	ldy     #$00
-	sta     (sp),y
-	ldx     #$20
-	lda     #$C2
-	jsr     _multi_vram_buffer_horz
-;
-; if(motion == STANDING){
-;
-L06F8:	lda     _motion
-	cmp     #$02
-	bne     L062F
-;
-; multi_vram_buffer_horz("STAND", 5, NTADR_A(2, 6));
-;
-	jsr     decsp3
-	lda     #<(L0632)
-	ldy     #$01
-	sta     (sp),y
-	iny
-	lda     #>(L0632)
-	sta     (sp),y
-	lda     #$05
-	ldy     #$00
-	sta     (sp),y
-	ldx     #$20
-	lda     #$C2
-	jmp     _multi_vram_buffer_horz
-;
 ; }
 ;
-L062F:	rts
+	rts
 
 .endproc
 
@@ -2181,15 +2636,15 @@ L062F:	rts
 	lda     #$00
 	sta     _largeindex
 	sta     _largeindex+1
-L06D0:	ldx     _largeindex+1
+L0918:	ldx     _largeindex+1
 	cpx     #$04
-	bcs     L06D1
+	bcs     L0919
 ;
-; vram_put(Track[largeindex]);
+; vram_put(track[largeindex]);
 ;
-	lda     #<(_Track)
+	lda     #<(_track)
 	sta     ptr1
-	lda     #>(_Track)
+	lda     #>(_track)
 	clc
 	adc     _largeindex+1
 	sta     ptr1+1
@@ -2204,13 +2659,673 @@ L06D0:	ldx     _largeindex+1
 ; for (largeindex = 0; largeindex < 1024; ++largeindex)
 ;
 	inc     _largeindex
-	bne     L06D0
+	bne     L0918
 	inc     _largeindex+1
-	jmp     L06D0
+	jmp     L0918
 ;
 ; ppu_on_all();
 ;
-L06D1:	jmp     _ppu_on_all
+L0919:	jmp     _ppu_on_all
+
+.endproc
+
+; ---------------------------------------------------------------
+; void __near__ draw_sprite (void)
+; ---------------------------------------------------------------
+
+.segment	"CODE"
+
+.proc	_draw_sprite: near
+
+.segment	"CODE"
+
+;
+; oam_clear();
+;
+	jsr     _oam_clear
+;
+; ++sprite_frame_counter;
+;
+	inc     _sprite_frame_counter
+;
+; if(sprite_frame_counter <10){
+;
+	lda     _sprite_frame_counter
+	cmp     #$0A
+	bcs     L0937
+;
+; oam_meta_spr(120, 120, running_man_3_data); 
+;
+	jsr     decsp2
+	lda     #$78
+	ldy     #$01
+	sta     (sp),y
+	dey
+	sta     (sp),y
+	lda     #<(_running_man_3_data)
+	ldx     #>(_running_man_3_data)
+	jmp     _oam_meta_spr
+;
+; } else if (sprite_frame_counter <20){
+;
+L0937:	lda     _sprite_frame_counter
+	cmp     #$14
+	bcs     L0938
+;
+; oam_meta_spr(120, 120, running_man_5_data);
+;
+	jsr     decsp2
+	lda     #$78
+	ldy     #$01
+	sta     (sp),y
+	dey
+	sta     (sp),y
+	lda     #<(_running_man_5_data)
+	ldx     #>(_running_man_5_data)
+	jmp     _oam_meta_spr
+;
+; } else if (sprite_frame_counter <30){
+;
+L0938:	lda     _sprite_frame_counter
+	cmp     #$1E
+	bcs     L0939
+;
+; oam_meta_spr(120, 120, running_man_6_data);
+;
+	jsr     decsp2
+	lda     #$78
+	ldy     #$01
+	sta     (sp),y
+	dey
+	sta     (sp),y
+	lda     #<(_running_man_6_data)
+	ldx     #>(_running_man_6_data)
+	jmp     _oam_meta_spr
+;
+; } else if (sprite_frame_counter <40){
+;
+L0939:	lda     _sprite_frame_counter
+	cmp     #$28
+	bcs     L093A
+;
+; oam_meta_spr(120, 120, running_man_7_data);
+;
+	jsr     decsp2
+	lda     #$78
+	ldy     #$01
+	sta     (sp),y
+	dey
+	sta     (sp),y
+	lda     #<(_running_man_7_data)
+	ldx     #>(_running_man_7_data)
+	jmp     _oam_meta_spr
+;
+; } else if (sprite_frame_counter <50){
+;
+L093A:	lda     _sprite_frame_counter
+	cmp     #$32
+	bcs     L093B
+;
+; oam_meta_spr(120, 120, running_man_1_data);
+;
+	jsr     decsp2
+	lda     #$78
+	ldy     #$01
+	sta     (sp),y
+	dey
+	sta     (sp),y
+	lda     #<(_running_man_1_data)
+	ldx     #>(_running_man_1_data)
+	jmp     _oam_meta_spr
+;
+; } else if (sprite_frame_counter < 59){
+;
+L093B:	lda     _sprite_frame_counter
+	cmp     #$3B
+	bcs     L093C
+;
+; oam_meta_spr(120, 120, running_man_2_data);
+;
+	jsr     decsp2
+	lda     #$78
+	ldy     #$01
+	sta     (sp),y
+	dey
+	sta     (sp),y
+	lda     #<(_running_man_2_data)
+	ldx     #>(_running_man_2_data)
+	jmp     _oam_meta_spr
+;
+; sprite_frame_counter = 0;
+;
+L093C:	lda     #$00
+	sta     _sprite_frame_counter
+;
+; oam_meta_spr(120, 120, running_man_2_data);
+;
+	jsr     decsp2
+	lda     #$78
+	ldy     #$01
+	sta     (sp),y
+	dey
+	sta     (sp),y
+	lda     #<(_running_man_2_data)
+	ldx     #>(_running_man_2_data)
+	jmp     _oam_meta_spr
+
+.endproc
+
+; ---------------------------------------------------------------
+; void __near__ draw_hud (void)
+; ---------------------------------------------------------------
+
+.segment	"CODE"
+
+.proc	_draw_hud: near
+
+.segment	"CODE"
+
+;
+; temp_int = scroll_x / 8;
+;
+	lda     _scroll_x
+	ldx     _scroll_x+1
+	jsr     shrax3
+	sta     _temp_int
+	stx     _temp_int+1
+;
+; multi_vram_buffer_horz("  STEPS: ", 9, NTADR_A(1, 4)+temp_int);
+;
+	jsr     decsp3
+	lda     #<(L06F8)
+	ldy     #$01
+	sta     (sp),y
+	iny
+	lda     #>(L06F8)
+	sta     (sp),y
+	lda     #$09
+	ldy     #$00
+	sta     (sp),y
+	lda     _temp_int
+	clc
+	adc     #$81
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _multi_vram_buffer_horz
+;
+; one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4)+temp_int);
+;
+	lda     _ten_thousands_step
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$8A
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4)+temp_int);
+;
+	lda     _thousands_step
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$8B
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(',', NTADR_A(12, 4)+temp_int);
+;
+	lda     #$2C
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$8C
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4)+temp_int);
+;
+	lda     _hundreds_step
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$8D
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+tens_step, NTADR_A(14, 4)+temp_int);
+;
+	lda     _tens_step
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$8E
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+ones_step, NTADR_A(15, 4)+temp_int);
+;
+	lda     _ones_step
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$8F
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; multi_vram_buffer_horz("  TIME:", 7, NTADR_A(1, 2)+temp_int);
+;
+	jsr     decsp3
+	lda     #<(L0737)
+	ldy     #$01
+	sta     (sp),y
+	iny
+	lda     #>(L0737)
+	sta     (sp),y
+	lda     #$07
+	ldy     #$00
+	sta     (sp),y
+	lda     _temp_int
+	clc
+	adc     #$41
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _multi_vram_buffer_horz
+;
+; one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2)+temp_int);
+;
+	lda     _tens_hours
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$48
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2)+temp_int);
+;
+	lda     _ones_hours
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$49
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(':', NTADR_A(10, 2)+temp_int);
+;
+	lda     #$3A
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$4A
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2)+temp_int);
+;
+	lda     _tens_minutes
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$4B
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2)+temp_int);
+;
+	lda     _ones_minutes
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$4C
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(':', NTADR_A(13, 2)+temp_int);
+;
+	lda     #$3A
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$4D
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2)+temp_int);
+;
+	lda     _tens_seconds
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$4E
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2)+temp_int);
+;
+	lda     _ones_seconds
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$4F
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; multi_vram_buffer_horz("  SPM:", 6, NTADR_A(1, 6)+temp_int);
+;
+	jsr     decsp3
+	lda     #<(L0787)
+	ldy     #$01
+	sta     (sp),y
+	iny
+	lda     #>(L0787)
+	sta     (sp),y
+	lda     #$06
+	ldy     #$00
+	sta     (sp),y
+	lda     _temp_int
+	clc
+	adc     #$C1
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _multi_vram_buffer_horz
+;
+; one_vram_buffer(0x30+(last_steps_per_minute / 100), NTADR_A(8, 6)+temp_int);
+;
+	lda     _last_steps_per_minute
+	jsr     pusha0
+	lda     #$64
+	jsr     tosudiva0
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$C8
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+((last_steps_per_minute / 10) % 10), NTADR_A(9, 6)+temp_int);
+;
+	lda     _last_steps_per_minute
+	jsr     pusha0
+	lda     #$0A
+	jsr     tosudiva0
+	jsr     pushax
+	lda     #$0A
+	jsr     tosumoda0
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$C9
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jsr     _one_vram_buffer
+;
+; one_vram_buffer(0x30+(last_steps_per_minute % 10), NTADR_A(10, 6)+temp_int);
+;
+	lda     _last_steps_per_minute
+	jsr     pusha0
+	lda     #$0A
+	jsr     tosumoda0
+	clc
+	adc     #$30
+	jsr     pusha
+	lda     _temp_int
+	clc
+	adc     #$CA
+	pha
+	lda     _temp_int+1
+	adc     #$20
+	tax
+	pla
+	jmp     _one_vram_buffer
+
+.endproc
+
+; ---------------------------------------------------------------
+; void __near__ process_controller (void)
+; ---------------------------------------------------------------
+
+.segment	"CODE"
+
+.proc	_process_controller: near
+
+.segment	"CODE"
+
+;
+; if(debug_controller_new & PAD_A || debug_controller_new & PAD_B){
+;
+	lda     _debug_controller_new
+	and     #$80
+	bne     L093D
+	lda     _debug_controller_new
+	and     #$40
+	beq     L07B0
+;
+; add_step();
+;
+L093D:	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_1){
+;
+L07B0:	lda     _powerpad_new+1
+	and     #$10
+	beq     L07B4
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_2){
+;
+L07B4:	lda     _powerpad_new+1
+	and     #$40
+	beq     L07B7
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_3){
+;
+L07B7:	lda     _powerpad_new+1
+	and     #$20
+	beq     L07BA
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_4){
+;
+L07BA:	lda     _powerpad_new+1
+	and     #$80
+	beq     L07BD
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_5){
+;
+L07BD:	lda     _powerpad_new+1
+	and     #$04
+	beq     L07C0
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_6){
+;
+L07C0:	lda     _powerpad_new
+	and     #$40
+	beq     L07C3
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_7){
+;
+L07C3:	lda     _powerpad_new
+	and     #$01
+	beq     L07C6
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_8){
+;
+L07C6:	lda     _powerpad_new+1
+	and     #$02
+	beq     L07C9
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_9){
+;
+L07C9:	lda     _powerpad_new+1
+	and     #$01
+	beq     L07CC
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_10){
+;
+L07CC:	lda     _powerpad_new
+	and     #$10
+	beq     L07CF
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_11){
+;
+L07CF:	lda     _powerpad_new
+	and     #$04
+	beq     L07D2
+;
+; add_step();
+;
+	jsr     _add_step
+;
+; if(powerpad_new & POWERPAD_12){
+;
+L07D2:	lda     _powerpad_new+1
+	and     #$08
+;
+; add_step();
+;
+	jne     _add_step
+;
+; }
+;
+	rts
 
 .endproc
 
@@ -2264,11 +3379,25 @@ L06D1:	jmp     _ppu_on_all
 .segment	"CODE"
 
 ;
+; clear_vram_buffer(); 
+;
+	jsr     _clear_vram_buffer
+;
+; set_vram_buffer();
+;
+	jsr     _set_vram_buffer
+;
+; set_scroll_y(0xff); // shift the bg down one pixel
+;
+	ldx     #$00
+	lda     #$FF
+	jsr     _set_scroll_y
+;
 ; ppu_off(); // screen off
 ;
 	jsr     _ppu_off
 ;
-; pal_bg(palette_bg);
+; pal_bg(palette_bg); 
 ;
 	lda     #<(_palette_bg)
 	ldx     #>(_palette_bg)
@@ -2285,45 +3414,9 @@ L06D1:	jmp     _ppu_on_all
 	lda     #$01
 	jsr     _bank_spr
 ;
-; clear_vram_buffer();
+; load_room();
 ;
-	jsr     _clear_vram_buffer
-;
-; set_vram_buffer();
-;
-	jsr     _set_vram_buffer
-;
-; multi_vram_buffer_horz("STEPS:  00,000", 14, NTADR_A(2, 4));
-;
-	jsr     decsp3
-	lda     #<(L0436)
-	ldy     #$01
-	sta     (sp),y
-	iny
-	lda     #>(L0436)
-	sta     (sp),y
-	lda     #$0E
-	ldy     #$00
-	sta     (sp),y
-	ldx     #$20
-	lda     #$82
-	jsr     _multi_vram_buffer_horz
-;
-; multi_vram_buffer_horz("TIME: 00:00:00", 14, NTADR_A(2, 2));
-;
-	jsr     decsp3
-	lda     #<(L0440)
-	ldy     #$01
-	sta     (sp),y
-	iny
-	lda     #>(L0440)
-	sta     (sp),y
-	lda     #$0E
-	ldy     #$00
-	sta     (sp),y
-	ldx     #$20
-	lda     #$42
-	jsr     _multi_vram_buffer_horz
+	jsr     _load_room
 ;
 ; ppu_on_all(); // turn on screen
 ;
@@ -2358,48 +3451,76 @@ L06D1:	jmp     _ppu_on_all
 	lda     #$00
 	sta     _motion_counter
 ;
-; multi_vram_buffer_horz("STAND", 5, NTADR_A(2, 6));
-;
-	jsr     decsp3
-	lda     #<(L0455)
-	ldy     #$01
-	sta     (sp),y
-	iny
-	lda     #>(L0455)
-	sta     (sp),y
-	lda     #$05
-	ldy     #$00
-	sta     (sp),y
-	ldx     #$20
-	lda     #$C2
-	jsr     _multi_vram_buffer_horz
-;
-; load_room();
-;
-	jsr     _load_room
-;
 ; ppu_wait_nmi(); // wait till beginning of the frame
 ;
-L045F:	jsr     _ppu_wait_nmi
+L06BF:	jsr     _ppu_wait_nmi
 ;
 ; ++frame_counter;
 ;
 	inc     _frame_counter
 ;
+; ++scroll_timer;
+;
+	inc     _scroll_timer
+;
+; ++stepperminute_counter;
+;
+	inc     _stepperminute_counter
+;
 ; if(time_since_button_press < 255){
 ;
 	lda     _time_since_button_press
 	cmp     #$FF
-	bcs     L06F9
+	bcs     L093E
 ;
 ; ++time_since_button_press;
 ;
 	inc     _time_since_button_press
 ;
+; if(stepperminute_counter >= 180){
+;
+L093E:	lda     _stepperminute_counter
+	cmp     #$B4
+	bcc     L093F
+;
+; last_steps_per_minute = stepperminute_steps * 20; // extrapolate to per minute
+;
+	lda     _stepperminute_steps
+	jsr     pusha0
+	lda     #$14
+	jsr     tosumula0
+	sta     _last_steps_per_minute
+;
+; stepperminute_steps = 0;
+;
+	lda     #$00
+	sta     _stepperminute_steps
+;
+; stepperminute_counter = 0;
+;
+	sta     _stepperminute_counter
+;
+; if(scroll_timer >= 8){
+;
+L093F:	lda     _scroll_timer
+	cmp     #$08
+	bcc     L0940
+;
+; scroll_timer = 0;
+;
+	lda     #$00
+	sta     _scroll_timer
+;
+; set_scroll_x(scroll_x);
+;
+	lda     _scroll_x
+	ldx     _scroll_x+1
+	jsr     _set_scroll_x
+;
 ; if(step_button_lockout > 0){
 ;
-L06F9:	lda     _step_button_lockout
-	beq     L06FA
+L0940:	lda     _step_button_lockout
+	beq     L0941
 ;
 ; --step_button_lockout;
 ;
@@ -2407,8 +3528,8 @@ L06F9:	lda     _step_button_lockout
 ;
 ; if(motion_counter > 0){
 ;
-L06FA:	lda     _motion_counter
-	beq     L06FB
+L0941:	lda     _motion_counter
+	beq     L0942
 ;
 ; --motion_counter;
 ;
@@ -2416,22 +3537,30 @@ L06FA:	lda     _motion_counter
 ;
 ; if(frame_counter >= 60){
 ;
-L06FB:	lda     _frame_counter
+L0942:	lda     _frame_counter
 	cmp     #$3C
-	bcc     L046E
+	lda     #$00
+	bcc     L0943
 ;
 ; frame_counter = 0;
 ;
-	lda     #$00
 	sta     _frame_counter
 ;
 ; add_second();
 ;
 	jsr     _add_second
 ;
-; oam_clear();
+; debug_controller = pad_poll(0); //for debugging only
 ;
-L046E:	jsr     _oam_clear
+	lda     #$00
+L0943:	jsr     _pad_poll
+	sta     _debug_controller
+;
+; debug_controller_new = get_pad_new(0);  
+;
+	lda     #$00
+	jsr     _get_pad_new
+	sta     _debug_controller_new
 ;
 ; powerpad_cur = read_powerpad(1);
 ;
@@ -2451,303 +3580,27 @@ L046E:	jsr     _oam_clear
 ; if(motion_counter == 0){
 ;
 	lda     _motion_counter
-	bne     L0479
+	bne     L06EE
 ;
 ; update_motion();
 ;
 	jsr     _update_motion
 ;
-; if(powerpad_new & POWERPAD_1){
+; draw_sprite();
 ;
-L0479:	lda     _powerpad_new+1
-	and     #$10
-	beq     L047C
+L06EE:	jsr     _draw_sprite
 ;
-; oam_spr(84, 83, 0, 0);
+; draw_hud();
 ;
-	jsr     decsp3
-	lda     #$54
-	ldy     #$02
-	sta     (sp),y
-	lda     #$53
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
+	jsr     _draw_hud
 ;
-; add_step();
+; process_controller();
 ;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_2){
-;
-L047C:	lda     _powerpad_new+1
-	and     #$40
-	beq     L0484
-;
-; oam_spr(100, 83, 0, 0);
-;
-	jsr     decsp3
-	lda     #$64
-	ldy     #$02
-	sta     (sp),y
-	lda     #$53
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_3){
-;
-L0484:	lda     _powerpad_new+1
-	and     #$20
-	beq     L048C
-;
-; oam_spr(116, 83, 0, 0);
-;
-	jsr     decsp3
-	lda     #$74
-	ldy     #$02
-	sta     (sp),y
-	lda     #$53
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_4){
-;
-L048C:	lda     _powerpad_new+1
-	and     #$80
-	beq     L0494
-;
-; oam_spr(132, 83, 0, 0);
-;
-	jsr     decsp3
-	lda     #$84
-	ldy     #$02
-	sta     (sp),y
-	lda     #$53
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_5){
-;
-L0494:	lda     _powerpad_new+1
-	and     #$04
-	beq     L049C
-;
-; oam_spr(84, 107, 0, 0);
-;
-	jsr     decsp3
-	lda     #$54
-	ldy     #$02
-	sta     (sp),y
-	lda     #$6B
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_6){
-;
-L049C:	lda     _powerpad_new
-	and     #$40
-	beq     L04A4
-;
-; oam_spr(100, 107, 0, 0);
-;
-	jsr     decsp3
-	lda     #$64
-	ldy     #$02
-	sta     (sp),y
-	lda     #$6B
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_7){
-;
-L04A4:	lda     _powerpad_new
-	and     #$01
-	beq     L04AC
-;
-; oam_spr(116, 107, 0, 0);
-;
-	jsr     decsp3
-	lda     #$74
-	ldy     #$02
-	sta     (sp),y
-	lda     #$6B
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_8){
-;
-L04AC:	lda     _powerpad_new+1
-	and     #$02
-	beq     L04B4
-;
-; oam_spr(132, 107, 0, 0);
-;
-	jsr     decsp3
-	lda     #$84
-	ldy     #$02
-	sta     (sp),y
-	lda     #$6B
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_9){
-;
-L04B4:	lda     _powerpad_new+1
-	and     #$01
-	beq     L04BC
-;
-; oam_spr(84, 131, 0, 0);
-;
-	jsr     decsp3
-	lda     #$54
-	ldy     #$02
-	sta     (sp),y
-	lda     #$83
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_10){
-;
-L04BC:	lda     _powerpad_new
-	and     #$10
-	beq     L04C4
-;
-; oam_spr(100, 131, 0, 0);
-;
-	jsr     decsp3
-	lda     #$64
-	ldy     #$02
-	sta     (sp),y
-	lda     #$83
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_11){
-;
-L04C4:	lda     _powerpad_new
-	and     #$04
-	beq     L04CC
-;
-; oam_spr(116, 131, 0, 0);
-;
-	jsr     decsp3
-	lda     #$74
-	ldy     #$02
-	sta     (sp),y
-	lda     #$83
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
-;
-; if(powerpad_new & POWERPAD_12){
-;
-L04CC:	lda     _powerpad_new+1
-	and     #$08
-	jeq     L045F
-;
-; oam_spr(132, 131, 0, 0);
-;
-	jsr     decsp3
-	lda     #$84
-	ldy     #$02
-	sta     (sp),y
-	lda     #$83
-	dey
-	sta     (sp),y
-	lda     #$00
-	dey
-	sta     (sp),y
-	jsr     _oam_spr
-;
-; add_step();
-;
-	jsr     _add_step
+	jsr     _process_controller
 ;
 ; while (1){
 ;
-	jmp     L045F
+	jmp     L06BF
 
 .endproc
 

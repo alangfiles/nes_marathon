@@ -9,6 +9,9 @@ unsigned int powerpad_cur;
 unsigned int powerpad_old; //don't use this
 unsigned int powerpad_new;
 
+unsigned char debug_controller;
+unsigned char debug_controller_new;
+
 unsigned int temp_int;
 
 unsigned char last_step;
@@ -37,7 +40,25 @@ unsigned char motion;
 unsigned char was_running;
 unsigned char was_walking;
 
+
+unsigned char current_steps_per_minute;
+unsigned char last_steps_per_minute;
+unsigned char stepperminute_counter;
+unsigned char stepperminute_steps;
+
+unsigned char mph_counter;
+unsigned char mph_steps;
+unsigned char mph_steps_per_minute;
+unsigned char mph;
+
+unsigned char sprite_timer;
+unsigned char sprite_frame_counter;
+
+
+unsigned int scroll_x;
+unsigned int temp_int;
 unsigned int largeindex;
+unsigned char scroll_timer;
 
 enum {
   RUNNING,
@@ -52,3 +73,6 @@ void initial_timer_conversion(void);
 void check_motion(void);
 void update_motion(void);
 void load_room(void);
+void draw_sprite(void);
+void draw_hud(void);
+void process_controller(void);

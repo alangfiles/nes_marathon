@@ -1,4 +1,4 @@
-const unsigned char mansprite_Metasprite1_data[]={
+const unsigned char running_man_1_data[]={
 
 	- 2,  2,0x04,0,
 	  7,  2,0x05,0,
@@ -38,7 +38,7 @@ const unsigned char mansprite_Metasprite1_data[]={
 
 };
 
-const unsigned char mansprite_Metasprite2_data[]={
+const unsigned char running_man_2_data[]={
 
 	- 1,  3,0x04,0,
 	  7,  3,0x05,0,
@@ -73,7 +73,7 @@ const unsigned char mansprite_Metasprite2_data[]={
 
 };
 
-const unsigned char mansprite_Metasprite3_data[]={
+const unsigned char running_man_3_data[]={
 
 	- 1,  2,0x04,0,
 	  7,  2,0x05,0,
@@ -110,7 +110,7 @@ const unsigned char mansprite_Metasprite3_data[]={
 
 };
 
-const unsigned char mansprite_Metasprite5_data[]={
+const unsigned char running_man_5_data[]={
 
 	- 1,  2,0x04,0,
 	  7,  2,0x05,0,
@@ -154,7 +154,7 @@ const unsigned char mansprite_Metasprite5_data[]={
 
 };
 
-const unsigned char mansprite_Metasprite6_data[]={
+const unsigned char running_man_6_data[]={
 
 	- 1,  3,0x04,0,
 	  7,  3,0x05,0,
@@ -187,7 +187,7 @@ const unsigned char mansprite_Metasprite6_data[]={
 
 };
 
-const unsigned char mansprite_Metasprite7_data[]={
+const unsigned char running_man_7_data[]={
 
 	- 1,  2,0x04,0,
 	  7,  2,0x05,0,
@@ -227,12 +227,12 @@ const unsigned char mansprite_Metasprite7_data[]={
 
 const unsigned char* const mansprite_list[]={
 
-	mansprite_Metasprite1_data,
-	mansprite_Metasprite2_data,
-	mansprite_Metasprite3_data,
-	mansprite_Metasprite5_data,
-	mansprite_Metasprite6_data,
-	mansprite_Metasprite7_data
+	running_man_1_data,
+	running_man_2_data,
+	running_man_3_data,
+	running_man_5_data,
+	running_man_6_data,
+	running_man_7_data
 
 };
 
