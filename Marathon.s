@@ -2826,15 +2826,7 @@ L093C:	lda     #$00
 .segment	"CODE"
 
 ;
-; temp_int = scroll_x / 8;
-;
-	lda     _scroll_x
-	ldx     _scroll_x+1
-	jsr     shrax3
-	sta     _temp_int
-	stx     _temp_int+1
-;
-; multi_vram_buffer_horz("  STEPS: ", 9, NTADR_A(1, 4)+temp_int);
+; multi_vram_buffer_horz("  STEPS: ", 9, NTADR_A(1, 4));
 ;
 	jsr     decsp3
 	lda     #<(L06F8)
@@ -2846,111 +2838,69 @@ L093C:	lda     #$00
 	lda     #$09
 	ldy     #$00
 	sta     (sp),y
-	lda     _temp_int
-	clc
-	adc     #$81
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$81
 	jsr     _multi_vram_buffer_horz
 ;
-; one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4)+temp_int);
+; one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
 ;
 	lda     _ten_thousands_step
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$8A
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$8A
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4)+temp_int);
+; one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
 ;
 	lda     _thousands_step
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$8B
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$8B
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(',', NTADR_A(12, 4)+temp_int);
+; one_vram_buffer(',', NTADR_A(12, 4));
 ;
 	lda     #$2C
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$8C
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$8C
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4)+temp_int);
+; one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4));
 ;
 	lda     _hundreds_step
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$8D
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$8D
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+tens_step, NTADR_A(14, 4)+temp_int);
+; one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
 ;
 	lda     _tens_step
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$8E
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$8E
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+ones_step, NTADR_A(15, 4)+temp_int);
+; one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
 ;
 	lda     _ones_step
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$8F
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$8F
 	jsr     _one_vram_buffer
 ;
-; multi_vram_buffer_horz("  TIME:", 7, NTADR_A(1, 2)+temp_int);
+; multi_vram_buffer_horz("  TIME:", 7, NTADR_A(1, 2));
 ;
 	jsr     decsp3
 	lda     #<(L0737)
@@ -2962,141 +2912,87 @@ L093C:	lda     #$00
 	lda     #$07
 	ldy     #$00
 	sta     (sp),y
-	lda     _temp_int
-	clc
-	adc     #$41
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$41
 	jsr     _multi_vram_buffer_horz
 ;
-; one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2)+temp_int);
+; one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
 ;
 	lda     _tens_hours
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$48
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$48
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2)+temp_int);
+; one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
 ;
 	lda     _ones_hours
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$49
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$49
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(':', NTADR_A(10, 2)+temp_int);
+; one_vram_buffer(':', NTADR_A(10, 2));
 ;
 	lda     #$3A
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$4A
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$4A
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2)+temp_int);
+; one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2));
 ;
 	lda     _tens_minutes
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$4B
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$4B
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2)+temp_int);
+; one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2));
 ;
 	lda     _ones_minutes
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$4C
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$4C
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(':', NTADR_A(13, 2)+temp_int);
+; one_vram_buffer(':', NTADR_A(13, 2));
 ;
 	lda     #$3A
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$4D
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$4D
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2)+temp_int);
+; one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2));
 ;
 	lda     _tens_seconds
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$4E
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$4E
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2)+temp_int);
+; one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
 ;
 	lda     _ones_seconds
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$4F
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$4F
 	jsr     _one_vram_buffer
 ;
-; multi_vram_buffer_horz("  SPM:", 6, NTADR_A(1, 6)+temp_int);
+; multi_vram_buffer_horz("  SPM:", 6, NTADR_A(1, 6));
 ;
 	jsr     decsp3
 	lda     #<(L0787)
@@ -3108,17 +3004,11 @@ L093C:	lda     #$00
 	lda     #$06
 	ldy     #$00
 	sta     (sp),y
-	lda     _temp_int
-	clc
-	adc     #$C1
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$C1
 	jsr     _multi_vram_buffer_horz
 ;
-; one_vram_buffer(0x30+(last_steps_per_minute / 100), NTADR_A(8, 6)+temp_int);
+; one_vram_buffer(0x30+(last_steps_per_minute / 100), NTADR_A(8, 6));
 ;
 	lda     _last_steps_per_minute
 	jsr     pusha0
@@ -3127,17 +3017,11 @@ L093C:	lda     #$00
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$C8
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$C8
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+((last_steps_per_minute / 10) % 10), NTADR_A(9, 6)+temp_int);
+; one_vram_buffer(0x30+((last_steps_per_minute / 10) % 10), NTADR_A(9, 6));
 ;
 	lda     _last_steps_per_minute
 	jsr     pusha0
@@ -3149,17 +3033,11 @@ L093C:	lda     #$00
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$C9
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$C9
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(0x30+(last_steps_per_minute % 10), NTADR_A(10, 6)+temp_int);
+; one_vram_buffer(0x30+(last_steps_per_minute % 10), NTADR_A(10, 6));
 ;
 	lda     _last_steps_per_minute
 	jsr     pusha0
@@ -3168,14 +3046,8 @@ L093C:	lda     #$00
 	clc
 	adc     #$30
 	jsr     pusha
-	lda     _temp_int
-	clc
-	adc     #$CA
-	pha
-	lda     _temp_int+1
-	adc     #$20
-	tax
-	pla
+	ldx     #$20
+	lda     #$CA
 	jmp     _one_vram_buffer
 
 .endproc
@@ -3511,9 +3383,15 @@ L093F:	lda     _scroll_timer
 	lda     #$00
 	sta     _scroll_timer
 ;
+; ++scroll_x ; //debug no scrolling
+;
+	inc     _scroll_x
+	bne     L06D7
+	inc     _scroll_x+1
+;
 ; set_scroll_x(scroll_x);
 ;
-	lda     _scroll_x
+L06D7:	lda     _scroll_x
 	ldx     _scroll_x+1
 	jsr     _set_scroll_x
 ;
@@ -3580,7 +3458,7 @@ L0943:	jsr     _pad_poll
 ; if(motion_counter == 0){
 ;
 	lda     _motion_counter
-	bne     L06EE
+	bne     L06F0
 ;
 ; update_motion();
 ;
@@ -3588,7 +3466,7 @@ L0943:	jsr     _pad_poll
 ;
 ; draw_sprite();
 ;
-L06EE:	jsr     _draw_sprite
+L06F0:	jsr     _draw_sprite
 ;
 ; draw_hud();
 ;

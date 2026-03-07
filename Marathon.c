@@ -96,7 +96,7 @@ void main (void) {
 
 		if(scroll_timer >= 8){
 			scroll_timer = 0;
-			// ++scroll_x ; //debug no scrolling
+			++scroll_x ; //debug no scrolling
 			set_scroll_x(scroll_x);
 		}
 		
@@ -140,31 +140,30 @@ void main (void) {
 
 void draw_hud(void){
 
-	temp_int = scroll_x / 8;
 
-	multi_vram_buffer_horz("  STEPS: ", 9, NTADR_A(1, 4)+temp_int);
-	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4)+temp_int);
-	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4)+temp_int);
-	one_vram_buffer(',', NTADR_A(12, 4)+temp_int);
-	one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4)+temp_int);
-	one_vram_buffer(0x30+tens_step, NTADR_A(14, 4)+temp_int);
-	one_vram_buffer(0x30+ones_step, NTADR_A(15, 4)+temp_int);
+	multi_vram_buffer_horz("  STEPS: ", 9, NTADR_A(1, 4));
+	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
+	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
+	one_vram_buffer(',', NTADR_A(12, 4));
+	one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4));
+	one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
+	one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
 	
-	multi_vram_buffer_horz("  TIME:", 7, NTADR_A(1, 2)+temp_int);
-	one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2)+temp_int);
-	one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2)+temp_int);
-	one_vram_buffer(':', NTADR_A(10, 2)+temp_int);
-	one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2)+temp_int);
-	one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2)+temp_int);
-	one_vram_buffer(':', NTADR_A(13, 2)+temp_int);
-	one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2)+temp_int);
-	one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2)+temp_int);
+	multi_vram_buffer_horz("  TIME:", 7, NTADR_A(1, 2));
+	one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
+	one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
+	one_vram_buffer(':', NTADR_A(10, 2));
+	one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2));
+	one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2));
+	one_vram_buffer(':', NTADR_A(13, 2));
+	one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2));
+	one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
 
-	multi_vram_buffer_horz("  SPM:", 6, NTADR_A(1, 6)+temp_int);
+	multi_vram_buffer_horz("  SPM:", 6, NTADR_A(1, 6));
 	//last_steps per minute is between 0 and 200 ish
-	one_vram_buffer(0x30+(last_steps_per_minute / 100), NTADR_A(8, 6)+temp_int);
-	one_vram_buffer(0x30+((last_steps_per_minute / 10) % 10), NTADR_A(9, 6)+temp_int);
-	one_vram_buffer(0x30+(last_steps_per_minute % 10), NTADR_A(10, 6)+temp_int);
+	one_vram_buffer(0x30+(last_steps_per_minute / 100), NTADR_A(8, 6));
+	one_vram_buffer(0x30+((last_steps_per_minute / 10) % 10), NTADR_A(9, 6));
+	one_vram_buffer(0x30+(last_steps_per_minute % 10), NTADR_A(10, 6));
 
 }
 
