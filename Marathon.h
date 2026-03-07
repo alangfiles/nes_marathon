@@ -76,3 +76,4 @@ void load_room(void);
 void draw_sprite(void);
 void draw_hud(void);
 void process_controller(void);
+void set_sprite_zero(void);
