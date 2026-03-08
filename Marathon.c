@@ -88,16 +88,8 @@ void main (void) {
 		//timer stuff
 		++frame_counter;
 		++scroll_timer;
-		++stepperminute_counter;
 		if(time_since_button_press < 255){
 			++time_since_button_press;
-		}
-
-		if(stepperminute_counter >= 180){
-			//it's been 3 seconds.
-			last_steps_per_minute = stepperminute_steps * 20; // extrapolate to per minute
-			stepperminute_steps = 0;
-			stepperminute_counter = 0;
 		}
 		
 
@@ -164,13 +156,6 @@ void draw_hud(void){
 	one_vram_buffer(':', NTADR_A(13, 2));
 	one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2));
 	one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
-
-	multi_vram_buffer_horz("  SPM:", 6, NTADR_A(1, 6));
-	//last_steps per minute is between 0 and 200 ish 
-	one_vram_buffer(0x30+(last_steps_per_minute / 100), NTADR_A(8, 6));
-	one_vram_buffer(0x30+((last_steps_per_minute / 10) % 10), NTADR_A(9, 6));
-	one_vram_buffer(0x30+(last_steps_per_minute % 10), NTADR_A(10, 6));
-
 }
 
 void process_controller(void){
@@ -296,8 +281,6 @@ void add_step(void){
 
 	time_since_button_press = 0;
 	steps++;
-	stepperminute_steps++;
-
 	step_button_lockout = FRAMES_PER_STEP; //lock out for a few frames to avoid double counting
 
 	if(ones_step == 9){

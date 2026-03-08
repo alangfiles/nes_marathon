@@ -1,7 +1,7 @@
 
 #pragma bss-name(push, "ZEROPAGE")
 
-#define FRAMES_PER_STEP 12
+#define FRAMES_PER_STEP 10
 #define MOTION_HOLD_FRAMES 180
 
 // GLOBAL VARIABLES
@@ -40,15 +40,6 @@ unsigned char motion;
 unsigned char was_running;
 unsigned char was_walking;
 
-
-unsigned char current_steps_per_minute;
-unsigned char last_steps_per_minute;
-unsigned char stepperminute_counter;
-unsigned char stepperminute_steps;
-
-unsigned char mph_counter;
-unsigned char mph_steps;
-unsigned char mph_steps_per_minute;
 unsigned char mph;
 
 unsigned char sprite_timer;
