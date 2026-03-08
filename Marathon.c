@@ -166,7 +166,7 @@ void draw_hud(void){
 	one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
 
 	multi_vram_buffer_horz("  SPM:", 6, NTADR_A(1, 6));
-	//last_steps per minute is between 0 and 200 ish
+	//last_steps per minute is between 0 and 200 ish 
 	one_vram_buffer(0x30+(last_steps_per_minute / 100), NTADR_A(8, 6));
 	one_vram_buffer(0x30+((last_steps_per_minute / 10) % 10), NTADR_A(9, 6));
 	one_vram_buffer(0x30+(last_steps_per_minute % 10), NTADR_A(10, 6));
@@ -422,20 +422,20 @@ void draw_sprite(){
 	++sprite_frame_counter;
 
 	if(sprite_frame_counter <10){
-		oam_meta_spr(120, 50, running_man_3_data);	
+		oam_meta_spr(120, 120, running_man_3_data);	
 	} else if (sprite_frame_counter <20){
-		oam_meta_spr(120, 50, running_man_5_data);
+		oam_meta_spr(120, 120, running_man_5_data);
 	} else if (sprite_frame_counter <30){
-		oam_meta_spr(120, 50, running_man_6_data);
+		oam_meta_spr(120, 120, running_man_6_data);
 	} else if (sprite_frame_counter <40){
-		oam_meta_spr(120, 50, running_man_7_data);
+		oam_meta_spr(120, 120, running_man_7_data);
 	} else if (sprite_frame_counter <50){
-		oam_meta_spr(120, 50, running_man_1_data);
+		oam_meta_spr(120, 120, running_man_1_data);
 	} else if (sprite_frame_counter < 59){
-		oam_meta_spr(120, 50, running_man_2_data);
+		oam_meta_spr(120, 120, running_man_2_data);
 	} else {
 		sprite_frame_counter = 0;
-		oam_meta_spr(120, 50, running_man_2_data);
+		oam_meta_spr(120, 120, running_man_2_data);
 	}
 
 
