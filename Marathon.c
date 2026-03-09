@@ -21,10 +21,10 @@ const unsigned char palette_sprites[16]={
 	 0x1b,0x27,0x16,0x29 };
 
 const unsigned char palette_bg[16]={ 
-	0x0f,0x30,0x07,0x21,
-	0x0f,0x00,0x19,0x10,
-	0x0f,0x17,0x06,0x19,
-	0x0f,0x29,0x19,0x09 };
+	0x0f,0x2d,0x1a,0x10,
+	0x0f,0x11,0x1a,0x21,
+	0x0f,0x2a,0x1a,0x0a,
+	0x0f,0x17,0x1a,0x07 };
 
 
 // do after the read
@@ -405,20 +405,20 @@ void draw_sprite(){
 	++sprite_frame_counter;
 
 	if(sprite_frame_counter <10){
-		oam_meta_spr(120, 120, running_man_3_data);	
+		oam_meta_spr(120, 120, marathon_man__run1_data);	
 	} else if (sprite_frame_counter <20){
-		oam_meta_spr(120, 120, running_man_5_data);
+		oam_meta_spr(120, 120, marathon_man__run2_data);
 	} else if (sprite_frame_counter <30){
-		oam_meta_spr(120, 120, running_man_6_data);
+		oam_meta_spr(120, 120, marathon_man__run3_data);
 	} else if (sprite_frame_counter <40){
-		oam_meta_spr(120, 120, running_man_7_data);
+		oam_meta_spr(120, 120, marathon_man__run4_data);
 	} else if (sprite_frame_counter <50){
-		oam_meta_spr(120, 120, running_man_1_data);
+		oam_meta_spr(120, 120, marathon_man__run5_data);
 	} else if (sprite_frame_counter < 59){
-		oam_meta_spr(120, 120, running_man_2_data);
+		oam_meta_spr(120, 120, marathon_man__run6_data);
 	} else {
 		sprite_frame_counter = 0;
-		oam_meta_spr(120, 120, running_man_2_data);
+		oam_meta_spr(120, 120, marathon_man__run6_data);
 	}
 
 
@@ -434,7 +434,7 @@ void load_room(){
 		flush_vram_update2();
 	}
 	// place a tile for sprite zero hit at x=120, y=64
-	vram_adr(NTADR_A(15,8));
+	vram_adr(NTADR_A(15,13));
 	vram_put(0x69);
 	ppu_on_all();
 
@@ -444,5 +444,5 @@ void set_sprite_zero(void){
 	oam_set(0); // double check that this goes in the zero slot
 	
 	//oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
-	oam_spr(0x78,0x40,0x69,3); // x=120, y=64, tile=105, attr=3
+	oam_spr(0x78,104,0x69,3); // x=120, y=64, tile=105, attr=3
 }
