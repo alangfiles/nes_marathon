@@ -11,7 +11,7 @@
 
 
 #include "Marathon.h"
-#include "Track.h"
+#include "SCREENS/trackgeneric.h"
 #include "sprites.h"
 
 const unsigned char palette_sprites[16]={
@@ -430,12 +430,12 @@ void load_room(){
 	vram_adr(NAMETABLE_A);
 	for (largeindex = 0; largeindex < 1024; ++largeindex)
 	{ 
-		vram_put(track[largeindex]);
+		vram_put(trackgeneric[largeindex]);
 		flush_vram_update2();
 	}
 	// place a tile for sprite zero hit at x=120, y=104
-	vram_adr(NTADR_A(15,13));
-	vram_put(0x69);
+	vram_adr(NTADR_A(01,11));
+	vram_put(0x01);
 	ppu_on_all();
 
 }
@@ -444,5 +444,5 @@ void set_sprite_zero(void){
 	oam_set(0); // double check that this goes in the zero slot
 	
 	//oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
-	oam_spr(0x78,104,0x69,3); // x=120, y=104, tile=105, attr=3
+	oam_spr(0x01,88,0x02,3); // x=120, y=88, tile=105, attr=3
 }

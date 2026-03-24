@@ -82,7 +82,7 @@
 	.export		_draw_hud
 	.export		_process_controller
 	.export		_set_sprite_zero
-	.export		_track
+	.export		_trackgeneric
 	.export		_marathon_man_run1_data
 	.export		_marathon_man_run2_data
 	.export		_marathon_man_run3_data
@@ -170,7 +170,7 @@
 
 .segment	"RODATA"
 
-_track:
+_trackgeneric:
 	.byte	$00
 	.byte	$00
 	.byte	$00
@@ -429,102 +429,6 @@ _track:
 	.byte	$00
 	.byte	$00
 	.byte	$00
-	.byte	$00
-	.byte	$04
-	.byte	$05
-	.byte	$00
-	.byte	$00
-	.byte	$04
-	.byte	$05
-	.byte	$00
-	.byte	$00
-	.byte	$04
-	.byte	$05
-	.byte	$00
-	.byte	$00
-	.byte	$04
-	.byte	$05
-	.byte	$00
-	.byte	$00
-	.byte	$04
-	.byte	$05
-	.byte	$00
-	.byte	$00
-	.byte	$04
-	.byte	$05
-	.byte	$00
-	.byte	$00
-	.byte	$04
-	.byte	$05
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$14
-	.byte	$15
-	.byte	$00
-	.byte	$00
-	.byte	$14
-	.byte	$15
-	.byte	$00
-	.byte	$00
-	.byte	$14
-	.byte	$15
-	.byte	$00
-	.byte	$00
-	.byte	$14
-	.byte	$15
-	.byte	$00
-	.byte	$00
-	.byte	$14
-	.byte	$15
-	.byte	$00
-	.byte	$00
-	.byte	$14
-	.byte	$15
-	.byte	$00
-	.byte	$00
-	.byte	$14
-	.byte	$15
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
 	.byte	$5E
 	.byte	$5F
 	.byte	$00
@@ -619,40 +523,262 @@ _track:
 	.byte	$00
 	.byte	$00
 	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$69
 	.byte	$6A
 	.byte	$6B
+	.byte	$69
+	.byte	$6A
+	.byte	$6B
+	.byte	$66
+	.byte	$67
+	.byte	$6A
+	.byte	$6A
 	.byte	$67
 	.byte	$68
 	.byte	$69
 	.byte	$6A
 	.byte	$6B
+	.byte	$69
+	.byte	$6A
 	.byte	$6A
 	.byte	$6B
+	.byte	$66
+	.byte	$67
+	.byte	$68
 	.byte	$69
 	.byte	$6A
 	.byte	$6B
 	.byte	$69
 	.byte	$6A
-	.byte	$6B
-	.byte	$6B
-	.byte	$F1
-	.byte	$B8
-	.byte	$B9
-	.byte	$BA
-	.byte	$BB
-	.byte	$CA
-	.byte	$CB
-	.byte	$BB
-	.byte	$BC
-	.byte	$BD
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
+	.byte	$67
+	.byte	$68
+	.byte	$66
+	.byte	$67
+	.byte	$68
 	.byte	$02
 	.byte	$02
+	.byte	$65
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$65
+	.byte	$02
+	.byte	$02
+	.byte	$64
+	.byte	$02
+	.byte	$02
+	.byte	$65
+	.byte	$64
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$64
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$63
+	.byte	$02
+	.byte	$02
+	.byte	$65
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$64
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$63
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$63
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$64
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$65
+	.byte	$02
+	.byte	$02
+	.byte	$64
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$64
+	.byte	$65
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$65
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$65
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$63
+	.byte	$02
+	.byte	$02
+	.byte	$64
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$63
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$64
+	.byte	$65
+	.byte	$65
 	.byte	$02
 	.byte	$02
 	.byte	$64
@@ -663,154 +789,28 @@ _track:
 	.byte	$02
 	.byte	$02
 	.byte	$02
-	.byte	$63
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$B8
-	.byte	$B9
-	.byte	$BA
-	.byte	$BB
-	.byte	$CA
-	.byte	$CB
-	.byte	$CC
-	.byte	$BD
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$B8
-	.byte	$B9
-	.byte	$BA
-	.byte	$BB
-	.byte	$CA
-	.byte	$DC
-	.byte	$BD
-	.byte	$03
-	.byte	$AD
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
 	.byte	$65
 	.byte	$02
-	.byte	$A3
-	.byte	$A4
-	.byte	$A4
-	.byte	$A4
-	.byte	$A4
-	.byte	$A5
 	.byte	$65
 	.byte	$02
 	.byte	$02
-	.byte	$63
-	.byte	$86
-	.byte	$87
 	.byte	$02
 	.byte	$02
-	.byte	$7A
-	.byte	$7B
-	.byte	$7A
-	.byte	$7B
-	.byte	$B8
-	.byte	$B9
-	.byte	$BA
-	.byte	$BB
-	.byte	$BC
-	.byte	$BD
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$02
-	.byte	$02
-	.byte	$B3
-	.byte	$B4
-	.byte	$B5
-	.byte	$B5
-	.byte	$B4
-	.byte	$B6
 	.byte	$02
 	.byte	$02
 	.byte	$63
 	.byte	$02
-	.byte	$96
-	.byte	$97
+	.byte	$65
 	.byte	$02
-	.byte	$02
-	.byte	$8A
-	.byte	$8B
-	.byte	$8A
-	.byte	$8B
-	.byte	$02
-	.byte	$B8
-	.byte	$B9
-	.byte	$BA
-	.byte	$CC
-	.byte	$03
-	.byte	$CD
-	.byte	$CD
-	.byte	$CD
-	.byte	$CD
-	.byte	$CD
-	.byte	$CD
 	.byte	$02
 	.byte	$63
 	.byte	$02
-	.byte	$C3
-	.byte	$C4
-	.byte	$C4
-	.byte	$C4
-	.byte	$C5
 	.byte	$02
 	.byte	$65
 	.byte	$02
 	.byte	$02
 	.byte	$02
 	.byte	$65
-	.byte	$63
-	.byte	$02
-	.byte	$9A
-	.byte	$9B
-	.byte	$9A
-	.byte	$9B
-	.byte	$02
-	.byte	$02
-	.byte	$B8
-	.byte	$B9
-	.byte	$DC
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
 	.byte	$60
 	.byte	$60
 	.byte	$60
@@ -823,221 +823,218 @@ _track:
 	.byte	$60
 	.byte	$60
 	.byte	$60
-	.byte	$02
-	.byte	$02
-	.byte	$65
-	.byte	$65
-	.byte	$D1
-	.byte	$D1
-	.byte	$D1
-	.byte	$D1
-	.byte	$D1
-	.byte	$D1
-	.byte	$D1
-	.byte	$C9
-	.byte	$BC
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$03
-	.byte	$73
-	.byte	$83
-	.byte	$85
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$60
+	.byte	$75
 	.byte	$01
 	.byte	$73
-	.byte	$73
-	.byte	$73
-	.byte	$85
-	.byte	$85
-	.byte	$85
-	.byte	$73
-	.byte	$01
-	.byte	$F0
-	.byte	$02
-	.byte	$63
-	.byte	$63
-	.byte	$F3
-	.byte	$01
-	.byte	$E5
-	.byte	$01
-	.byte	$01
-	.byte	$E8
-	.byte	$E9
-	.byte	$01
-	.byte	$F6
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$D3
-	.byte	$01
-	.byte	$01
-	.byte	$85
-	.byte	$85
-	.byte	$83
-	.byte	$01
-	.byte	$01
-	.byte	$83
-	.byte	$83
-	.byte	$83
 	.byte	$84
-	.byte	$85
-	.byte	$83
-	.byte	$D0
-	.byte	$D0
-	.byte	$02
-	.byte	$02
-	.byte	$F3
+	.byte	$75
 	.byte	$01
 	.byte	$01
-	.byte	$F6
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$E5
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$E5
 	.byte	$74
-	.byte	$83
+	.byte	$01
+	.byte	$75
 	.byte	$84
+	.byte	$01
+	.byte	$73
+	.byte	$01
+	.byte	$75
+	.byte	$01
+	.byte	$01
+	.byte	$75
+	.byte	$84
+	.byte	$01
+	.byte	$73
+	.byte	$75
+	.byte	$01
+	.byte	$84
+	.byte	$85
+	.byte	$75
+	.byte	$84
+	.byte	$73
+	.byte	$75
+	.byte	$01
+	.byte	$75
+	.byte	$01
+	.byte	$01
+	.byte	$01
+	.byte	$85
+	.byte	$73
 	.byte	$85
 	.byte	$01
 	.byte	$75
-	.byte	$83
-	.byte	$84
+	.byte	$01
+	.byte	$75
+	.byte	$01
 	.byte	$85
-	.byte	$83
-	.byte	$83
-	.byte	$84
-	.byte	$85
-	.byte	$D0
-	.byte	$D0
-	.byte	$02
-	.byte	$E2
-	.byte	$F3
-	.byte	$01
-	.byte	$01
-	.byte	$E4
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$F5
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$83
-	.byte	$84
-	.byte	$85
-	.byte	$85
-	.byte	$85
-	.byte	$85
-	.byte	$85
-	.byte	$85
+	.byte	$73
 	.byte	$85
 	.byte	$75
+	.byte	$73
+	.byte	$75
+	.byte	$01
+	.byte	$01
+	.byte	$01
+	.byte	$73
+	.byte	$01
+	.byte	$74
+	.byte	$73
+	.byte	$73
+	.byte	$01
+	.byte	$01
+	.byte	$01
+	.byte	$73
+	.byte	$01
 	.byte	$83
-	.byte	$84
+	.byte	$01
+	.byte	$01
+	.byte	$01
+	.byte	$75
+	.byte	$01
+	.byte	$01
+	.byte	$73
+	.byte	$01
+	.byte	$73
+	.byte	$01
+	.byte	$01
+	.byte	$01
+	.byte	$01
+	.byte	$75
+	.byte	$73
+	.byte	$01
+	.byte	$73
+	.byte	$01
+	.byte	$73
+	.byte	$01
+	.byte	$01
 	.byte	$85
+	.byte	$73
+	.byte	$01
+	.byte	$85
+	.byte	$01
+	.byte	$73
+	.byte	$75
+	.byte	$01
+	.byte	$85
+	.byte	$73
+	.byte	$01
+	.byte	$74
+	.byte	$01
+	.byte	$01
+	.byte	$74
+	.byte	$01
+	.byte	$75
+	.byte	$85
+	.byte	$73
+	.byte	$85
+	.byte	$01
+	.byte	$75
+	.byte	$74
+	.byte	$01
+	.byte	$85
+	.byte	$01
+	.byte	$85
+	.byte	$75
+	.byte	$75
+	.byte	$01
+	.byte	$75
+	.byte	$01
+	.byte	$75
+	.byte	$01
+	.byte	$73
+	.byte	$75
+	.byte	$01
+	.byte	$75
+	.byte	$75
+	.byte	$73
+	.byte	$85
+	.byte	$75
+	.byte	$73
 	.byte	$83
-	.byte	$F0
-	.byte	$02
-	.byte	$63
-	.byte	$65
-	.byte	$F3
 	.byte	$01
-	.byte	$01
-	.byte	$E5
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$F5
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$72
-	.byte	$71
-	.byte	$71
+	.byte	$61
+	.byte	$61
+	.byte	$61
+	.byte	$61
+	.byte	$61
 	.byte	$72
 	.byte	$61
 	.byte	$61
-	.byte	$62
 	.byte	$61
 	.byte	$61
 	.byte	$61
-	.byte	$71
-	.byte	$71
 	.byte	$61
 	.byte	$61
 	.byte	$61
-	.byte	$70
+	.byte	$61
+	.byte	$72
+	.byte	$61
+	.byte	$61
+	.byte	$61
+	.byte	$61
+	.byte	$61
+	.byte	$72
+	.byte	$72
+	.byte	$61
+	.byte	$61
+	.byte	$61
+	.byte	$61
+	.byte	$61
+	.byte	$61
+	.byte	$72
+	.byte	$72
+	.byte	$61
+	.byte	$02
+	.byte	$02
 	.byte	$65
 	.byte	$63
-	.byte	$E2
-	.byte	$F3
-	.byte	$D4
-	.byte	$D4
-	.byte	$D2
-	.byte	$D4
-	.byte	$D4
-	.byte	$D4
-	.byte	$D4
-	.byte	$D4
-	.byte	$D2
-	.byte	$D4
-	.byte	$D4
-	.byte	$D4
 	.byte	$02
-	.byte	$63
-	.byte	$63
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
 	.byte	$65
-	.byte	$63
-	.byte	$63
-	.byte	$65
-	.byte	$02
-	.byte	$64
-	.byte	$02
-	.byte	$02
 	.byte	$02
 	.byte	$02
 	.byte	$02
 	.byte	$63
 	.byte	$65
 	.byte	$02
+	.byte	$65
+	.byte	$02
+	.byte	$65
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$02
+	.byte	$65
+	.byte	$65
+	.byte	$02
+	.byte	$02
+	.byte	$65
 	.byte	$02
 	.byte	$63
-	.byte	$65
-	.byte	$F3
-	.byte	$01
-	.byte	$F4
-	.byte	$01
-	.byte	$01
-	.byte	$E6
-	.byte	$01
-	.byte	$01
-	.byte	$E3
-	.byte	$01
-	.byte	$E7
-	.byte	$01
-	.byte	$77
-	.byte	$78
-	.byte	$78
+	.byte	$02
+	.byte	$02
 	.byte	$76
 	.byte	$77
 	.byte	$78
@@ -1048,25 +1045,28 @@ _track:
 	.byte	$77
 	.byte	$78
 	.byte	$76
+	.byte	$77
+	.byte	$78
+	.byte	$76
+	.byte	$77
+	.byte	$78
+	.byte	$76
+	.byte	$77
+	.byte	$78
+	.byte	$76
+	.byte	$77
+	.byte	$78
+	.byte	$76
+	.byte	$77
+	.byte	$78
+	.byte	$76
+	.byte	$77
+	.byte	$78
+	.byte	$76
+	.byte	$77
 	.byte	$78
 	.byte	$76
 	.byte	$78
-	.byte	$79
-	.byte	$02
-	.byte	$02
-	.byte	$63
-	.byte	$F2
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$00
@@ -1159,42 +1159,42 @@ _track:
 	.byte	$A0
 	.byte	$A0
 	.byte	$A0
-	.byte	$00
-	.byte	$00
-	.byte	$40
-	.byte	$50
-	.byte	$FF
-	.byte	$FF
+	.byte	$A0
+	.byte	$A0
+	.byte	$A0
+	.byte	$A0
 	.byte	$AA
-	.byte	$21
-	.byte	$00
-	.byte	$00
-	.byte	$04
-	.byte	$05
+	.byte	$AA
+	.byte	$AA
+	.byte	$AA
+	.byte	$AA
+	.byte	$AA
+	.byte	$AA
+	.byte	$AA
 	.byte	$FF
 	.byte	$FF
 	.byte	$FF
-	.byte	$FB
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
+	.byte	$FF
+	.byte	$FF
+	.byte	$FF
+	.byte	$FF
+	.byte	$FF
 	.byte	$AF
 	.byte	$AF
 	.byte	$AF
 	.byte	$AF
-	.byte	$A2
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
-	.byte	$00
+	.byte	$AF
+	.byte	$AF
+	.byte	$AF
+	.byte	$AF
+	.byte	$0F
+	.byte	$0F
+	.byte	$0F
+	.byte	$0F
+	.byte	$0F
+	.byte	$0F
+	.byte	$0F
+	.byte	$0A
 _marathon_man_run1_data:
 	.byte	$06
 	.byte	$19
@@ -8115,11 +8115,11 @@ L1DCA:	ldx     _largeindex+1
 	cpx     #$04
 	bcs     L1DCB
 ;
-; vram_put(track[largeindex]);
+; vram_put(trackgeneric[largeindex]);
 ;
-	lda     #<(_track)
+	lda     #<(_trackgeneric)
 	sta     ptr1
-	lda     #>(_track)
+	lda     #>(_trackgeneric)
 	clc
 	adc     _largeindex+1
 	sta     ptr1+1
@@ -8138,15 +8138,15 @@ L1DCA:	ldx     _largeindex+1
 	inc     _largeindex+1
 	jmp     L1DCA
 ;
-; vram_adr(NTADR_A(15,13));
+; vram_adr(NTADR_A(01,11));
 ;
 L1DCB:	ldx     #$21
-	lda     #$AF
+	lda     #$61
 	jsr     _vram_adr
 ;
-; vram_put(0x69);
+; vram_put(0x01);
 ;
-	lda     #$69
+	lda     #$01
 	jsr     _vram_put
 ;
 ; ppu_on_all();
@@ -8654,16 +8654,16 @@ L1C82:	lda     _powerpad_new+1
 	lda     #$00
 	jsr     _oam_set
 ;
-; oam_spr(0x78,104,0x69,3); // x=120, y=104, tile=105, attr=3
+; oam_spr(0x01,88,0x02,3); // x=120, y=88, tile=105, attr=3
 ;
 	jsr     decsp3
-	lda     #$78
+	lda     #$01
 	ldy     #$02
 	sta     (sp),y
-	lda     #$68
+	lda     #$58
 	dey
 	sta     (sp),y
-	lda     #$69
+	lda     #$02
 	dey
 	sta     (sp),y
 	lda     #$03

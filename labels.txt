@@ -230,7 +230,7 @@ al 000044 ._tens_spm
 al 00003D ._tens_step
 al 00003F ._thousands_step
 al 000051 ._time_since_button_press
-al 00983E ._track
+al 00983E ._trackgeneric
 al 009372 ._update_motion
 al 00856B ._vram_adr
 al 008576 ._vram_fill
