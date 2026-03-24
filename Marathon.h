@@ -23,6 +23,11 @@ unsigned char hundreds_step;
 unsigned char thousands_step;
 unsigned char ten_thousands_step;
 
+unsigned int steps_per_minute;
+unsigned char hundreds_spm;
+unsigned char tens_spm;
+unsigned char ones_spm;
+
 
 unsigned int seconds;
 unsigned char ones_seconds;
@@ -68,3 +73,4 @@ void draw_sprite(void);
 void draw_hud(void);
 void process_controller(void);
 void set_sprite_zero(void);
+void update_steps_per_minute(void);

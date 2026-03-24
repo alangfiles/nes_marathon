@@ -75,7 +75,7 @@ void main (void) {
 
 	
 	
-	while (1){
+	while (1){ 
 		// infinite loop
 
 		ppu_wait_nmi(); // wait till beginning of the frame
@@ -405,20 +405,20 @@ void draw_sprite(){
 	++sprite_frame_counter;
 
 	if(sprite_frame_counter <10){
-		oam_meta_spr(120, 120, marathon_man__run1_data);	
+		oam_meta_spr(120, 120, marathon_man_run1_data);	
 	} else if (sprite_frame_counter <20){
-		oam_meta_spr(120, 120, marathon_man__run2_data);
+		oam_meta_spr(120, 120, marathon_man_run2_data);
 	} else if (sprite_frame_counter <30){
-		oam_meta_spr(120, 120, marathon_man__run3_data);
+		oam_meta_spr(120, 120, marathon_man_run3_data);
 	} else if (sprite_frame_counter <40){
-		oam_meta_spr(120, 120, marathon_man__run4_data);
+		oam_meta_spr(120, 120, marathon_man_run4_data);
 	} else if (sprite_frame_counter <50){
-		oam_meta_spr(120, 120, marathon_man__run5_data);
+		oam_meta_spr(120, 120, marathon_man_run5_data);
 	} else if (sprite_frame_counter < 59){
-		oam_meta_spr(120, 120, marathon_man__run6_data);
+		oam_meta_spr(120, 120, marathon_man_run6_data);
 	} else {
 		sprite_frame_counter = 0;
-		oam_meta_spr(120, 120, marathon_man__run6_data);
+		oam_meta_spr(120, 120, marathon_man_run6_data);
 	}
 
 
@@ -433,7 +433,7 @@ void load_room(){
 		vram_put(track[largeindex]);
 		flush_vram_update2();
 	}
-	// place a tile for sprite zero hit at x=120, y=64
+	// place a tile for sprite zero hit at x=120, y=104
 	vram_adr(NTADR_A(15,13));
 	vram_put(0x69);
 	ppu_on_all();
@@ -444,5 +444,5 @@ void set_sprite_zero(void){
 	oam_set(0); // double check that this goes in the zero slot
 	
 	//oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
-	oam_spr(0x78,104,0x69,3); // x=120, y=64, tile=105, attr=3
+	oam_spr(0x78,104,0x69,3); // x=120, y=104, tile=105, attr=3
 }
