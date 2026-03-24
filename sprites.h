@@ -2164,7 +2164,7 @@ const unsigned char marathon_man_alan62_data[]={
 
 };
 
-const unsigned char marathon_man_alan64_data[]={
+const unsigned char marathon_man_alan63_data[]={
 
 	-16, 32,0x01,1,
 	-16, 24,0x1f,1,
