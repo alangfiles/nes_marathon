@@ -67,7 +67,7 @@ void main (void) {
 	initial_timer_conversion();
 
 	motion = STANDING;
-	motion_counter = 0;
+	time_since_button_press = 255; // start in standing state
 
 	//END INITIALIZATION
 	
@@ -93,18 +93,19 @@ void main (void) {
 		}
 		
 
-		if(scroll_timer >= 8){
+		if(motion == RUNNING && scroll_timer >= 8){
 			scroll_timer = 0;
-			++scroll_x ; //debug no scrolling
+			++scroll_x;
+		} else if(motion == WALKING && scroll_timer >= 16){
+			scroll_timer = 0;
+			++scroll_x;
+		} else if(motion == STANDING){
+			scroll_timer = 0;
 		}
 		
 
 		if(step_button_lockout > 0){
 			--step_button_lockout;
-		}
-
-		if(motion_counter > 0){
-			--motion_counter;
 		}
 
 		if(frame_counter >= 60){
@@ -123,9 +124,6 @@ void main (void) {
 							// would be very useful for a game
 
 		check_motion();
-		if(motion_counter == 0){
-			update_motion();
-		}
 
 		draw_sprite();
 		draw_hud();
@@ -277,6 +275,7 @@ void add_step(void){
 	if(step_button_lockout > 0){
 		return; //still in lockout period
 	}
+	update_steps_per_minute(); // calculate SPM before resetting the timer
 	sprite_timer = 0; //used for animation
 
 	time_since_button_press = 0;
@@ -312,33 +311,31 @@ void add_step(void){
 }
 
 void check_motion(void){
-	// are two buttons being pressed currently? if so, then we're walking for 180 frames.
-	if((powerpad_cur & 0x0F) && (powerpad_cur & 0xF0) && time_since_button_press < 180){
-		was_walking = 1;
-	}else if(powerpad_cur == 0 && time_since_button_press < 60){ //nothing is pressed
-		was_running = 1;
+	// determine motion state from steps-per-minute calculated via frame timing
+	if(time_since_button_press < 36) {
+		// >100 steps per minute
+		motion = RUNNING;
+	} else if(time_since_button_press <= 120) {
+		// 30-100 steps per minute
+		motion = WALKING;
 	} else {
-
+		// <30 steps per minute
+		motion = STANDING;
 	}
 }
 
-void update_motion(void){
-	// called when motion_counter times out
-	if(was_running){
-		motion = RUNNING;
-		motion_counter = MOTION_HOLD_FRAMES;
+void update_steps_per_minute(void){
+	if(time_since_button_press > 0 && time_since_button_press < 255) {
+		steps_per_minute = 3600u / (unsigned int)time_since_button_press;
+	} else {
+		steps_per_minute = 0;
 	}
-	else if(was_walking){
-		motion = WALKING;
-		motion_counter = MOTION_HOLD_FRAMES;
-	}
-	else {
-		motion = STANDING;
-	}
-	was_walking = 0;
-	was_running = 0;
-	
-
+	temp_int = steps_per_minute;
+	ones_spm = temp_int % 10;
+	temp_int /= 10;
+	tens_spm = temp_int % 10;
+	temp_int /= 10;
+	hundreds_spm = temp_int % 10;
 }
 
 void initial_steps_conversion(void){
@@ -400,28 +397,42 @@ void draw_sprite(){
 	oam_clear();
 	set_sprite_zero();
 	oam_set(4); // start drawing from slot 4
-	
-	//draw the player sprite based on motion type
-	++sprite_frame_counter;
 
-	if(sprite_frame_counter <10){
-		oam_meta_spr(120, 120, marathon_man_run1_data);	
-	} else if (sprite_frame_counter <20){
-		oam_meta_spr(120, 120, marathon_man_run2_data);
-	} else if (sprite_frame_counter <30){
-		oam_meta_spr(120, 120, marathon_man_run3_data);
-	} else if (sprite_frame_counter <40){
-		oam_meta_spr(120, 120, marathon_man_run4_data);
-	} else if (sprite_frame_counter <50){
-		oam_meta_spr(120, 120, marathon_man_run5_data);
-	} else if (sprite_frame_counter < 59){
-		oam_meta_spr(120, 120, marathon_man_run6_data);
-	} else {
+	++sprite_frame_counter;
+	if(sprite_frame_counter >= 60){
 		sprite_frame_counter = 0;
-		oam_meta_spr(120, 120, marathon_man_run6_data);
 	}
 
-
+	if(motion == RUNNING){
+		// 6 frames, 10 ticks each = 60-frame cycle
+		if(sprite_frame_counter < 10){
+			oam_meta_spr(120, 120, marathon_man_run1_data);
+		} else if(sprite_frame_counter < 20){
+			oam_meta_spr(120, 120, marathon_man_run2_data);
+		} else if(sprite_frame_counter < 30){
+			oam_meta_spr(120, 120, marathon_man_run3_data);
+		} else if(sprite_frame_counter < 40){
+			oam_meta_spr(120, 120, marathon_man_run4_data);
+		} else if(sprite_frame_counter < 50){
+			oam_meta_spr(120, 120, marathon_man_run5_data);
+		} else {
+			oam_meta_spr(120, 120, marathon_man_run6_data);
+		}
+	} else if(motion == WALKING){
+		// 4 frames, 15 ticks each = 60-frame cycle
+		if(sprite_frame_counter < 15){
+			oam_meta_spr(120, 120, marathon_man_walk1_data);
+		} else if(sprite_frame_counter < 30){
+			oam_meta_spr(120, 120, marathon_man_walk2_data);
+		} else if(sprite_frame_counter < 45){
+			oam_meta_spr(120, 120, marathon_man_walk3_data);
+		} else {
+			oam_meta_spr(120, 120, marathon_man_walk4_data);
+		}
+	} else {
+		// STANDING - hold a neutral walking pose
+		oam_meta_spr(120, 120, marathon_man_walk1_data);
+	}
 }
 
 
