@@ -594,7 +594,7 @@ void set_signature_sprite(){
 		case 51: pointer = marathon_man_alan51_data; break;
 		case 52: pointer = marathon_man_alan52_data; break;
 		case 53: pointer = marathon_man_alan53_data; break;
-		case 54: pointer = marathon_man_alan54_data; break;
+		case 54: pointer = marathon_man_alan54_data; break; 
 		default: pointer = marathon_man_alan54_data; break;
 	}
 	oam_meta_spr(40, 10, pointer);

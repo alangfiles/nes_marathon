@@ -3372,3091 +3372,3091 @@ _marathon_man_alan0_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan1_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan2_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan3_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$09
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan4_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$09
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan5_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$09
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan6_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$09
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan7_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$09
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$0F
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan8_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$0F
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan9_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$0F
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1A
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan10_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$0F
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan11_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$02
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$0F
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan12_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$0F
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan13_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$0F
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan14_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$0F
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan15_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan16_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan17_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan18_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$30
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan19_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$30
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$80
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan20_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$80
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan21_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan22_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan23_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan24_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan25_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan26_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan27_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan28_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan29_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan30_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$6C
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan31_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$6C
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan32_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$3F
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$6C
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan33_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$6C
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan34_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$6C
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan35_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$6C
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan36_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$47
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$6C
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$7A
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan37_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$6C
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$7A
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan38_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$6C
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$7A
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan39_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$6C
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan40_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan41_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan42_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -6466,131 +6466,131 @@ _marathon_man_alan43_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -6598,137 +6598,137 @@ _marathon_man_alan43_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan44_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -6736,141 +6736,141 @@ _marathon_man_alan44_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$99
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan45_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -6878,145 +6878,145 @@ _marathon_man_alan45_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$99
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$20
 	.byte	$A3
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan46_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -7024,145 +7024,145 @@ _marathon_man_alan46_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$A4
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$20
 	.byte	$A3
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan47_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -7170,149 +7170,149 @@ _marathon_man_alan47_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$A4
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$20
 	.byte	$A3
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$18
 	.byte	$A9
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan48_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -7320,149 +7320,149 @@ _marathon_man_alan48_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$A4
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$20
 	.byte	$A3
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$18
 	.byte	$AC
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan49_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -7470,153 +7470,153 @@ _marathon_man_alan49_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$A4
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$20
 	.byte	$A3
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$18
 	.byte	$AC
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$18
 	.byte	$B3
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan50_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -7624,157 +7624,157 @@ _marathon_man_alan50_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$A4
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$20
 	.byte	$A3
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$18
 	.byte	$AC
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$18
 	.byte	$B3
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$10
 	.byte	$BC
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan51_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -7782,157 +7782,157 @@ _marathon_man_alan51_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$A4
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$20
 	.byte	$A3
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$18
 	.byte	$AC
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$18
 	.byte	$C0
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$10
 	.byte	$BC
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan52_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -7940,157 +7940,157 @@ _marathon_man_alan52_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$A4
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$20
 	.byte	$A3
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$18
 	.byte	$C3
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$18
 	.byte	$C0
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$10
 	.byte	$BC
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan53_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -8098,161 +8098,161 @@ _marathon_man_alan53_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$A4
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$20
 	.byte	$A3
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$18
 	.byte	$C3
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$18
 	.byte	$C0
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$10
 	.byte	$BC
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$20
 	.byte	$C4
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _marathon_man_alan54_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$18
 	.byte	$1F
-	.byte	$01
+	.byte	$00
 	.byte	$F0
 	.byte	$10
 	.byte	$03
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$10
 	.byte	$19
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$08
 	.byte	$0A
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$00
 	.byte	$0B
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$0C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$08
 	.byte	$28
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$18
 	.byte	$1C
-	.byte	$01
+	.byte	$00
 	.byte	$F8
 	.byte	$20
 	.byte	$1B
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$00
 	.byte	$20
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$08
 	.byte	$27
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$10
 	.byte	$2C
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$18
 	.byte	$2F
-	.byte	$01
+	.byte	$00
 	.byte	$00
 	.byte	$20
 	.byte	$37
-	.byte	$01
+	.byte	$00
 	.byte	$08
 	.byte	$20
 	.byte	$38
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$08
 	.byte	$77
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$10
 	.byte	$40
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$10
 	.byte	$44
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$18
 	.byte	$7D
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$20
 	.byte	$48
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$28
 	.byte	$4F
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$30
 	.byte	$50
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$00
 	.byte	$57
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$00
 	.byte	$86
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$00
 	.byte	$6D
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$00
 	.byte	$70
-	.byte	$01
+	.byte	$00
 	.byte	$18
 	.byte	$08
 	.byte	$78
-	.byte	$01
+	.byte	$00
 	.byte	$10
 	.byte	$08
 	.byte	$79
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$18
 	.byte	$85
-	.byte	$01
+	.byte	$00
 	.byte	$20
 	.byte	$20
 	.byte	$81
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$08
 	.byte	$89
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$10
 	.byte	$03
@@ -8260,35 +8260,35 @@ _marathon_man_alan54_data:
 	.byte	$28
 	.byte	$10
 	.byte	$8D
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$18
 	.byte	$A4
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$20
 	.byte	$A3
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$18
 	.byte	$C3
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$18
 	.byte	$C0
-	.byte	$01
+	.byte	$00
 	.byte	$38
 	.byte	$10
 	.byte	$BC
-	.byte	$01
+	.byte	$00
 	.byte	$30
 	.byte	$20
 	.byte	$C4
-	.byte	$01
+	.byte	$00
 	.byte	$28
 	.byte	$28
 	.byte	$CC
-	.byte	$01
+	.byte	$00
 	.byte	$80
 _palette_sprites:
 	.byte	$1B
