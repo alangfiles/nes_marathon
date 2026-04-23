@@ -59,7 +59,9 @@ unsigned char scroll_timer;
 
 unsigned char game_mode;
 unsigned char selected_option;
+unsigned char race_type;
 enum {MODE_TITLE, MODE_OPTIONS, MODE_GAME};
+enum {RACE_5K, RACE_10K, RACE_MARATHON};
 
 enum {
   RUNNING,

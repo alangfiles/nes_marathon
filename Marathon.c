@@ -117,6 +117,7 @@ void main (void) {
 				draw_options_screen();
 			}
 			if(debug_controller_new & PAD_START || debug_controller_new & PAD_A){
+				race_type = selected_option;
 				init_mode_game();
 			}
 		}
