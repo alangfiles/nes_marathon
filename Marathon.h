@@ -58,7 +58,8 @@ unsigned int largeindex;
 unsigned char scroll_timer;
 
 unsigned char game_mode;
-enum {MODE_TITLE, MODE_GAME};
+unsigned char selected_option;
+enum {MODE_TITLE, MODE_OPTIONS, MODE_GAME};
 
 enum {
   RUNNING,
@@ -80,3 +81,5 @@ void set_sprite_zero(void);
 void update_steps_per_minute(void);
 void load_title(void);
 void init_mode_game(void);
+void init_options(void);
+void draw_options_screen(void);

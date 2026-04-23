@@ -98,10 +98,28 @@ void main (void) {
 			debug_controller_new = get_pad_new(0);
 
 			if(debug_controller_new & PAD_START){
-				init_mode_game();
+				init_options();
 			}
 		}
 
+		while(game_mode == MODE_OPTIONS){
+			ppu_wait_nmi();
+
+			debug_controller = pad_poll(0);
+			debug_controller_new = get_pad_new(0);
+
+			if(debug_controller_new & PAD_UP){
+				if(selected_option > 0) --selected_option;
+				draw_options_screen();
+			}
+			if(debug_controller_new & PAD_DOWN){
+				if(selected_option < 2) ++selected_option;
+				draw_options_screen();
+			}
+			if(debug_controller_new & PAD_START || debug_controller_new & PAD_A){
+				init_mode_game();
+			}
+		}
 
 		while(game_mode == MODE_GAME){
 
@@ -122,7 +140,7 @@ void main (void) {
 
 		if(motion == RUNNING && scroll_timer >= 8){
 			scroll_timer = 0;
-			++scroll_x;
+			scroll_x += 2;
 		} else if(motion == WALKING && scroll_timer >= 16){
 			scroll_timer = 0;
 			++scroll_x;
@@ -463,6 +481,50 @@ void draw_hud(void){
 	one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
 }
 
+
+void draw_options_screen(void){
+	// Draw cursor ">" and spaces to deselect all rows first
+	one_vram_buffer((selected_option == 0) ? '>' : ' ', NTADR_A(9, 10));
+	one_vram_buffer((selected_option == 1) ? '>' : ' ', NTADR_A(9, 14));
+	one_vram_buffer((selected_option == 2) ? '>' : ' ', NTADR_A(9, 18));
+}
+
+void init_options(void){
+	ppu_off();
+	pal_bg(palette_bg);
+	pal_spr(palette_sprites);
+	oam_clear();
+	clear_vram_buffer();
+
+	selected_option = 0;
+
+	// Write blank nametable
+	vram_adr(NAMETABLE_A);
+	for(largeindex = 0; largeindex < 1024; ++largeindex){
+		vram_put(0x00);
+		flush_vram_update2();
+	}
+
+	// Draw option labels directly into VRAM while PPU is off
+	// "5K" at row 10
+	vram_adr(NTADR_A(10, 10));
+	vram_put('5'); vram_put('K');
+	// "10K" at row 14
+	vram_adr(NTADR_A(10, 14));
+	vram_put('1'); vram_put('0'); vram_put('K');
+	// "MARATHON" at row 18
+	vram_adr(NTADR_A(10, 18));
+	vram_put('M'); vram_put('A'); vram_put('R'); vram_put('A');
+	vram_put('T'); vram_put('H'); vram_put('O'); vram_put('N');
+	// Initial cursor
+	vram_adr(NTADR_A(9, 10));
+	vram_put('>');
+
+	game_mode = MODE_OPTIONS;
+	set_scroll_x(0);
+	set_scroll_y(0);
+	ppu_on_all();
+}
 
 void load_title(void){
 	ppu_off();
