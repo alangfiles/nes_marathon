@@ -155,6 +155,16 @@
 	.export		_marathon_man_alan31_data
 	.export		_marathon_man_alan32_data
 	.export		_marathon_man_alan33_data
+	.export		_marathon_man_alan34_data
+	.export		_marathon_man_alan35_data
+	.export		_marathon_man_alan36_data
+	.export		_marathon_man_alan37_data
+	.export		_marathon_man_alan38_data
+	.export		_marathon_man_alan39_data
+	.export		_marathon_man_alan40_data
+	.export		_marathon_man_alan41_data
+	.export		_marathon_man_alan42_data
+	.export		_marathon_man_alan43_data
 	.export		_marathon_man_alan44_data
 	.export		_marathon_man_alan45_data
 	.export		_marathon_man_alan46_data
@@ -166,16 +176,6 @@
 	.export		_marathon_man_alan52_data
 	.export		_marathon_man_alan53_data
 	.export		_marathon_man_alan54_data
-	.export		_marathon_man_alan55_data
-	.export		_marathon_man_alan56_data
-	.export		_marathon_man_alan57_data
-	.export		_marathon_man_alan58_data
-	.export		_marathon_man_alan59_data
-	.export		_marathon_man_alan60_data
-	.export		_marathon_man_alan61_data
-	.export		_marathon_man_alan62_data
-	.export		_marathon_man_alan63_data
-	.export		_marathon_man_alan64_data
 	.export		_palette_sprites
 	.export		_palette_bg
 	.export		_process_powerpad
@@ -5344,7 +5344,7 @@ _marathon_man_alan33_data:
 	.byte	$70
 	.byte	$01
 	.byte	$80
-_marathon_man_alan44_data:
+_marathon_man_alan34_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -5458,7 +5458,7 @@ _marathon_man_alan44_data:
 	.byte	$78
 	.byte	$01
 	.byte	$80
-_marathon_man_alan45_data:
+_marathon_man_alan35_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -5576,7 +5576,7 @@ _marathon_man_alan45_data:
 	.byte	$79
 	.byte	$01
 	.byte	$80
-_marathon_man_alan46_data:
+_marathon_man_alan36_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -5698,7 +5698,7 @@ _marathon_man_alan46_data:
 	.byte	$7A
 	.byte	$01
 	.byte	$80
-_marathon_man_alan47_data:
+_marathon_man_alan37_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -5820,7 +5820,7 @@ _marathon_man_alan47_data:
 	.byte	$7A
 	.byte	$01
 	.byte	$80
-_marathon_man_alan48_data:
+_marathon_man_alan38_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -5946,7 +5946,7 @@ _marathon_man_alan48_data:
 	.byte	$81
 	.byte	$01
 	.byte	$80
-_marathon_man_alan49_data:
+_marathon_man_alan39_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -6072,7 +6072,7 @@ _marathon_man_alan49_data:
 	.byte	$81
 	.byte	$01
 	.byte	$80
-_marathon_man_alan50_data:
+_marathon_man_alan40_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -6198,7 +6198,7 @@ _marathon_man_alan50_data:
 	.byte	$81
 	.byte	$01
 	.byte	$80
-_marathon_man_alan51_data:
+_marathon_man_alan41_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -6328,7 +6328,7 @@ _marathon_man_alan51_data:
 	.byte	$89
 	.byte	$01
 	.byte	$80
-_marathon_man_alan52_data:
+_marathon_man_alan42_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -6462,7 +6462,7 @@ _marathon_man_alan52_data:
 	.byte	$03
 	.byte	$C1
 	.byte	$80
-_marathon_man_alan53_data:
+_marathon_man_alan43_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -6600,7 +6600,7 @@ _marathon_man_alan53_data:
 	.byte	$8D
 	.byte	$01
 	.byte	$80
-_marathon_man_alan54_data:
+_marathon_man_alan44_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -6742,7 +6742,7 @@ _marathon_man_alan54_data:
 	.byte	$99
 	.byte	$01
 	.byte	$80
-_marathon_man_alan55_data:
+_marathon_man_alan45_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -6888,7 +6888,7 @@ _marathon_man_alan55_data:
 	.byte	$A3
 	.byte	$01
 	.byte	$80
-_marathon_man_alan56_data:
+_marathon_man_alan46_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -7034,7 +7034,7 @@ _marathon_man_alan56_data:
 	.byte	$A3
 	.byte	$01
 	.byte	$80
-_marathon_man_alan57_data:
+_marathon_man_alan47_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -7184,7 +7184,7 @@ _marathon_man_alan57_data:
 	.byte	$A9
 	.byte	$01
 	.byte	$80
-_marathon_man_alan58_data:
+_marathon_man_alan48_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -7334,7 +7334,7 @@ _marathon_man_alan58_data:
 	.byte	$AC
 	.byte	$01
 	.byte	$80
-_marathon_man_alan59_data:
+_marathon_man_alan49_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -7488,7 +7488,7 @@ _marathon_man_alan59_data:
 	.byte	$B3
 	.byte	$01
 	.byte	$80
-_marathon_man_alan60_data:
+_marathon_man_alan50_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -7646,7 +7646,7 @@ _marathon_man_alan60_data:
 	.byte	$BC
 	.byte	$01
 	.byte	$80
-_marathon_man_alan61_data:
+_marathon_man_alan51_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -7804,7 +7804,7 @@ _marathon_man_alan61_data:
 	.byte	$BC
 	.byte	$01
 	.byte	$80
-_marathon_man_alan62_data:
+_marathon_man_alan52_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -7962,7 +7962,7 @@ _marathon_man_alan62_data:
 	.byte	$BC
 	.byte	$01
 	.byte	$80
-_marathon_man_alan63_data:
+_marathon_man_alan53_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -8124,7 +8124,7 @@ _marathon_man_alan63_data:
 	.byte	$C4
 	.byte	$01
 	.byte	$80
-_marathon_man_alan64_data:
+_marathon_man_alan54_data:
 	.byte	$F0
 	.byte	$20
 	.byte	$01
@@ -10359,47 +10359,47 @@ L241F:	jsr     pusha
 	jeq     L2342
 	cmp     #$21
 	jeq     L2346
-	cmp     #$2C
+	cmp     #$22
 	jeq     L234A
-	cmp     #$2D
+	cmp     #$23
 	jeq     L234E
-	cmp     #$2E
+	cmp     #$24
 	jeq     L2352
-	cmp     #$2F
+	cmp     #$25
 	jeq     L2356
-	cmp     #$30
+	cmp     #$26
 	jeq     L235A
-	cmp     #$31
+	cmp     #$27
 	jeq     L235E
-	cmp     #$32
+	cmp     #$28
 	jeq     L2362
-	cmp     #$33
+	cmp     #$29
 	jeq     L2366
-	cmp     #$34
+	cmp     #$2A
 	jeq     L236A
-	cmp     #$35
+	cmp     #$2B
 	jeq     L236E
-	cmp     #$36
+	cmp     #$2C
 	jeq     L2372
-	cmp     #$37
+	cmp     #$2D
 	jeq     L2376
-	cmp     #$38
+	cmp     #$2E
 	jeq     L237A
-	cmp     #$39
+	cmp     #$2F
 	jeq     L237E
-	cmp     #$3A
+	cmp     #$30
 	jeq     L2382
-	cmp     #$3B
+	cmp     #$31
 	jeq     L2386
-	cmp     #$3C
+	cmp     #$32
 	jeq     L238A
-	cmp     #$3D
+	cmp     #$33
 	jeq     L238E
-	cmp     #$3E
+	cmp     #$34
 	jeq     L2392
-	cmp     #$3F
+	cmp     #$35
 	jeq     L2396
-	cmp     #$40
+	cmp     #$36
 	jeq     L239D
 	jmp     L239D
 ;
@@ -10641,151 +10641,151 @@ L2346:	lda     #>(_marathon_man_alan33_data)
 	lda     #<(_marathon_man_alan33_data)
 	jmp     L2420
 ;
+; case 34: pointer = marathon_man_alan34_data; break;
+;
+L234A:	lda     #>(_marathon_man_alan34_data)
+	sta     _pointer+1
+	lda     #<(_marathon_man_alan34_data)
+	jmp     L2420
+;
+; case 35: pointer = marathon_man_alan35_data; break;
+;
+L234E:	lda     #>(_marathon_man_alan35_data)
+	sta     _pointer+1
+	lda     #<(_marathon_man_alan35_data)
+	jmp     L2420
+;
+; case 36: pointer = marathon_man_alan36_data; break;
+;
+L2352:	lda     #>(_marathon_man_alan36_data)
+	sta     _pointer+1
+	lda     #<(_marathon_man_alan36_data)
+	jmp     L2420
+;
+; case 37: pointer = marathon_man_alan37_data; break;
+;
+L2356:	lda     #>(_marathon_man_alan37_data)
+	sta     _pointer+1
+	lda     #<(_marathon_man_alan37_data)
+	jmp     L2420
+;
+; case 38: pointer = marathon_man_alan38_data; break;
+;
+L235A:	lda     #>(_marathon_man_alan38_data)
+	sta     _pointer+1
+	lda     #<(_marathon_man_alan38_data)
+	jmp     L2420
+;
+; case 39: pointer = marathon_man_alan39_data; break;
+;
+L235E:	lda     #>(_marathon_man_alan39_data)
+	sta     _pointer+1
+	lda     #<(_marathon_man_alan39_data)
+	jmp     L2420
+;
+; case 40: pointer = marathon_man_alan40_data; break;
+;
+L2362:	lda     #>(_marathon_man_alan40_data)
+	sta     _pointer+1
+	lda     #<(_marathon_man_alan40_data)
+	jmp     L2420
+;
+; case 41: pointer = marathon_man_alan41_data; break;
+;
+L2366:	lda     #>(_marathon_man_alan41_data)
+	sta     _pointer+1
+	lda     #<(_marathon_man_alan41_data)
+	jmp     L2420
+;
+; case 42: pointer = marathon_man_alan42_data; break;
+;
+L236A:	lda     #>(_marathon_man_alan42_data)
+	sta     _pointer+1
+	lda     #<(_marathon_man_alan42_data)
+	jmp     L2420
+;
+; case 43: pointer = marathon_man_alan43_data; break;
+;
+L236E:	lda     #>(_marathon_man_alan43_data)
+	sta     _pointer+1
+	lda     #<(_marathon_man_alan43_data)
+	jmp     L2420
+;
 ; case 44: pointer = marathon_man_alan44_data; break;
 ;
-L234A:	lda     #>(_marathon_man_alan44_data)
+L2372:	lda     #>(_marathon_man_alan44_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan44_data)
 	jmp     L2420
 ;
 ; case 45: pointer = marathon_man_alan45_data; break;
 ;
-L234E:	lda     #>(_marathon_man_alan45_data)
+L2376:	lda     #>(_marathon_man_alan45_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan45_data)
 	jmp     L2420
 ;
 ; case 46: pointer = marathon_man_alan46_data; break;
 ;
-L2352:	lda     #>(_marathon_man_alan46_data)
+L237A:	lda     #>(_marathon_man_alan46_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan46_data)
 	jmp     L2420
 ;
 ; case 47: pointer = marathon_man_alan47_data; break;
 ;
-L2356:	lda     #>(_marathon_man_alan47_data)
+L237E:	lda     #>(_marathon_man_alan47_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan47_data)
 	jmp     L2420
 ;
 ; case 48: pointer = marathon_man_alan48_data; break;
 ;
-L235A:	lda     #>(_marathon_man_alan48_data)
+L2382:	lda     #>(_marathon_man_alan48_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan48_data)
 	jmp     L2420
 ;
 ; case 49: pointer = marathon_man_alan49_data; break;
 ;
-L235E:	lda     #>(_marathon_man_alan49_data)
+L2386:	lda     #>(_marathon_man_alan49_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan49_data)
 	jmp     L2420
 ;
 ; case 50: pointer = marathon_man_alan50_data; break;
 ;
-L2362:	lda     #>(_marathon_man_alan50_data)
+L238A:	lda     #>(_marathon_man_alan50_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan50_data)
 	jmp     L2420
 ;
 ; case 51: pointer = marathon_man_alan51_data; break;
 ;
-L2366:	lda     #>(_marathon_man_alan51_data)
+L238E:	lda     #>(_marathon_man_alan51_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan51_data)
 	jmp     L2420
 ;
 ; case 52: pointer = marathon_man_alan52_data; break;
 ;
-L236A:	lda     #>(_marathon_man_alan52_data)
+L2392:	lda     #>(_marathon_man_alan52_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan52_data)
 	jmp     L2420
 ;
 ; case 53: pointer = marathon_man_alan53_data; break;
 ;
-L236E:	lda     #>(_marathon_man_alan53_data)
+L2396:	lda     #>(_marathon_man_alan53_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan53_data)
 	jmp     L2420
 ;
-; case 54: pointer = marathon_man_alan54_data; break;
+; default: pointer = marathon_man_alan54_data; break;
 ;
-L2372:	lda     #>(_marathon_man_alan54_data)
+L239D:	lda     #>(_marathon_man_alan54_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan54_data)
-	jmp     L2420
-;
-; case 55: pointer = marathon_man_alan55_data; break;
-;
-L2376:	lda     #>(_marathon_man_alan55_data)
-	sta     _pointer+1
-	lda     #<(_marathon_man_alan55_data)
-	jmp     L2420
-;
-; case 56: pointer = marathon_man_alan56_data; break;
-;
-L237A:	lda     #>(_marathon_man_alan56_data)
-	sta     _pointer+1
-	lda     #<(_marathon_man_alan56_data)
-	jmp     L2420
-;
-; case 57: pointer = marathon_man_alan57_data; break;
-;
-L237E:	lda     #>(_marathon_man_alan57_data)
-	sta     _pointer+1
-	lda     #<(_marathon_man_alan57_data)
-	jmp     L2420
-;
-; case 58: pointer = marathon_man_alan58_data; break;
-;
-L2382:	lda     #>(_marathon_man_alan58_data)
-	sta     _pointer+1
-	lda     #<(_marathon_man_alan58_data)
-	jmp     L2420
-;
-; case 59: pointer = marathon_man_alan59_data; break;
-;
-L2386:	lda     #>(_marathon_man_alan59_data)
-	sta     _pointer+1
-	lda     #<(_marathon_man_alan59_data)
-	jmp     L2420
-;
-; case 60: pointer = marathon_man_alan60_data; break;
-;
-L238A:	lda     #>(_marathon_man_alan60_data)
-	sta     _pointer+1
-	lda     #<(_marathon_man_alan60_data)
-	jmp     L2420
-;
-; case 61: pointer = marathon_man_alan61_data; break;
-;
-L238E:	lda     #>(_marathon_man_alan61_data)
-	sta     _pointer+1
-	lda     #<(_marathon_man_alan61_data)
-	jmp     L2420
-;
-; case 62: pointer = marathon_man_alan62_data; break;
-;
-L2392:	lda     #>(_marathon_man_alan62_data)
-	sta     _pointer+1
-	lda     #<(_marathon_man_alan62_data)
-	jmp     L2420
-;
-; case 63: pointer = marathon_man_alan63_data; break;
-;
-L2396:	lda     #>(_marathon_man_alan63_data)
-	sta     _pointer+1
-	lda     #<(_marathon_man_alan63_data)
-	jmp     L2420
-;
-; default: pointer = marathon_man_alan64_data; break;
-;
-L239D:	lda     #>(_marathon_man_alan64_data)
-	sta     _pointer+1
-	lda     #<(_marathon_man_alan64_data)
 L2420:	sta     _pointer
 ;
 ; oam_meta_spr(40, 10, pointer);
@@ -10906,10 +10906,10 @@ L1FB9:	jsr     _ppu_wait_nmi
 	lda     #$00
 	sta     _title_frame_counter
 ;
-; if(title_animation_frame <= 64){
+; if(title_animation_frame <= 54){
 ;
 	lda     _title_animation_frame
-	cmp     #$41
+	cmp     #$37
 	bcs     L1FC3
 ;
 ; ++title_animation_frame;

@@ -97,7 +97,7 @@ void main (void) {
 			++title_frame_counter;
 			if(title_frame_counter >= 4){
 				title_frame_counter = 0;
-				if(title_animation_frame <= 64){
+				if(title_animation_frame <= 54){
 					++title_animation_frame;
 				}
 			}
@@ -574,6 +574,16 @@ void set_signature_sprite(){
 		case 31: pointer = marathon_man_alan31_data; break;
 		case 32: pointer = marathon_man_alan32_data; break;
 		case 33: pointer = marathon_man_alan33_data; break;
+		case 34: pointer = marathon_man_alan34_data; break;
+		case 35: pointer = marathon_man_alan35_data; break;
+		case 36: pointer = marathon_man_alan36_data; break;
+		case 37: pointer = marathon_man_alan37_data; break;
+		case 38: pointer = marathon_man_alan38_data; break;
+		case 39: pointer = marathon_man_alan39_data; break;
+		case 40: pointer = marathon_man_alan40_data; break;
+		case 41: pointer = marathon_man_alan41_data; break;
+		case 42: pointer = marathon_man_alan42_data; break;
+		case 43: pointer = marathon_man_alan43_data; break;
 		case 44: pointer = marathon_man_alan44_data; break;
 		case 45: pointer = marathon_man_alan45_data; break;
 		case 46: pointer = marathon_man_alan46_data; break;
@@ -585,17 +595,7 @@ void set_signature_sprite(){
 		case 52: pointer = marathon_man_alan52_data; break;
 		case 53: pointer = marathon_man_alan53_data; break;
 		case 54: pointer = marathon_man_alan54_data; break;
-		case 55: pointer = marathon_man_alan55_data; break;
-		case 56: pointer = marathon_man_alan56_data; break;
-		case 57: pointer = marathon_man_alan57_data; break;
-		case 58: pointer = marathon_man_alan58_data; break;
-		case 59: pointer = marathon_man_alan59_data; break;
-		case 60: pointer = marathon_man_alan60_data; break;
-		case 61: pointer = marathon_man_alan61_data; break;
-		case 62: pointer = marathon_man_alan62_data; break;
-		case 63: pointer = marathon_man_alan63_data; break;
-		case 64: pointer = marathon_man_alan64_data; break;
-		default: pointer = marathon_man_alan64_data; break;
+		default: pointer = marathon_man_alan54_data; break;
 	}
 	oam_meta_spr(40, 10, pointer);
 }
