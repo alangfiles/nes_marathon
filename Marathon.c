@@ -94,6 +94,17 @@ void main (void) {
 		while(game_mode == MODE_TITLE){
 			ppu_wait_nmi();
 
+			++title_frame_counter;
+			if(title_frame_counter >= 4){
+				title_frame_counter = 0;
+				if(title_animation_frame <= 64){
+					++title_animation_frame;
+				}
+			}
+
+			oam_clear();
+			set_signature_sprite();
+
 			debug_controller = pad_poll(0);
 			debug_controller_new = get_pad_new(0);
 
@@ -527,6 +538,68 @@ void init_options(void){
 	ppu_on_all();
 }
 
+void set_signature_sprite(){
+	switch(title_animation_frame){		
+		case 0: pointer = marathon_man_alan0_data; break;
+		case 1: pointer = marathon_man_alan1_data; break;
+		case 2: pointer = marathon_man_alan2_data; break;
+		case 3: pointer = marathon_man_alan3_data; break;
+		case 4: pointer = marathon_man_alan4_data; break;
+		case 5: pointer = marathon_man_alan5_data; break;	
+		case 6: pointer = marathon_man_alan6_data; break;
+		case 7: pointer = marathon_man_alan7_data; break;
+		case 8: pointer = marathon_man_alan8_data; break;
+		case 9: pointer = marathon_man_alan9_data; break;
+		case 10: pointer = marathon_man_alan10_data; break;
+		case 11: pointer = marathon_man_alan11_data; break;
+		case 12: pointer = marathon_man_alan12_data; break;
+		case 13: pointer = marathon_man_alan13_data; break;
+		case 14: pointer = marathon_man_alan14_data; break;
+		case 15: pointer = marathon_man_alan15_data; break;
+		case 16: pointer = marathon_man_alan16_data; break;
+		case 17: pointer = marathon_man_alan17_data; break;
+		case 18: pointer = marathon_man_alan18_data; break;
+		case 19: pointer = marathon_man_alan19_data; break;
+		case 20: pointer = marathon_man_alan20_data; break;
+		case 21: pointer = marathon_man_alan21_data; break;
+		case 22: pointer = marathon_man_alan22_data; break;
+		case 23: pointer = marathon_man_alan23_data; break;
+		case 24: pointer = marathon_man_alan24_data; break;
+		case 25: pointer = marathon_man_alan25_data; break;
+		case 26: pointer = marathon_man_alan26_data; break;
+		case 27: pointer = marathon_man_alan27_data; break;
+		case 28: pointer = marathon_man_alan28_data; break;
+		case 29: pointer = marathon_man_alan29_data; break;
+		case 30: pointer = marathon_man_alan30_data; break;
+		case 31: pointer = marathon_man_alan31_data; break;
+		case 32: pointer = marathon_man_alan32_data; break;
+		case 33: pointer = marathon_man_alan33_data; break;
+		case 44: pointer = marathon_man_alan44_data; break;
+		case 45: pointer = marathon_man_alan45_data; break;
+		case 46: pointer = marathon_man_alan46_data; break;
+		case 47: pointer = marathon_man_alan47_data; break;
+		case 48: pointer = marathon_man_alan48_data; break;
+		case 49: pointer = marathon_man_alan49_data; break;
+		case 50: pointer = marathon_man_alan50_data; break;
+		case 51: pointer = marathon_man_alan51_data; break;
+		case 52: pointer = marathon_man_alan52_data; break;
+		case 53: pointer = marathon_man_alan53_data; break;
+		case 54: pointer = marathon_man_alan54_data; break;
+		case 55: pointer = marathon_man_alan55_data; break;
+		case 56: pointer = marathon_man_alan56_data; break;
+		case 57: pointer = marathon_man_alan57_data; break;
+		case 58: pointer = marathon_man_alan58_data; break;
+		case 59: pointer = marathon_man_alan59_data; break;
+		case 60: pointer = marathon_man_alan60_data; break;
+		case 61: pointer = marathon_man_alan61_data; break;
+		case 62: pointer = marathon_man_alan62_data; break;
+		case 63: pointer = marathon_man_alan63_data; break;
+		case 64: pointer = marathon_man_alan64_data; break;
+		default: pointer = marathon_man_alan64_data; break;
+	}
+	oam_meta_spr(40, 10, pointer);
+}
+
 void load_title(void){
 	ppu_off();
 	pal_bg(palette_bg);
@@ -538,6 +611,8 @@ void load_title(void){
 		vram_put(title[largeindex]);
 		flush_vram_update2();
 	}
+	title_animation_frame = 0;
+	title_frame_counter = 0;
 	game_mode = MODE_TITLE;
 	set_scroll_x(0);
 	set_scroll_y(0);

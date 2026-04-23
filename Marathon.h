@@ -51,10 +51,13 @@ unsigned char mph;
 unsigned char sprite_timer;
 unsigned char sprite_frame_counter;
 
+unsigned char title_animation_frame;
+unsigned char title_frame_counter;
 
 unsigned int scroll_x;
 unsigned int temp_int;
 unsigned int largeindex;
+const unsigned char *pointer;
 unsigned char scroll_timer;
 
 unsigned char game_mode;
@@ -85,3 +88,4 @@ void load_title(void);
 void init_mode_game(void);
 void init_options(void);
 void draw_options_screen(void);
+void set_signature_sprite(void);
