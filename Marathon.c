@@ -474,15 +474,15 @@ void draw_sprite(){
 
 void draw_hud(void){
 
-	multi_vram_buffer_horz("  STEPS: ", 9, NTADR_A(1, 4));
+	multi_vram_buffer_horz("@@STEPS:@", 9, NTADR_A(1, 4));
 	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
 	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
-	one_vram_buffer(',', NTADR_A(12, 4));
+	one_vram_buffer('@', NTADR_A(12, 4));
 	one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4));
 	one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
 	one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
 
-	multi_vram_buffer_horz("  TIME:", 7, NTADR_A(1, 2));
+	multi_vram_buffer_horz("@@TIME:", 7, NTADR_A(1, 2));
 	one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
 	one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
 	one_vram_buffer(':', NTADR_A(10, 2));

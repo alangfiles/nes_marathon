@@ -8325,9 +8325,9 @@ _palette_bg:
 	.byte	$1A
 	.byte	$07
 L21B0:
-	.byte	$20,$20,$53,$54,$45,$50,$53,$3A,$20,$00
+	.byte	$40,$40,$53,$54,$45,$50,$53,$3A,$40,$00
 L21EF:
-	.byte	$20,$20,$54,$49,$4D,$45,$3A,$00
+	.byte	$40,$40,$54,$49,$4D,$45,$3A,$00
 
 .segment	"BSS"
 
@@ -9406,7 +9406,7 @@ L218E:	jsr     decsp2
 .segment	"CODE"
 
 ;
-; multi_vram_buffer_horz("  STEPS: ", 9, NTADR_A(1, 4));
+; multi_vram_buffer_horz("@@STEPS:@", 9, NTADR_A(1, 4));
 ;
 	jsr     decsp3
 	lda     #<(L21B0)
@@ -9442,9 +9442,9 @@ L218E:	jsr     decsp2
 	lda     #$8B
 	jsr     _one_vram_buffer
 ;
-; one_vram_buffer(',', NTADR_A(12, 4));
+; one_vram_buffer('@', NTADR_A(12, 4));
 ;
-	lda     #$2C
+	lda     #$40
 	jsr     pusha
 	ldx     #$20
 	lda     #$8C
@@ -9480,7 +9480,7 @@ L218E:	jsr     decsp2
 	lda     #$8F
 	jsr     _one_vram_buffer
 ;
-; multi_vram_buffer_horz("  TIME:", 7, NTADR_A(1, 2));
+; multi_vram_buffer_horz("@@TIME:", 7, NTADR_A(1, 2));
 ;
 	jsr     decsp3
 	lda     #<(L21EF)
