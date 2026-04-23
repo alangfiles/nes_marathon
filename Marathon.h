@@ -44,6 +44,7 @@ unsigned char time_since_button_press;
 unsigned char motion;
 unsigned char was_running;
 unsigned char was_walking;
+unsigned char index;
 
 unsigned char mph;
 
@@ -55,6 +56,9 @@ unsigned int scroll_x;
 unsigned int temp_int;
 unsigned int largeindex;
 unsigned char scroll_timer;
+
+unsigned char game_mode;
+enum {MODE_TITLE, MODE_GAME};
 
 enum {
   RUNNING,
@@ -74,3 +78,5 @@ void draw_hud(void);
 void process_controller(void);
 void set_sprite_zero(void);
 void update_steps_per_minute(void);
+void load_title(void);
+void init_mode_game(void);

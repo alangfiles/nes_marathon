@@ -11,7 +11,8 @@
 
 
 #include "Marathon.h"
-#include "SCREENS/trackgeneric.h"
+#include "SCREENS/trackflowers.h"
+#include "SCREENS/title.h"
 #include "sprites.h"
 
 const unsigned char palette_sprites[16]={
@@ -35,48 +36,74 @@ void process_powerpad(void){
 	powerpad_old = powerpad_cur;
 }	
 
+
+void init_mode_game(void){
+	ppu_off();
+	pal_bg(palette_bg);
+	pal_spr(palette_sprites);
+
+	clear_vram_buffer();
+
+	steps = 0;
+	seconds = 0;
+	scroll_x = 0;
+	frame_counter = 0;
+	scroll_timer = 0;
+	step_button_lockout = 0;
+	sprite_frame_counter = 0;
+	time_since_button_press = 255;
+	motion = STANDING;
+	powerpad_old = 0;
+	powerpad_new = 0;
+
+	initial_steps_conversion();
+	initial_timer_conversion();
+
+	load_room();
+	ppu_off();
+	set_sprite_zero();
+	// set_scroll_x(0);
+	set_scroll_y(0xff);
+
+	game_mode = MODE_GAME;
+	ppu_on_all();
+}
+
 	
 	
 void main (void) {
 
 	clear_vram_buffer(); 
 	set_vram_buffer();
-	set_scroll_y(0xff); // shift the bg down one pixel
-	
+
 	ppu_off(); // screen off
-	
-	// load the palettes
-	pal_bg(palette_bg); 
-	pal_spr(palette_sprites);
 
 	// use the second set of tiles for sprites
 	bank_spr(1);
-	load_room();
-	
-	set_sprite_zero();	// this needs to be done before ppu_on_all, to make sure the sprite zero is in place for the split
+
+	game_mode = MODE_TITLE;
+	load_title();
+	// game_mode = MODE_GAME;
+	// init_mode_game();
 
 	ppu_on_all(); // turn on screen
 
 
-	// INITIALIZATION
-	//setting these here so we can use gamegenie later
-	steps = 0;
-	seconds = 0;
+	while (1){
 
-	initial_steps_conversion();
-	initial_timer_conversion();
+		while(game_mode == MODE_TITLE){
+			ppu_wait_nmi();
 
-	motion = STANDING;
-	time_since_button_press = 255; // start in standing state
+			debug_controller = pad_poll(0);
+			debug_controller_new = get_pad_new(0);
 
-	//END INITIALIZATION
-	
-	
+			if(debug_controller_new & PAD_START){
+				init_mode_game();
+			}
+		}
 
-	
-	
-	while (1){ 
-		// infinite loop
+
+		while(game_mode == MODE_GAME){
 
 		ppu_wait_nmi(); // wait till beginning of the frame
 		
@@ -131,29 +158,8 @@ void main (void) {
 		process_controller();
 
 		
-	}
-}
-
-void draw_hud(void){
-
-
-	multi_vram_buffer_horz("  STEPS: ", 9, NTADR_A(1, 4));
-	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
-	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
-	one_vram_buffer(',', NTADR_A(12, 4));
-	one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4));
-	one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
-	one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
-	
-	multi_vram_buffer_horz("  TIME:", 7, NTADR_A(1, 2));
-	one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
-	one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
-	one_vram_buffer(':', NTADR_A(10, 2));
-	one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2));
-	one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2));
-	one_vram_buffer(':', NTADR_A(13, 2));
-	one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2));
-	one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
+                } // end MODE_GAME
+        } // end while(1)
 }
 
 void process_controller(void){
@@ -436,15 +442,71 @@ void draw_sprite(){
 }
 
 
+void draw_hud(void){
+
+	multi_vram_buffer_horz("  STEPS: ", 9, NTADR_A(1, 4));
+	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
+	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
+	one_vram_buffer(',', NTADR_A(12, 4));
+	one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4));
+	one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
+	one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
+
+	multi_vram_buffer_horz("  TIME:", 7, NTADR_A(1, 2));
+	one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
+	one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
+	one_vram_buffer(':', NTADR_A(10, 2));
+	one_vram_buffer(0x30+tens_minutes, NTADR_A(11, 2));
+	one_vram_buffer(0x30+ones_minutes, NTADR_A(12, 2));
+	one_vram_buffer(':', NTADR_A(13, 2));
+	one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2));
+	one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
+}
+
+
+void load_title(void){
+	ppu_off();
+	pal_bg(palette_bg);
+	pal_spr(palette_sprites);
+	oam_clear();
+	vram_adr(NAMETABLE_A);
+	for (largeindex = 0; largeindex < 1024; ++largeindex)
+	{
+		vram_put(title[largeindex]);
+		flush_vram_update2();
+	}
+	game_mode = MODE_TITLE;
+	set_scroll_x(0);
+	set_scroll_y(0);
+	ppu_on_all();
+}
+
+void clear_background(void)
+{
+	// draw all 0x00 into the bg
+	vram_adr(NAMETABLE_A);
+	for (largeindex = 0; largeindex < 1024; ++largeindex)
+	{
+		vram_put(0x00);
+		flush_vram_update2();
+	}
+}
+
 void load_room(){
 	ppu_off();
+	clear_background();
 	vram_adr(NAMETABLE_A);
 	for (largeindex = 0; largeindex < 1024; ++largeindex)
 	{ 
-		vram_put(trackgeneric[largeindex]);
-		flush_vram_update2();
+		vram_put(trackflowers[largeindex]);
+		++index;
+		if (index > 1)
+		{ // don't put too much in the vram_buffer
+			flush_vram_update2();
+			index = 0;
+		}
 	}
-	// place a tile for sprite zero hit at x=120, y=104
+	// place a tile for sprite zero hit
 	vram_adr(NTADR_A(01,11));
 	vram_put(0x01);
 	ppu_on_all();
@@ -455,5 +517,5 @@ void set_sprite_zero(void){
 	oam_set(0); // double check that this goes in the zero slot
 	
 	//oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
-	oam_spr(0x01,88,0x02,3); // x=120, y=88, tile=105, attr=3
+	oam_spr(0x01,88,0x02,3);
 }
