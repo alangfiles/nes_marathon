@@ -441,6 +441,11 @@ void initial_timer_conversion(void){
 }
 
 void draw_sprite(){
+	unsigned char progress_x;
+	unsigned int clamped_steps;
+	unsigned long progress_scaled;
+	const unsigned char *progress_cursor_data;
+
 	oam_clear();
 	set_sprite_zero();
 	oam_set(4); // start drawing from slot 4
@@ -449,6 +454,31 @@ void draw_sprite(){
 	if(sprite_frame_counter >= 60){
 		sprite_frame_counter = 0;
 	}
+
+	if(velocity == 0){
+		progress_cursor_data = marathon_man_cursor2_data;
+	} else if(sprite_frame_counter < 15){
+		progress_cursor_data = marathon_man_cursor1_data;
+	} else if(sprite_frame_counter < 30){
+		progress_cursor_data = marathon_man_cursor2_data;
+	} else if(sprite_frame_counter < 45){
+		progress_cursor_data = marathon_man_cursor3_data;
+	} else {
+		progress_cursor_data = marathon_man_cursor2_data;
+	}
+
+	progress_x = 16;
+	if(total_steps_needed > 0){
+		clamped_steps = steps;
+		if(clamped_steps > total_steps_needed){
+			clamped_steps = total_steps_needed;
+		}
+		progress_scaled = ((unsigned long)clamped_steps * 208UL) / (unsigned long)total_steps_needed;
+		progress_x = 16 + (unsigned char)progress_scaled;
+	}
+
+	// Draw progress cursor on the top race bar.
+	oam_meta_spr(progress_x + 5, 74, progress_cursor_data);
 
 	if(motion == RUNNING){
 		// 6 frames, 10 ticks each = 60-frame cycle
@@ -488,7 +518,7 @@ void draw_hud(void){
 	// multi_vram_buffer_horz("@@STEPS:@", 9, NTADR_A(1, 4));
 	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
 	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
-	one_vram_buffer('@', NTADR_A(12, 4));
+	one_vram_buffer(',', NTADR_A(12, 4));
 	one_vram_buffer(0x30+hundreds_step, NTADR_A(13, 4));
 	one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
 	one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
