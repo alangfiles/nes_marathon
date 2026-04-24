@@ -42,11 +42,23 @@ void init_mode_game(void){
 	pal_bg(palette_bg);
 	pal_spr(palette_sprites);
 
+
+	//set race type
+	race_type = selected_option;
+	if(race_type == RACE_5K){
+		total_steps_needed = 6000;
+	} else if (race_type == RACE_10K){
+		total_steps_needed = 12000;
+	} else {
+		total_steps_needed = 52000;
+	}
+
 	clear_vram_buffer();
 
 	steps = 0;
 	seconds = 0;
 	scroll_x = 0;
+	velocity = 0;
 	frame_counter = 0;
 	scroll_timer = 0;
 	step_button_lockout = 0;
@@ -144,21 +156,29 @@ void main (void) {
 
 		//timer stuff
 		++frame_counter;
-		++scroll_timer;
 		if(time_since_button_press < 255){
 			++time_since_button_press;
 		}
-		
 
-		if(motion == RUNNING && scroll_timer >= 8){
-			scroll_timer = 0;
-			scroll_x += 2;
-		} else if(motion == WALKING && scroll_timer >= 16){
-			scroll_timer = 0;
-			++scroll_x;
-		} else if(motion == STANDING){
-			scroll_timer = 0;
+		if(velocity > 4){
+			velocity -= 4;
+		} else {
+			velocity = 0;
 		}
+
+		// Move using the high byte of velocity.
+		scroll_x += (velocity >> 8);
+
+		//old scrolling cod
+		// if(motion == RUNNING && scroll_timer >= 8){
+		// 	scroll_timer = 0;
+		// 	scroll_x += 2;
+		// } else if(motion == WALKING && scroll_timer >= 16){
+		// 	scroll_timer = 0;
+		// 	++scroll_x;
+		// } else if(motion == STANDING){
+		// 	scroll_timer = 0;
+		// }
 		
 
 		if(step_button_lockout > 0){
@@ -313,6 +333,10 @@ void add_step(void){
 	}
 	update_steps_per_minute(); // calculate SPM before resetting the timer
 	sprite_timer = 0; //used for animation
+	velocity += 100;
+	if(velocity > 800){
+		velocity = 800;
+	}
 
 	time_since_button_press = 0;
 	steps++;
@@ -347,15 +371,12 @@ void add_step(void){
 }
 
 void check_motion(void){
-	// determine motion state from steps-per-minute calculated via frame timing
-	if(time_since_button_press < 36) {
-		// >100 steps per minute
+	// determine animation state directly from current velocity
+	if(velocity >= 320){
 		motion = RUNNING;
-	} else if(time_since_button_press <= 120) {
-		// 30-100 steps per minute
+	} else if(velocity > 0){
 		motion = WALKING;
 	} else {
-		// <30 steps per minute
 		motion = STANDING;
 	}
 }

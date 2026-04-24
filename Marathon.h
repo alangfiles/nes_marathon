@@ -55,10 +55,12 @@ unsigned char title_animation_frame;
 unsigned char title_frame_counter;
 
 unsigned int scroll_x;
+unsigned int velocity;
 unsigned int temp_int;
 unsigned int largeindex;
 const unsigned char *pointer;
 unsigned char scroll_timer;
+unsigned int total_steps_needed;
 
 unsigned char game_mode;
 unsigned char selected_option;

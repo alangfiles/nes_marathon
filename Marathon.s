@@ -72,9 +72,11 @@
 	.export		_title_animation_frame
 	.export		_title_frame_counter
 	.export		_scroll_x
+	.export		_velocity
 	.export		_largeindex
 	.export		_pointer
 	.export		_scroll_timer
+	.export		_total_steps_needed
 	.export		_game_mode
 	.export		_selected_option
 	.export		_race_type
@@ -8324,9 +8326,9 @@ _palette_bg:
 	.byte	$17
 	.byte	$1A
 	.byte	$07
-L21B0:
+L21BB:
 	.byte	$40,$40,$53,$54,$45,$50,$53,$3A,$40,$00
-L21EF:
+L21FA:
 	.byte	$40,$40,$54,$49,$4D,$45,$3A,$00
 
 .segment	"BSS"
@@ -8408,12 +8410,16 @@ _title_frame_counter:
 	.res	1,$00
 _scroll_x:
 	.res	2,$00
+_velocity:
+	.res	2,$00
 _largeindex:
 	.res	2,$00
 _pointer:
 	.res	2,$00
 _scroll_timer:
 	.res	1,$00
+_total_steps_needed:
+	.res	2,$00
 _game_mode:
 	.res	1,$00
 _selected_option:
@@ -8438,20 +8444,50 @@ _race_type:
 ;
 ; return; //still in lockout period
 ;
-	bne     L20A4
+	beq     L240F
+;
+; }
+;
+	rts
 ;
 ; update_steps_per_minute(); // calculate SPM before resetting the timer
 ;
-	jsr     _update_steps_per_minute
+L240F:	jsr     _update_steps_per_minute
 ;
 ; sprite_timer = 0; //used for animation
 ;
 	lda     #$00
 	sta     _sprite_timer
 ;
+; velocity += 100;
+;
+	lda     #$64
+	clc
+	adc     _velocity
+	sta     _velocity
+	bcc     L2087
+	inc     _velocity+1
+;
+; if(velocity > 800){
+;
+L2087:	lda     _velocity
+	cmp     #$21
+	lda     _velocity+1
+	sbc     #$03
+	lda     #$00
+	bcc     L2409
+;
+; velocity = 800;
+;
+	ldx     #$03
+	lda     #$20
+	sta     _velocity
+	stx     _velocity+1
+;
 ; time_since_button_press = 0;
 ;
-	sta     _time_since_button_press
+	lda     #$00
+L2409:	sta     _time_since_button_press
 ;
 ; steps++;
 ;
@@ -8459,9 +8495,9 @@ _race_type:
 	ldx     _steps+1
 	clc
 	adc     #$01
-	bcc     L2085
+	bcc     L208F
 	inx
-L2085:	sta     _steps
+L208F:	sta     _steps
 	stx     _steps+1
 ;
 ; step_button_lockout = FRAMES_PER_STEP; //lock out for a few frames to avoid double counting
@@ -8473,7 +8509,7 @@ L2085:	sta     _steps
 ;
 	lda     _ones_step
 	cmp     #$09
-	bne     L2401
+	bne     L240E
 ;
 ; ones_step = 0;
 ;
@@ -8484,7 +8520,7 @@ L2085:	sta     _steps
 ;
 	lda     _tens_step
 	cmp     #$09
-	bne     L2400
+	bne     L240D
 ;
 ; tens_step = 0;
 ;
@@ -8495,7 +8531,7 @@ L2085:	sta     _steps
 ;
 	lda     _hundreds_step
 	cmp     #$09
-	bne     L23FF
+	bne     L240C
 ;
 ; hundreds_step = 0;
 ;
@@ -8506,7 +8542,7 @@ L2085:	sta     _steps
 ;
 	lda     _thousands_step
 	cmp     #$09
-	bne     L23FE
+	bne     L240B
 ;
 ; thousands_step = 0;
 ;
@@ -8517,7 +8553,7 @@ L2085:	sta     _steps
 ;
 	lda     _ten_thousands_step
 	cmp     #$09
-	bne     L23FD
+	bne     L240A
 ;
 ; ten_thousands_step = 0;
 ;
@@ -8530,7 +8566,7 @@ L2085:	sta     _steps
 ;
 ; ten_thousands_step++;
 ;
-L23FD:	inc     _ten_thousands_step
+L240A:	inc     _ten_thousands_step
 ;
 ; } else {
 ;
@@ -8538,7 +8574,7 @@ L23FD:	inc     _ten_thousands_step
 ;
 ; thousands_step++;
 ;
-L23FE:	inc     _thousands_step
+L240B:	inc     _thousands_step
 ;
 ; } else {
 ;
@@ -8546,7 +8582,7 @@ L23FE:	inc     _thousands_step
 ;
 ; hundreds_step++;
 ;
-L23FF:	inc     _hundreds_step
+L240C:	inc     _hundreds_step
 ;
 ; } else {
 ;
@@ -8554,7 +8590,7 @@ L23FF:	inc     _hundreds_step
 ;
 ; tens_step++;
 ;
-L2400:	inc     _tens_step
+L240D:	inc     _tens_step
 ;
 ; } else {
 ;
@@ -8562,11 +8598,11 @@ L2400:	inc     _tens_step
 ;
 ; ones_step++;
 ;
-L2401:	inc     _ones_step
+L240E:	inc     _ones_step
 ;
 ; }
 ;
-L20A4:	rts
+	rts
 
 .endproc
 
@@ -8587,16 +8623,16 @@ L20A4:	rts
 	ldx     _seconds+1
 	clc
 	adc     #$01
-	bcc     L2057
+	bcc     L205A
 	inx
-L2057:	sta     _seconds
+L205A:	sta     _seconds
 	stx     _seconds+1
 ;
 ; if(ones_seconds == 9){
 ;
 	lda     _ones_seconds
 	cmp     #$09
-	bne     L2407
+	bne     L2415
 ;
 ; ones_seconds = 0;
 ;
@@ -8607,7 +8643,7 @@ L2057:	sta     _seconds
 ;
 	lda     _tens_seconds
 	cmp     #$05
-	bne     L2406
+	bne     L2414
 ;
 ; tens_seconds = 0;
 ;
@@ -8618,7 +8654,7 @@ L2057:	sta     _seconds
 ;
 	lda     _ones_minutes
 	cmp     #$09
-	bne     L2405
+	bne     L2413
 ;
 ; ones_minutes = 0;
 ;
@@ -8629,7 +8665,7 @@ L2057:	sta     _seconds
 ;
 	lda     _tens_minutes
 	cmp     #$05
-	bne     L2404
+	bne     L2412
 ;
 ; tens_minutes = 0;
 ;
@@ -8640,7 +8676,7 @@ L2057:	sta     _seconds
 ;
 	lda     _ones_hours
 	cmp     #$09
-	bne     L2403
+	bne     L2411
 ;
 ; ones_hours = 0;
 ;
@@ -8651,7 +8687,7 @@ L2057:	sta     _seconds
 ;
 	lda     _tens_hours
 	cmp     #$02
-	bne     L2402
+	bne     L2410
 ;
 ; tens_hours = 0;
 ;
@@ -8664,7 +8700,7 @@ L2057:	sta     _seconds
 ;
 ; tens_hours++;
 ;
-L2402:	inc     _tens_hours
+L2410:	inc     _tens_hours
 ;
 ; } else {
 ;
@@ -8672,7 +8708,7 @@ L2402:	inc     _tens_hours
 ;
 ; ones_hours++;
 ;
-L2403:	inc     _ones_hours
+L2411:	inc     _ones_hours
 ;
 ; } else {
 ;
@@ -8680,7 +8716,7 @@ L2403:	inc     _ones_hours
 ;
 ; tens_minutes++;
 ;
-L2404:	inc     _tens_minutes
+L2412:	inc     _tens_minutes
 ;
 ; } else {
 ;
@@ -8688,7 +8724,7 @@ L2404:	inc     _tens_minutes
 ;
 ; ones_minutes++;
 ;
-L2405:	inc     _ones_minutes
+L2413:	inc     _ones_minutes
 ;
 ; } else {
 ;
@@ -8696,7 +8732,7 @@ L2405:	inc     _ones_minutes
 ;
 ; tens_seconds++;
 ;
-L2406:	inc     _tens_seconds
+L2414:	inc     _tens_seconds
 ;
 ; } else {
 ;
@@ -8704,7 +8740,7 @@ L2406:	inc     _tens_seconds
 ;
 ; ones_seconds++;
 ;
-L2407:	inc     _ones_seconds
+L2415:	inc     _ones_seconds
 ;
 ; }
 ;
@@ -9038,22 +9074,24 @@ L2407:	inc     _ones_seconds
 .segment	"CODE"
 
 ;
-; if(time_since_button_press < 36) {
+; if(velocity >= 320){
 ;
-	lda     _time_since_button_press
-	cmp     #$24
-	bcs     L2409
+	lda     _velocity
+	cmp     #$40
+	lda     _velocity+1
+	sbc     #$01
+	bcc     L20B1
 ;
 ; motion = RUNNING;
 ;
 	lda     #$00
 ;
-; } else if(time_since_button_press <= 120) {
+; } else if(velocity > 0){
 ;
-	jmp     L2408
-L2409:	lda     _time_since_button_press
-	cmp     #$79
-	bcs     L240A
+	jmp     L2416
+L20B1:	lda     _velocity
+	ora     _velocity+1
+	beq     L2417
 ;
 ; motion = WALKING;
 ;
@@ -9061,12 +9099,12 @@ L2409:	lda     _time_since_button_press
 ;
 ; } else {
 ;
-	jmp     L2408
+	jmp     L2416
 ;
 ; motion = STANDING;
 ;
-L240A:	lda     #$02
-L2408:	sta     _motion
+L2417:	lda     #$02
+L2416:	sta     _motion
 ;
 ; }
 ;
@@ -9104,9 +9142,9 @@ L2408:	sta     _motion
 	lda     #$00
 	sta     _largeindex
 	sta     _largeindex+1
-L23D9:	ldx     _largeindex+1
+L23E4:	ldx     _largeindex+1
 	cpx     #$04
-	bcs     L23DA
+	bcs     L23E5
 ;
 ; vram_put(trackflowers[largeindex]);
 ;
@@ -9128,7 +9166,7 @@ L23D9:	ldx     _largeindex+1
 ;
 	lda     _index
 	cmp     #$02
-	bcc     L23DB
+	bcc     L23E6
 ;
 ; flush_vram_update2();
 ;
@@ -9141,14 +9179,14 @@ L23D9:	ldx     _largeindex+1
 ;
 ; for (largeindex = 0; largeindex < 1024; ++largeindex)
 ;
-L23DB:	inc     _largeindex
-	bne     L23D9
+L23E6:	inc     _largeindex
+	bne     L23E4
 	inc     _largeindex+1
-	jmp     L23D9
+	jmp     L23E4
 ;
 ; vram_adr(NTADR_A(01,11));
 ;
-L23DA:	ldx     #$21
+L23E5:	ldx     #$21
 	lda     #$61
 	jsr     _vram_adr
 ;
@@ -9195,7 +9233,7 @@ L23DA:	ldx     #$21
 ;
 	lda     _sprite_frame_counter
 	cmp     #$3C
-	bcc     L240B
+	bcc     L2418
 ;
 ; sprite_frame_counter = 0;
 ;
@@ -9204,14 +9242,14 @@ L23DA:	ldx     #$21
 ;
 ; if(motion == RUNNING){
 ;
-L240B:	lda     _motion
-	jne     L2410
+L2418:	lda     _motion
+	jne     L241D
 ;
 ; if(sprite_frame_counter < 10){
 ;
 	lda     _sprite_frame_counter
 	cmp     #$0A
-	bcs     L240C
+	bcs     L2419
 ;
 ; oam_meta_spr(120, 120, marathon_man_run1_data);
 ;
@@ -9227,9 +9265,9 @@ L240B:	lda     _motion
 ;
 ; } else if(sprite_frame_counter < 20){
 ;
-L240C:	lda     _sprite_frame_counter
+L2419:	lda     _sprite_frame_counter
 	cmp     #$14
-	bcs     L240D
+	bcs     L241A
 ;
 ; oam_meta_spr(120, 120, marathon_man_run2_data);
 ;
@@ -9245,9 +9283,9 @@ L240C:	lda     _sprite_frame_counter
 ;
 ; } else if(sprite_frame_counter < 30){
 ;
-L240D:	lda     _sprite_frame_counter
+L241A:	lda     _sprite_frame_counter
 	cmp     #$1E
-	bcs     L240E
+	bcs     L241B
 ;
 ; oam_meta_spr(120, 120, marathon_man_run3_data);
 ;
@@ -9263,9 +9301,9 @@ L240D:	lda     _sprite_frame_counter
 ;
 ; } else if(sprite_frame_counter < 40){
 ;
-L240E:	lda     _sprite_frame_counter
+L241B:	lda     _sprite_frame_counter
 	cmp     #$28
-	bcs     L240F
+	bcs     L241C
 ;
 ; oam_meta_spr(120, 120, marathon_man_run4_data);
 ;
@@ -9281,9 +9319,9 @@ L240E:	lda     _sprite_frame_counter
 ;
 ; } else if(sprite_frame_counter < 50){
 ;
-L240F:	lda     _sprite_frame_counter
+L241C:	lda     _sprite_frame_counter
 	cmp     #$32
-	bcs     L2182
+	bcs     L218D
 ;
 ; oam_meta_spr(120, 120, marathon_man_run5_data);
 ;
@@ -9299,7 +9337,7 @@ L240F:	lda     _sprite_frame_counter
 ;
 ; oam_meta_spr(120, 120, marathon_man_run6_data);
 ;
-L2182:	jsr     decsp2
+L218D:	jsr     decsp2
 	lda     #$78
 	ldy     #$01
 	sta     (sp),y
@@ -9311,15 +9349,15 @@ L2182:	jsr     decsp2
 ;
 ; } else if(motion == WALKING){
 ;
-L2410:	lda     _motion
+L241D:	lda     _motion
 	cmp     #$01
-	bne     L218E
+	bne     L2199
 ;
 ; if(sprite_frame_counter < 15){
 ;
 	lda     _sprite_frame_counter
 	cmp     #$0F
-	bcs     L2411
+	bcs     L241E
 ;
 ; oam_meta_spr(120, 120, marathon_man_walk1_data);
 ;
@@ -9335,9 +9373,9 @@ L2410:	lda     _motion
 ;
 ; } else if(sprite_frame_counter < 30){
 ;
-L2411:	lda     _sprite_frame_counter
+L241E:	lda     _sprite_frame_counter
 	cmp     #$1E
-	bcs     L2412
+	bcs     L241F
 ;
 ; oam_meta_spr(120, 120, marathon_man_walk2_data);
 ;
@@ -9353,9 +9391,9 @@ L2411:	lda     _sprite_frame_counter
 ;
 ; } else if(sprite_frame_counter < 45){
 ;
-L2412:	lda     _sprite_frame_counter
+L241F:	lda     _sprite_frame_counter
 	cmp     #$2D
-	bcs     L219E
+	bcs     L21A9
 ;
 ; oam_meta_spr(120, 120, marathon_man_walk3_data);
 ;
@@ -9371,7 +9409,7 @@ L2412:	lda     _sprite_frame_counter
 ;
 ; oam_meta_spr(120, 120, marathon_man_walk4_data);
 ;
-L219E:	jsr     decsp2
+L21A9:	jsr     decsp2
 	lda     #$78
 	ldy     #$01
 	sta     (sp),y
@@ -9383,7 +9421,7 @@ L219E:	jsr     decsp2
 ;
 ; oam_meta_spr(120, 120, marathon_man_walk1_data);
 ;
-L218E:	jsr     decsp2
+L2199:	jsr     decsp2
 	lda     #$78
 	ldy     #$01
 	sta     (sp),y
@@ -9409,11 +9447,11 @@ L218E:	jsr     decsp2
 ; multi_vram_buffer_horz("@@STEPS:@", 9, NTADR_A(1, 4));
 ;
 	jsr     decsp3
-	lda     #<(L21B0)
+	lda     #<(L21BB)
 	ldy     #$01
 	sta     (sp),y
 	iny
-	lda     #>(L21B0)
+	lda     #>(L21BB)
 	sta     (sp),y
 	lda     #$09
 	ldy     #$00
@@ -9483,11 +9521,11 @@ L218E:	jsr     decsp2
 ; multi_vram_buffer_horz("@@TIME:", 7, NTADR_A(1, 2));
 ;
 	jsr     decsp3
-	lda     #<(L21EF)
+	lda     #<(L21FA)
 	ldy     #$01
 	sta     (sp),y
 	iny
-	lda     #>(L21EF)
+	lda     #>(L21FA)
 	sta     (sp),y
 	lda     #$07
 	ldy     #$00
@@ -9589,20 +9627,20 @@ L218E:	jsr     decsp2
 ;
 	lda     _debug_controller_new
 	and     #$80
-	bne     L2413
+	bne     L2420
 	lda     _debug_controller_new
 	and     #$40
-	beq     L202D
+	beq     L2030
 ;
 ; add_step();
 ;
-L2413:	jsr     _add_step
+L2420:	jsr     _add_step
 ;
 ; if(powerpad_new & POWERPAD_1){
 ;
-L202D:	lda     _powerpad_new+1
+L2030:	lda     _powerpad_new+1
 	and     #$10
-	beq     L2031
+	beq     L2034
 ;
 ; add_step();
 ;
@@ -9610,9 +9648,9 @@ L202D:	lda     _powerpad_new+1
 ;
 ; if(powerpad_new & POWERPAD_2){
 ;
-L2031:	lda     _powerpad_new+1
+L2034:	lda     _powerpad_new+1
 	and     #$40
-	beq     L2034
+	beq     L2037
 ;
 ; add_step();
 ;
@@ -9620,9 +9658,9 @@ L2031:	lda     _powerpad_new+1
 ;
 ; if(powerpad_new & POWERPAD_3){
 ;
-L2034:	lda     _powerpad_new+1
+L2037:	lda     _powerpad_new+1
 	and     #$20
-	beq     L2037
+	beq     L203A
 ;
 ; add_step();
 ;
@@ -9630,9 +9668,9 @@ L2034:	lda     _powerpad_new+1
 ;
 ; if(powerpad_new & POWERPAD_4){
 ;
-L2037:	lda     _powerpad_new+1
+L203A:	lda     _powerpad_new+1
 	and     #$80
-	beq     L203A
+	beq     L203D
 ;
 ; add_step();
 ;
@@ -9640,9 +9678,9 @@ L2037:	lda     _powerpad_new+1
 ;
 ; if(powerpad_new & POWERPAD_5){
 ;
-L203A:	lda     _powerpad_new+1
+L203D:	lda     _powerpad_new+1
 	and     #$04
-	beq     L203D
+	beq     L2040
 ;
 ; add_step();
 ;
@@ -9650,9 +9688,9 @@ L203A:	lda     _powerpad_new+1
 ;
 ; if(powerpad_new & POWERPAD_6){
 ;
-L203D:	lda     _powerpad_new
+L2040:	lda     _powerpad_new
 	and     #$40
-	beq     L2040
+	beq     L2043
 ;
 ; add_step();
 ;
@@ -9660,9 +9698,9 @@ L203D:	lda     _powerpad_new
 ;
 ; if(powerpad_new & POWERPAD_7){
 ;
-L2040:	lda     _powerpad_new
+L2043:	lda     _powerpad_new
 	and     #$01
-	beq     L2043
+	beq     L2046
 ;
 ; add_step();
 ;
@@ -9670,9 +9708,9 @@ L2040:	lda     _powerpad_new
 ;
 ; if(powerpad_new & POWERPAD_8){
 ;
-L2043:	lda     _powerpad_new+1
+L2046:	lda     _powerpad_new+1
 	and     #$02
-	beq     L2046
+	beq     L2049
 ;
 ; add_step();
 ;
@@ -9680,9 +9718,9 @@ L2043:	lda     _powerpad_new+1
 ;
 ; if(powerpad_new & POWERPAD_9){
 ;
-L2046:	lda     _powerpad_new+1
+L2049:	lda     _powerpad_new+1
 	and     #$01
-	beq     L2049
+	beq     L204C
 ;
 ; add_step();
 ;
@@ -9690,9 +9728,9 @@ L2046:	lda     _powerpad_new+1
 ;
 ; if(powerpad_new & POWERPAD_10){
 ;
-L2049:	lda     _powerpad_new
+L204C:	lda     _powerpad_new
 	and     #$10
-	beq     L204C
+	beq     L204F
 ;
 ; add_step();
 ;
@@ -9700,9 +9738,9 @@ L2049:	lda     _powerpad_new
 ;
 ; if(powerpad_new & POWERPAD_11){
 ;
-L204C:	lda     _powerpad_new
+L204F:	lda     _powerpad_new
 	and     #$04
-	beq     L204F
+	beq     L2052
 ;
 ; add_step();
 ;
@@ -9710,7 +9748,7 @@ L204C:	lda     _powerpad_new
 ;
 ; if(powerpad_new & POWERPAD_12){
 ;
-L204F:	lda     _powerpad_new+1
+L2052:	lda     _powerpad_new+1
 	and     #$08
 ;
 ; add_step();
@@ -9771,15 +9809,15 @@ L204F:	lda     _powerpad_new+1
 ;
 	ldx     #$00
 	lda     _time_since_button_press
-	beq     L2419
+	beq     L2426
 	cmp     #$FF
-	bcc     L2417
+	bcc     L2424
 	txa
-	jmp     L2419
+	jmp     L2426
 ;
 ; steps_per_minute = 3600u / (unsigned int)time_since_button_press;
 ;
-L2417:	ldx     #$0E
+L2424:	ldx     #$0E
 	lda     #$10
 	jsr     pushax
 	lda     _time_since_button_press
@@ -9787,7 +9825,7 @@ L2417:	ldx     #$0E
 ;
 ; steps_per_minute = 0;
 ;
-L2419:	sta     _steps_per_minute
+L2426:	sta     _steps_per_minute
 	stx     _steps_per_minute+1
 ;
 ; temp_int = steps_per_minute;
@@ -9886,9 +9924,9 @@ L2419:	sta     _steps_per_minute
 	lda     #$00
 	sta     _largeindex
 	sta     _largeindex+1
-L23AD:	ldx     _largeindex+1
+L23B8:	ldx     _largeindex+1
 	cpx     #$04
-	bcs     L23AE
+	bcs     L23B9
 ;
 ; vram_put(title[largeindex]);
 ;
@@ -9909,13 +9947,13 @@ L23AD:	ldx     _largeindex+1
 ; for (largeindex = 0; largeindex < 1024; ++largeindex)
 ;
 	inc     _largeindex
-	bne     L23AD
+	bne     L23B8
 	inc     _largeindex+1
-	jmp     L23AD
+	jmp     L23B8
 ;
 ; title_animation_frame = 0;
 ;
-L23AE:	lda     #$00
+L23B9:	lda     #$00
 	sta     _title_animation_frame
 ;
 ; title_frame_counter = 0;
@@ -9970,6 +10008,44 @@ L23AE:	lda     #$00
 	ldx     #>(_palette_sprites)
 	jsr     _pal_spr
 ;
+; race_type = selected_option;
+;
+	lda     _selected_option
+	sta     _race_type
+;
+; if(race_type == RACE_5K){
+;
+	lda     _race_type
+	bne     L2428
+;
+; total_steps_needed = 6000;
+;
+	ldx     #$17
+	lda     #$70
+;
+; } else if (race_type == RACE_10K){
+;
+	jmp     L2429
+L2428:	lda     _race_type
+	cmp     #$01
+	bne     L1F91
+;
+; total_steps_needed = 12000;
+;
+	ldx     #$2E
+	lda     #$E0
+;
+; } else {
+;
+	jmp     L2429
+;
+; total_steps_needed = 52000;
+;
+L1F91:	ldx     #$CB
+	lda     #$20
+L2429:	sta     _total_steps_needed
+	stx     _total_steps_needed+1
+;
 ; clear_vram_buffer();
 ;
 	jsr     _clear_vram_buffer
@@ -9989,6 +10065,11 @@ L23AE:	lda     #$00
 ;
 	sta     _scroll_x
 	sta     _scroll_x+1
+;
+; velocity = 0;
+;
+	sta     _velocity
+	sta     _velocity+1
 ;
 ; frame_counter = 0;
 ;
@@ -10114,9 +10195,9 @@ L23AE:	lda     #$00
 	lda     #$00
 	sta     _largeindex
 	sta     _largeindex+1
-L2272:	ldx     _largeindex+1
+L227D:	ldx     _largeindex+1
 	cpx     #$04
-	bcs     L2273
+	bcs     L227E
 ;
 ; vram_put(0x00);
 ;
@@ -10130,13 +10211,13 @@ L2272:	ldx     _largeindex+1
 ; for(largeindex = 0; largeindex < 1024; ++largeindex){
 ;
 	inc     _largeindex
-	bne     L2272
+	bne     L227D
 	inc     _largeindex+1
-	jmp     L2272
+	jmp     L227D
 ;
 ; vram_adr(NTADR_A(10, 10));
 ;
-L2273:	ldx     #$21
+L227E:	ldx     #$21
 	lda     #$4A
 	jsr     _vram_adr
 ;
@@ -10238,11 +10319,11 @@ L2273:	ldx     #$21
 ; one_vram_buffer((selected_option == 0) ? '>' : ' ', NTADR_A(9, 10));
 ;
 	lda     _selected_option
-	bne     L241A
+	bne     L242A
 	lda     #$3E
-	jmp     L241B
-L241A:	lda     #$20
-L241B:	jsr     pusha
+	jmp     L242B
+L242A:	lda     #$20
+L242B:	jsr     pusha
 	ldx     #$21
 	lda     #$49
 	jsr     _one_vram_buffer
@@ -10251,11 +10332,11 @@ L241B:	jsr     pusha
 ;
 	lda     _selected_option
 	cmp     #$01
-	bne     L241C
+	bne     L242C
 	lda     #$3E
-	jmp     L241D
-L241C:	lda     #$20
-L241D:	jsr     pusha
+	jmp     L242D
+L242C:	lda     #$20
+L242D:	jsr     pusha
 	ldx     #$21
 	lda     #$C9
 	jsr     _one_vram_buffer
@@ -10264,11 +10345,11 @@ L241D:	jsr     pusha
 ;
 	lda     _selected_option
 	cmp     #$02
-	bne     L241E
+	bne     L242E
 	lda     #$3E
-	jmp     L241F
-L241E:	lda     #$20
-L241F:	jsr     pusha
+	jmp     L242F
+L242E:	lda     #$20
+L242F:	jsr     pusha
 	ldx     #$22
 	lda     #$49
 	jmp     _one_vram_buffer
@@ -10292,501 +10373,501 @@ L241F:	jsr     pusha
 ;
 ; }
 ;
-	jeq     L22C2
+	jeq     L22CD
 	cmp     #$01
-	jeq     L22C6
+	jeq     L22D1
 	cmp     #$02
-	jeq     L22CA
+	jeq     L22D5
 	cmp     #$03
-	jeq     L22CE
+	jeq     L22D9
 	cmp     #$04
-	jeq     L22D2
+	jeq     L22DD
 	cmp     #$05
-	jeq     L22D6
+	jeq     L22E1
 	cmp     #$06
-	jeq     L22DA
+	jeq     L22E5
 	cmp     #$07
-	jeq     L22DE
+	jeq     L22E9
 	cmp     #$08
-	jeq     L22E2
+	jeq     L22ED
 	cmp     #$09
-	jeq     L22E6
+	jeq     L22F1
 	cmp     #$0A
-	jeq     L22EA
+	jeq     L22F5
 	cmp     #$0B
-	jeq     L22EE
+	jeq     L22F9
 	cmp     #$0C
-	jeq     L22F2
+	jeq     L22FD
 	cmp     #$0D
-	jeq     L22F6
+	jeq     L2301
 	cmp     #$0E
-	jeq     L22FA
+	jeq     L2305
 	cmp     #$0F
-	jeq     L22FE
+	jeq     L2309
 	cmp     #$10
-	jeq     L2302
+	jeq     L230D
 	cmp     #$11
-	jeq     L2306
+	jeq     L2311
 	cmp     #$12
-	jeq     L230A
+	jeq     L2315
 	cmp     #$13
-	jeq     L230E
+	jeq     L2319
 	cmp     #$14
-	jeq     L2312
+	jeq     L231D
 	cmp     #$15
-	jeq     L2316
+	jeq     L2321
 	cmp     #$16
-	jeq     L231A
+	jeq     L2325
 	cmp     #$17
-	jeq     L231E
+	jeq     L2329
 	cmp     #$18
-	jeq     L2322
+	jeq     L232D
 	cmp     #$19
-	jeq     L2326
+	jeq     L2331
 	cmp     #$1A
-	jeq     L232A
+	jeq     L2335
 	cmp     #$1B
-	jeq     L232E
+	jeq     L2339
 	cmp     #$1C
-	jeq     L2332
+	jeq     L233D
 	cmp     #$1D
-	jeq     L2336
+	jeq     L2341
 	cmp     #$1E
-	jeq     L233A
+	jeq     L2345
 	cmp     #$1F
-	jeq     L233E
+	jeq     L2349
 	cmp     #$20
-	jeq     L2342
+	jeq     L234D
 	cmp     #$21
-	jeq     L2346
+	jeq     L2351
 	cmp     #$22
-	jeq     L234A
+	jeq     L2355
 	cmp     #$23
-	jeq     L234E
+	jeq     L2359
 	cmp     #$24
-	jeq     L2352
+	jeq     L235D
 	cmp     #$25
-	jeq     L2356
+	jeq     L2361
 	cmp     #$26
-	jeq     L235A
+	jeq     L2365
 	cmp     #$27
-	jeq     L235E
+	jeq     L2369
 	cmp     #$28
-	jeq     L2362
+	jeq     L236D
 	cmp     #$29
-	jeq     L2366
+	jeq     L2371
 	cmp     #$2A
-	jeq     L236A
+	jeq     L2375
 	cmp     #$2B
-	jeq     L236E
+	jeq     L2379
 	cmp     #$2C
-	jeq     L2372
+	jeq     L237D
 	cmp     #$2D
-	jeq     L2376
+	jeq     L2381
 	cmp     #$2E
-	jeq     L237A
+	jeq     L2385
 	cmp     #$2F
-	jeq     L237E
+	jeq     L2389
 	cmp     #$30
-	jeq     L2382
+	jeq     L238D
 	cmp     #$31
-	jeq     L2386
+	jeq     L2391
 	cmp     #$32
-	jeq     L238A
+	jeq     L2395
 	cmp     #$33
-	jeq     L238E
+	jeq     L2399
 	cmp     #$34
-	jeq     L2392
-	cmp     #$35
-	jeq     L2396
-	cmp     #$36
 	jeq     L239D
-	jmp     L239D
+	cmp     #$35
+	jeq     L23A1
+	cmp     #$36
+	jeq     L23A8
+	jmp     L23A8
 ;
 ; case 0: pointer = marathon_man_alan0_data; break;
 ;
-L22C2:	lda     #>(_marathon_man_alan0_data)
+L22CD:	lda     #>(_marathon_man_alan0_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan0_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 1: pointer = marathon_man_alan1_data; break;
 ;
-L22C6:	lda     #>(_marathon_man_alan1_data)
+L22D1:	lda     #>(_marathon_man_alan1_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan1_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 2: pointer = marathon_man_alan2_data; break;
 ;
-L22CA:	lda     #>(_marathon_man_alan2_data)
+L22D5:	lda     #>(_marathon_man_alan2_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan2_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 3: pointer = marathon_man_alan3_data; break;
 ;
-L22CE:	lda     #>(_marathon_man_alan3_data)
+L22D9:	lda     #>(_marathon_man_alan3_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan3_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 4: pointer = marathon_man_alan4_data; break;
 ;
-L22D2:	lda     #>(_marathon_man_alan4_data)
+L22DD:	lda     #>(_marathon_man_alan4_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan4_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 5: pointer = marathon_man_alan5_data; break; 
 ;
-L22D6:	lda     #>(_marathon_man_alan5_data)
+L22E1:	lda     #>(_marathon_man_alan5_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan5_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 6: pointer = marathon_man_alan6_data; break;
 ;
-L22DA:	lda     #>(_marathon_man_alan6_data)
+L22E5:	lda     #>(_marathon_man_alan6_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan6_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 7: pointer = marathon_man_alan7_data; break;
 ;
-L22DE:	lda     #>(_marathon_man_alan7_data)
+L22E9:	lda     #>(_marathon_man_alan7_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan7_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 8: pointer = marathon_man_alan8_data; break;
 ;
-L22E2:	lda     #>(_marathon_man_alan8_data)
+L22ED:	lda     #>(_marathon_man_alan8_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan8_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 9: pointer = marathon_man_alan9_data; break;
 ;
-L22E6:	lda     #>(_marathon_man_alan9_data)
+L22F1:	lda     #>(_marathon_man_alan9_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan9_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 10: pointer = marathon_man_alan10_data; break;
 ;
-L22EA:	lda     #>(_marathon_man_alan10_data)
+L22F5:	lda     #>(_marathon_man_alan10_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan10_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 11: pointer = marathon_man_alan11_data; break;
 ;
-L22EE:	lda     #>(_marathon_man_alan11_data)
+L22F9:	lda     #>(_marathon_man_alan11_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan11_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 12: pointer = marathon_man_alan12_data; break;
 ;
-L22F2:	lda     #>(_marathon_man_alan12_data)
+L22FD:	lda     #>(_marathon_man_alan12_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan12_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 13: pointer = marathon_man_alan13_data; break;
 ;
-L22F6:	lda     #>(_marathon_man_alan13_data)
+L2301:	lda     #>(_marathon_man_alan13_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan13_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 14: pointer = marathon_man_alan14_data; break;
 ;
-L22FA:	lda     #>(_marathon_man_alan14_data)
+L2305:	lda     #>(_marathon_man_alan14_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan14_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 15: pointer = marathon_man_alan15_data; break;
 ;
-L22FE:	lda     #>(_marathon_man_alan15_data)
+L2309:	lda     #>(_marathon_man_alan15_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan15_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 16: pointer = marathon_man_alan16_data; break;
 ;
-L2302:	lda     #>(_marathon_man_alan16_data)
+L230D:	lda     #>(_marathon_man_alan16_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan16_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 17: pointer = marathon_man_alan17_data; break;
 ;
-L2306:	lda     #>(_marathon_man_alan17_data)
+L2311:	lda     #>(_marathon_man_alan17_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan17_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 18: pointer = marathon_man_alan18_data; break;
 ;
-L230A:	lda     #>(_marathon_man_alan18_data)
+L2315:	lda     #>(_marathon_man_alan18_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan18_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 19: pointer = marathon_man_alan19_data; break;
 ;
-L230E:	lda     #>(_marathon_man_alan19_data)
+L2319:	lda     #>(_marathon_man_alan19_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan19_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 20: pointer = marathon_man_alan20_data; break;
 ;
-L2312:	lda     #>(_marathon_man_alan20_data)
+L231D:	lda     #>(_marathon_man_alan20_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan20_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 21: pointer = marathon_man_alan21_data; break;
 ;
-L2316:	lda     #>(_marathon_man_alan21_data)
+L2321:	lda     #>(_marathon_man_alan21_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan21_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 22: pointer = marathon_man_alan22_data; break;
 ;
-L231A:	lda     #>(_marathon_man_alan22_data)
+L2325:	lda     #>(_marathon_man_alan22_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan22_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 23: pointer = marathon_man_alan23_data; break;
 ;
-L231E:	lda     #>(_marathon_man_alan23_data)
+L2329:	lda     #>(_marathon_man_alan23_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan23_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 24: pointer = marathon_man_alan24_data; break;
 ;
-L2322:	lda     #>(_marathon_man_alan24_data)
+L232D:	lda     #>(_marathon_man_alan24_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan24_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 25: pointer = marathon_man_alan25_data; break;
 ;
-L2326:	lda     #>(_marathon_man_alan25_data)
+L2331:	lda     #>(_marathon_man_alan25_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan25_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 26: pointer = marathon_man_alan26_data; break;
 ;
-L232A:	lda     #>(_marathon_man_alan26_data)
+L2335:	lda     #>(_marathon_man_alan26_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan26_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 27: pointer = marathon_man_alan27_data; break;
 ;
-L232E:	lda     #>(_marathon_man_alan27_data)
+L2339:	lda     #>(_marathon_man_alan27_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan27_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 28: pointer = marathon_man_alan28_data; break;
 ;
-L2332:	lda     #>(_marathon_man_alan28_data)
+L233D:	lda     #>(_marathon_man_alan28_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan28_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 29: pointer = marathon_man_alan29_data; break;
 ;
-L2336:	lda     #>(_marathon_man_alan29_data)
+L2341:	lda     #>(_marathon_man_alan29_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan29_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 30: pointer = marathon_man_alan30_data; break;
 ;
-L233A:	lda     #>(_marathon_man_alan30_data)
+L2345:	lda     #>(_marathon_man_alan30_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan30_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 31: pointer = marathon_man_alan31_data; break;
 ;
-L233E:	lda     #>(_marathon_man_alan31_data)
+L2349:	lda     #>(_marathon_man_alan31_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan31_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 32: pointer = marathon_man_alan32_data; break;
 ;
-L2342:	lda     #>(_marathon_man_alan32_data)
+L234D:	lda     #>(_marathon_man_alan32_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan32_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 33: pointer = marathon_man_alan33_data; break;
 ;
-L2346:	lda     #>(_marathon_man_alan33_data)
+L2351:	lda     #>(_marathon_man_alan33_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan33_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 34: pointer = marathon_man_alan34_data; break;
 ;
-L234A:	lda     #>(_marathon_man_alan34_data)
+L2355:	lda     #>(_marathon_man_alan34_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan34_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 35: pointer = marathon_man_alan35_data; break;
 ;
-L234E:	lda     #>(_marathon_man_alan35_data)
+L2359:	lda     #>(_marathon_man_alan35_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan35_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 36: pointer = marathon_man_alan36_data; break;
 ;
-L2352:	lda     #>(_marathon_man_alan36_data)
+L235D:	lda     #>(_marathon_man_alan36_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan36_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 37: pointer = marathon_man_alan37_data; break;
 ;
-L2356:	lda     #>(_marathon_man_alan37_data)
+L2361:	lda     #>(_marathon_man_alan37_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan37_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 38: pointer = marathon_man_alan38_data; break;
 ;
-L235A:	lda     #>(_marathon_man_alan38_data)
+L2365:	lda     #>(_marathon_man_alan38_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan38_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 39: pointer = marathon_man_alan39_data; break;
 ;
-L235E:	lda     #>(_marathon_man_alan39_data)
+L2369:	lda     #>(_marathon_man_alan39_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan39_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 40: pointer = marathon_man_alan40_data; break;
 ;
-L2362:	lda     #>(_marathon_man_alan40_data)
+L236D:	lda     #>(_marathon_man_alan40_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan40_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 41: pointer = marathon_man_alan41_data; break;
 ;
-L2366:	lda     #>(_marathon_man_alan41_data)
+L2371:	lda     #>(_marathon_man_alan41_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan41_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 42: pointer = marathon_man_alan42_data; break;
 ;
-L236A:	lda     #>(_marathon_man_alan42_data)
+L2375:	lda     #>(_marathon_man_alan42_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan42_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 43: pointer = marathon_man_alan43_data; break;
 ;
-L236E:	lda     #>(_marathon_man_alan43_data)
+L2379:	lda     #>(_marathon_man_alan43_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan43_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 44: pointer = marathon_man_alan44_data; break;
 ;
-L2372:	lda     #>(_marathon_man_alan44_data)
+L237D:	lda     #>(_marathon_man_alan44_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan44_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 45: pointer = marathon_man_alan45_data; break;
 ;
-L2376:	lda     #>(_marathon_man_alan45_data)
+L2381:	lda     #>(_marathon_man_alan45_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan45_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 46: pointer = marathon_man_alan46_data; break;
 ;
-L237A:	lda     #>(_marathon_man_alan46_data)
+L2385:	lda     #>(_marathon_man_alan46_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan46_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 47: pointer = marathon_man_alan47_data; break;
 ;
-L237E:	lda     #>(_marathon_man_alan47_data)
+L2389:	lda     #>(_marathon_man_alan47_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan47_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 48: pointer = marathon_man_alan48_data; break;
 ;
-L2382:	lda     #>(_marathon_man_alan48_data)
+L238D:	lda     #>(_marathon_man_alan48_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan48_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 49: pointer = marathon_man_alan49_data; break;
 ;
-L2386:	lda     #>(_marathon_man_alan49_data)
+L2391:	lda     #>(_marathon_man_alan49_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan49_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 50: pointer = marathon_man_alan50_data; break;
 ;
-L238A:	lda     #>(_marathon_man_alan50_data)
+L2395:	lda     #>(_marathon_man_alan50_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan50_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 51: pointer = marathon_man_alan51_data; break;
 ;
-L238E:	lda     #>(_marathon_man_alan51_data)
+L2399:	lda     #>(_marathon_man_alan51_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan51_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 52: pointer = marathon_man_alan52_data; break;
 ;
-L2392:	lda     #>(_marathon_man_alan52_data)
+L239D:	lda     #>(_marathon_man_alan52_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan52_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; case 53: pointer = marathon_man_alan53_data; break;
 ;
-L2396:	lda     #>(_marathon_man_alan53_data)
+L23A1:	lda     #>(_marathon_man_alan53_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan53_data)
-	jmp     L2420
+	jmp     L2430
 ;
 ; default: pointer = marathon_man_alan54_data; break;
 ;
-L239D:	lda     #>(_marathon_man_alan54_data)
+L23A8:	lda     #>(_marathon_man_alan54_data)
 	sta     _pointer+1
 	lda     #<(_marathon_man_alan54_data)
-L2420:	sta     _pointer
+L2430:	sta     _pointer
 ;
 ; oam_meta_spr(40, 10, pointer);
 ;
@@ -10885,11 +10966,11 @@ L2420:	sta     _pointer
 ;
 ; while(game_mode == MODE_TITLE){
 ;
-	jmp     L2423
+	jmp     L2433
 ;
 ; ppu_wait_nmi();
 ;
-L1FB9:	jsr     _ppu_wait_nmi
+L1FC9:	jsr     _ppu_wait_nmi
 ;
 ; ++title_frame_counter;
 ;
@@ -10899,7 +10980,7 @@ L1FB9:	jsr     _ppu_wait_nmi
 ;
 	lda     _title_frame_counter
 	cmp     #$04
-	bcc     L1FC3
+	bcc     L1FD3
 ;
 ; title_frame_counter = 0;
 ;
@@ -10910,7 +10991,7 @@ L1FB9:	jsr     _ppu_wait_nmi
 ;
 	lda     _title_animation_frame
 	cmp     #$37
-	bcs     L1FC3
+	bcs     L1FD3
 ;
 ; ++title_animation_frame;
 ;
@@ -10918,7 +10999,7 @@ L1FB9:	jsr     _ppu_wait_nmi
 ;
 ; oam_clear();
 ;
-L1FC3:	jsr     _oam_clear
+L1FD3:	jsr     _oam_clear
 ;
 ; set_signature_sprite();
 ;
@@ -10939,7 +11020,7 @@ L1FC3:	jsr     _oam_clear
 ; if(debug_controller_new & PAD_START){
 ;
 	and     #$10
-	beq     L2423
+	beq     L2433
 ;
 ; init_options();
 ;
@@ -10947,16 +11028,16 @@ L1FC3:	jsr     _oam_clear
 ;
 ; while(game_mode == MODE_TITLE){
 ;
-L2423:	lda     _game_mode
-	beq     L1FB9
+L2433:	lda     _game_mode
+	beq     L1FC9
 ;
 ; while(game_mode == MODE_OPTIONS){
 ;
-	jmp     L2427
+	jmp     L2437
 ;
 ; ppu_wait_nmi();
 ;
-L1FD1:	jsr     _ppu_wait_nmi
+L1FE1:	jsr     _ppu_wait_nmi
 ;
 ; debug_controller = pad_poll(0);
 ;
@@ -10973,47 +11054,47 @@ L1FD1:	jsr     _ppu_wait_nmi
 ; if(debug_controller_new & PAD_UP){
 ;
 	and     #$08
-	beq     L2424
+	beq     L2434
 ;
 ; if(selected_option > 0) --selected_option;
 ;
 	lda     _selected_option
-	beq     L1FDE
+	beq     L1FEE
 	dec     _selected_option
 ;
 ; draw_options_screen();
 ;
-L1FDE:	jsr     _draw_options_screen
+L1FEE:	jsr     _draw_options_screen
 ;
 ; if(debug_controller_new & PAD_DOWN){
 ;
-L2424:	lda     _debug_controller_new
+L2434:	lda     _debug_controller_new
 	and     #$04
-	beq     L2425
+	beq     L2435
 ;
 ; if(selected_option < 2) ++selected_option;
 ;
 	lda     _selected_option
 	cmp     #$02
-	bcs     L1FE4
+	bcs     L1FF4
 	inc     _selected_option
 ;
 ; draw_options_screen();
 ;
-L1FE4:	jsr     _draw_options_screen
+L1FF4:	jsr     _draw_options_screen
 ;
 ; if(debug_controller_new & PAD_START || debug_controller_new & PAD_A){
 ;
-L2425:	lda     _debug_controller_new
+L2435:	lda     _debug_controller_new
 	and     #$10
-	bne     L2426
+	bne     L2436
 	lda     _debug_controller_new
 	and     #$80
-	beq     L2427
+	beq     L2437
 ;
 ; race_type = selected_option;
 ;
-L2426:	lda     _selected_option
+L2436:	lda     _selected_option
 	sta     _race_type
 ;
 ; init_mode_game();
@@ -11022,17 +11103,17 @@ L2426:	lda     _selected_option
 ;
 ; while(game_mode == MODE_OPTIONS){
 ;
-L2427:	lda     _game_mode
+L2437:	lda     _game_mode
 	cmp     #$01
-	beq     L1FD1
+	beq     L1FE1
 ;
 ; while(game_mode == MODE_GAME){
 ;
-	jmp     L2432
+	jmp     L243C
 ;
 ; ppu_wait_nmi(); // wait till beginning of the frame
 ;
-L1FEE:	jsr     _ppu_wait_nmi
+L1FFE:	jsr     _ppu_wait_nmi
 ;
 ; set_sprite_zero();
 ;
@@ -11060,79 +11141,57 @@ L1FEE:	jsr     _ppu_wait_nmi
 ;
 	inc     _frame_counter
 ;
-; ++scroll_timer;
-;
-	inc     _scroll_timer
-;
 ; if(time_since_button_press < 255){
 ;
 	lda     _time_since_button_press
 	cmp     #$FF
-	bcs     L2428
+	bcs     L200B
 ;
 ; ++time_since_button_press;
 ;
 	inc     _time_since_button_press
 ;
-; if(motion == RUNNING && scroll_timer >= 8){
+; if(velocity > 4){
 ;
-L2428:	lda     _motion
-	bne     L242B
-	lda     _scroll_timer
-	cmp     #$08
-	bcc     L242B
-;
-; scroll_timer = 0;
-;
+L200B:	lda     _velocity
+	cmp     #$05
+	lda     _velocity+1
+	sbc     #$00
 	lda     #$00
-	sta     _scroll_timer
+	bcc     L2439
 ;
-; scroll_x += 2;
+; velocity -= 4;
 ;
-	lda     #$02
+	lda     _velocity
+	sec
+	sbc     #$04
+	sta     _velocity
+	bcs     L2013
+	dec     _velocity+1
+;
+; } else {
+;
+	jmp     L2013
+;
+; velocity = 0;
+;
+L2439:	sta     _velocity
+	sta     _velocity+1
+;
+; scroll_x += (velocity >> 8);
+;
+L2013:	lda     _velocity+1
 	clc
 	adc     _scroll_x
 	sta     _scroll_x
-	bcc     L242F
-	inc     _scroll_x+1
-;
-; } else if(motion == WALKING && scroll_timer >= 16){
-;
-	jmp     L242F
-L242B:	lda     _motion
-	cmp     #$01
-	bne     L242E
-	lda     _scroll_timer
-	cmp     #$10
-	bcc     L242E
-;
-; scroll_timer = 0;
-;
 	lda     #$00
-	sta     _scroll_timer
-;
-; ++scroll_x;
-;
-	inc     _scroll_x
-	bne     L242F
-	inc     _scroll_x+1
-;
-; } else if(motion == STANDING){
-;
-	jmp     L242F
-L242E:	lda     _motion
-	cmp     #$02
-	bne     L242F
-;
-; scroll_timer = 0;
-;
-	lda     #$00
-	sta     _scroll_timer
+	adc     _scroll_x+1
+	sta     _scroll_x+1
 ;
 ; if(step_button_lockout > 0){
 ;
-L242F:	lda     _step_button_lockout
-	beq     L2430
+	lda     _step_button_lockout
+	beq     L243A
 ;
 ; --step_button_lockout;
 ;
@@ -11140,10 +11199,10 @@ L242F:	lda     _step_button_lockout
 ;
 ; if(frame_counter >= 60){
 ;
-L2430:	lda     _frame_counter
+L243A:	lda     _frame_counter
 	cmp     #$3C
 	lda     #$00
-	bcc     L2431
+	bcc     L243B
 ;
 ; frame_counter = 0;
 ;
@@ -11156,7 +11215,7 @@ L2430:	lda     _frame_counter
 ; debug_controller = pad_poll(0); //for debugging only
 ;
 	lda     #$00
-L2431:	jsr     _pad_poll
+L243B:	jsr     _pad_poll
 	sta     _debug_controller
 ;
 ; debug_controller_new = get_pad_new(0);  
@@ -11194,13 +11253,13 @@ L2431:	jsr     _pad_poll
 ;
 ; while(game_mode == MODE_GAME){
 ;
-L2432:	lda     _game_mode
+L243C:	lda     _game_mode
 	cmp     #$02
-	jeq     L1FEE
+	jeq     L1FFE
 ;
 ; while (1){
 ;
-	jmp     L2423
+	jmp     L2433
 
 .endproc
 
@@ -11226,9 +11285,9 @@ L2432:	lda     _game_mode
 	lda     #$00
 	sta     _largeindex
 	sta     _largeindex+1
-L23C8:	ldx     _largeindex+1
+L23D3:	ldx     _largeindex+1
 	cpx     #$04
-	bcs     L23C9
+	bcs     L23D4
 ;
 ; vram_put(0x00);
 ;
@@ -11242,13 +11301,13 @@ L23C8:	ldx     _largeindex+1
 ; for (largeindex = 0; largeindex < 1024; ++largeindex)
 ;
 	inc     _largeindex
-	bne     L23C8
+	bne     L23D3
 	inc     _largeindex+1
-	jmp     L23C8
+	jmp     L23D3
 ;
 ; }
 ;
-L23C9:	rts
+L23D4:	rts
 
 .endproc
 
