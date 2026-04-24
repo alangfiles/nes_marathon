@@ -55,6 +55,7 @@ unsigned char title_animation_frame;
 unsigned char title_frame_counter;
 
 unsigned int scroll_x;
+unsigned int scroll_subpixel;
 unsigned int velocity;
 unsigned int temp_int;
 unsigned int largeindex;

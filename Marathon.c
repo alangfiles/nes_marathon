@@ -58,6 +58,7 @@ void init_mode_game(void){
 	steps = 0;
 	seconds = 0;
 	scroll_x = 0;
+	scroll_subpixel = 0;
 	velocity = 0;
 	frame_counter = 0;
 	scroll_timer = 0;
@@ -166,8 +167,9 @@ void main (void) {
 			velocity = 0;
 		}
 
-		// Move using the high byte of velocity.
-		scroll_x += (velocity >> 8);
+		// Accumulate subpixel camera movement so low velocity still scrolls.
+		scroll_subpixel += velocity;
+		scroll_x = (scroll_subpixel >> 8);
 
 		//old scrolling cod
 		// if(motion == RUNNING && scroll_timer >= 8){
@@ -334,8 +336,8 @@ void add_step(void){
 	update_steps_per_minute(); // calculate SPM before resetting the timer
 	sprite_timer = 0; //used for animation
 	velocity += 100;
-	if(velocity > 800){
-		velocity = 800;
+	if(velocity > 720){
+		velocity = 720;
 	}
 
 	time_since_button_press = 0;
