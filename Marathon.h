@@ -53,6 +53,8 @@ unsigned char sprite_frame_counter;
 
 unsigned char title_animation_frame;
 unsigned char title_frame_counter;
+unsigned char options_cursor_frame;
+unsigned char options_cursor_timer;
 
 unsigned int scroll_x;
 unsigned int scroll_subpixel;

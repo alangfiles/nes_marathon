@@ -128,17 +128,16 @@ void main (void) {
 
 		while(game_mode == MODE_OPTIONS){
 			ppu_wait_nmi();
+			draw_options_screen();
 
 			debug_controller = pad_poll(0);
 			debug_controller_new = get_pad_new(0);
 
 			if(debug_controller_new & PAD_UP){
 				if(selected_option > 0) --selected_option;
-				draw_options_screen();
 			}
 			if(debug_controller_new & PAD_DOWN){
 				if(selected_option < 2) ++selected_option;
-				draw_options_screen();
 			}
 			if(debug_controller_new & PAD_START || debug_controller_new & PAD_A){
 				race_type = selected_option;
@@ -170,17 +169,6 @@ void main (void) {
 		// Accumulate subpixel camera movement so low velocity still scrolls.
 		scroll_subpixel += velocity;
 		scroll_x = (scroll_subpixel >> 8);
-
-		//old scrolling cod
-		// if(motion == RUNNING && scroll_timer >= 8){
-		// 	scroll_timer = 0;
-		// 	scroll_x += 2;
-		// } else if(motion == WALKING && scroll_timer >= 16){
-		// 	scroll_timer = 0;
-		// 	++scroll_x;
-		// } else if(motion == STANDING){
-		// 	scroll_timer = 0;
-		// }
 		
 
 		if(step_button_lockout > 0){
@@ -497,7 +485,7 @@ void draw_sprite(){
 
 void draw_hud(void){
 
-	multi_vram_buffer_horz("@@STEPS:@", 9, NTADR_A(1, 4));
+	// multi_vram_buffer_horz("@@STEPS:@", 9, NTADR_A(1, 4));
 	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
 	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
 	one_vram_buffer('@', NTADR_A(12, 4));
@@ -505,7 +493,7 @@ void draw_hud(void){
 	one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
 	one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
 
-	multi_vram_buffer_horz("@@TIME:", 7, NTADR_A(1, 2));
+	// multi_vram_buffer_horz("@@TIME:", 7, NTADR_A(1, 2));
 	one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
 	one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
 	one_vram_buffer(':', NTADR_A(10, 2));
@@ -518,10 +506,39 @@ void draw_hud(void){
 
 
 void draw_options_screen(void){
-	// Draw cursor ">" and spaces to deselect all rows first
-	one_vram_buffer((selected_option == 0) ? '>' : ' ', NTADR_A(9, 10));
-	one_vram_buffer((selected_option == 1) ? '>' : ' ', NTADR_A(9, 14));
-	one_vram_buffer((selected_option == 2) ? '>' : ' ', NTADR_A(9, 18));
+	unsigned char cursor_y;
+	const unsigned char *cursor_data;
+
+	++options_cursor_timer;
+	if(options_cursor_timer >= 16){
+		options_cursor_timer = 0;
+		++options_cursor_frame;
+		if(options_cursor_frame >= 4){
+			options_cursor_frame = 0;
+		}
+	}
+
+	if(selected_option == 0){
+		cursor_y = 80;
+	} else if(selected_option == 1){
+		cursor_y = 112;
+	} else {
+		cursor_y = 144;
+	}
+
+	if(options_cursor_frame == 0){
+		cursor_data = marathon_man_cursor1_data;
+	} else if(options_cursor_frame == 1){
+		cursor_data = marathon_man_cursor2_data;
+	} else if(options_cursor_frame == 2){ 
+		cursor_data = marathon_man_cursor3_data;
+	} else {
+		cursor_data = marathon_man_cursor2_data;
+	}
+
+	oam_clear();
+	oam_set(0);
+	oam_meta_spr(68, cursor_y - 2, cursor_data);
 }
 
 void init_options(void){
@@ -532,6 +549,8 @@ void init_options(void){
 	clear_vram_buffer();
 
 	selected_option = 0;
+	options_cursor_frame = 0;
+	options_cursor_timer = 0;
 
 	// Write blank nametable
 	vram_adr(NAMETABLE_A);
@@ -551,9 +570,6 @@ void init_options(void){
 	vram_adr(NTADR_A(10, 18));
 	vram_put('M'); vram_put('A'); vram_put('R'); vram_put('A');
 	vram_put('T'); vram_put('H'); vram_put('O'); vram_put('N');
-	// Initial cursor
-	vram_adr(NTADR_A(9, 10));
-	vram_put('>');
 
 	game_mode = MODE_OPTIONS;
 	set_scroll_x(0);
