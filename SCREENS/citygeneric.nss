@@ -138,7 +138,7 @@ MetaspritePlayBackCursor=0
 FilterCHR=0
 FilterName=1
 FileNameCHR=C:\Users\bburke\OneDrive - Shihab Burke Attorneys at Law, LLC\Documents\GitHub\runningman\Runningman19
-FileNameName=C:\Users\bburke\Documents\GitHub\Marathon Runn\runningman\transitionmap
+FileNameName=C:\Users\bburke\OneDrive - Shihab Burke Attorneys at Law, LLC\Documents\GitHub\runningman\Finalscreens\citygeneric.nam
 FileNamePal=
 FileNameMetaSpriteBank=
 FileNameTileProps=
@@ -171,13 +171,13 @@ CHRUndo=00[10]ff[8]00[10]ff[18]1c7edbcf4b263e631c3e5a7e7b26001c00[2]3c563c2c3e5d
 CHRCopy=7e[4]ff[3]7edb[3]ffbdc37e8100f0f9ff[3]8f0700f009f6fff877ff00fcfeff[3]9f0f00fc02fdfff16eff00[3fd0]
 
 
-NameTable=00[42]54494d453a00[a]4d50483a00[2d]53544550533a00[9]4b43414c3a00[2c]53504d3a00[b]53434f52453a00[2b]5e5f00[19]7e7f00[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c5d00[82]696a6b696a6b66676a[2]6768696a6b696a[2]6b666768696a6b696a6768666768026402[2]6302[3]6302[5]656402[7]656402[6]65640264[2]026302646302[5]6302[5]6364[2]02[2]63[2]65[2]0263026402630263[3]6402[8]630263026463[2]026402640264[2]02[2]6402[3]64[2]02[3]63[2]026402[2]64[2]026302[4]6302[5]636402[8]6402[4]63[2]026302[3]63[2]02[2]630263[2]02[2]640265d1[20]01[3]f601[7]d301[7]e401[7]d301[8]e501[7]e501[7]e501[7]e501[8]f601[7]e501[7]f501[7]f601[8]f501[7]e501[7]f501[7]e501d4[7]d2d4[7]d2d4[7]d2d4[7]d201[7]e301[3]e601[3]e301[7]f401[7]e300[60]
+NameTable=00[102]5e5f00[19]7e7f00[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c5d00[82]696a6b696a6b66676a[2]6768696a6b696a[2]6b666768696a6b696a6768666768026402[2]6302[3]6302[5]656402[7]656402[6]65640264[2]026302646302[5]6302[5]6364[2]02[2]63[2]65[2]0263026402630263[3]6402[8]630263026463[2]026402640264[2]02[2]6402[3]64[2]02[3]63[2]026402[2]64[2]026302[4]6302[5]636402[8]6402[4]63[2]026302[3]63[2]02[2]630263[2]02[2]640265d1[20]01[3]f601[7]d301[7]e401[7]d301[8]e501[7]e501[7]e501[7]e501[8]f601[7]e501[7]f501[7]f601[8]f501[7]e501[7]f501[7]e501d4[7]d2d4[7]d2d4[7]d2d4[7]d201[7]e301[3]e601[3]e301[7]f401[7]e300[60]
 
 
 NameCopy=d301[7]d301[7]d301[7]d301[4]d301[7]d301[7]d301[7]d301[4]d301[7]d301[7]d301[7]d301[4]d301[7]d301[7]d301[7]d301[4]d301[7]d301[7]d301[7]7583848583[2]84f002[2]838485[7]75838485f0027271[2]7261[2]6261[3]71[2]61[2]700263[2]6563[2]65026402[5]637778[2]767778767778767778767879787677787677787677787678790200[2e0]
 
 
-NameUndo=00[42]54494d453a00[a]4d50483a00[2d]53544550533a00[9]4b43414c3a00[2c]53504d3a00[b]53434f52453a00[2b]5e5f00[19]7e7f00[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c5d00[82]696a6b696a6b66676a[2]6768696a6b696a[2]6b666768696a6b696a6768666768026402[2]6302[3]6302[5]656402[7]656402[6]65640264[2]026302646302[5]6302[5]6364[2]02[2]63[2]65[2]0263026402630263[3]6402[8]630263026463[2]026402640264[2]02[2]6402[3]64[2]02[3]63[2]026402[2]64[2]026302[4]6302[5]636402[8]6402[4]63[2]026302[3]63[2]02[2]630263[2]02[2]640265d1[20]01[3]f601[7]d301[7]e401[7]d301[8]e501[7]e501[7]e501[7]e501[8]f601[7]e501[7]f501[7]f601[8]f501[7]e501[7]f501[7]e501d4[7]d2d4[7]d2d4[7]d2d4[7]d201[7]e301[3]e601[3]e301[7]f401[7]e300[60]
+NameUndo=00[102]5e5f00[19]7e7f00[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c5d00[82]696a6b696a6b66676a[2]6768696a6b696a[2]6b666768696a6b696a6768666768026402[2]6302[3]6302[5]656402[7]656402[6]65640264[2]026302646302[5]6302[5]6364[2]02[2]63[2]65[2]0263026402630263[3]6402[8]630263026463[2]026402640264[2]02[2]6402[3]64[2]02[3]63[2]026402[2]64[2]026302[4]6302[5]636402[8]6402[4]63[2]026302[3]63[2]02[2]630263[2]02[2]640265d1[20]01[3]f601[7]d301[7]e401[7]d301[8]e501[7]e501[7]e501[7]e501[8]f601[7]e501[7]f501[7]f601[8]f501[7]e501[7]f501[7]e501d4[7]d2d4[7]d2d4[7]d2d4[7]d201[7]e301[3]e601[3]e301[7]f401[7]e300[60]
 
 
 AttrTable=00[18]a0[8]aa[8]00[10]0f[4]03000f0a
@@ -324,14 +324,14 @@ MetatileSet_8x8_props=00[2000]
 MetatileSet_8x8_propsUndo=00[2000]
 
 
-MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-MetatileSetLabels_8x8=Unlabeled,Unlabeled
-MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
+MetatileSetLabels_8x8=Unlabeled,Unlabeled
+MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
 
 CHRBankLabels=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
@@ -496,18 +496,18 @@ Checkpoint_MetatileSet_8x8_props=00[2000]
 Checkpoint_MetatileSet_8x8_propsUndo=00[2000]
 
 
-Checkpoint_MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-Checkpoint_MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-Checkpoint_MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-Checkpoint_MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-Checkpoint_MetatileSetLabels_8x8=Unlabeled,Unlabeled
-Checkpoint_MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_8x8=Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
 
-Checkpoint_CHRBankLabels=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_CHRBankLabels=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-Checkpoint_CHRBankLabelsUndo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_CHRBankLabelsUndo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
 
 Checkpoint_32_NTSC_MsprDuration=00000006[100]

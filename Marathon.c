@@ -46,7 +46,7 @@ void init_mode_game(void){
 	//set race type
 	race_type = selected_option;
 	if(race_type == RACE_5K){
-		total_steps_needed = 6000;
+		total_steps_needed = 6000; 
 	} else if (race_type == RACE_10K){
 		total_steps_needed = 12000;
 	} else {
@@ -473,7 +473,7 @@ void draw_sprite(){
 		if(clamped_steps > total_steps_needed){
 			clamped_steps = total_steps_needed;
 		}
-		progress_scaled = ((unsigned long)clamped_steps * 208UL) / (unsigned long)total_steps_needed;
+		progress_scaled = ((unsigned long)clamped_steps * 212UL) / (unsigned long)total_steps_needed;
 		progress_x = 16 + (unsigned char)progress_scaled;
 	}
 
@@ -515,7 +515,7 @@ void draw_sprite(){
 
 void draw_hud(void){
 
-	// multi_vram_buffer_horz("@@STEPS:@", 9, NTADR_A(1, 4));
+	multi_vram_buffer_horz("@STEPS:@@", 9, NTADR_A(1, 4));
 	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
 	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
 	one_vram_buffer(',', NTADR_A(12, 4));
@@ -523,7 +523,7 @@ void draw_hud(void){
 	one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
 	one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
 
-	// multi_vram_buffer_horz("@@TIME:", 7, NTADR_A(1, 2));
+	multi_vram_buffer_horz("@TIME:@", 7, NTADR_A(1, 2));
 	one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
 	one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
 	one_vram_buffer(':', NTADR_A(10, 2));

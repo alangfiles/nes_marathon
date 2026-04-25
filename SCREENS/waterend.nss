@@ -47,8 +47,8 @@ BtnPPuMaskB=0
 BtnPPuMaskLinked=1
 VarTileViewTagBuf=0
 VarBgPalCur=3
-VarPalActive=1
-VarTileActive=14
+VarPalActive=0
+VarTileActive=0
 VarBankActive=0
 VarPPUMask=0
 VarPPUMaskSet0=0
@@ -74,8 +74,8 @@ VarNameSelectionT=-1
 VarNameSelectionB=20
 VarNameCopyW=3
 VarNameCopyH=1
-VarCHRSelectionL=14
-VarCHRSelectionR=15
+VarCHRSelectionL=0
+VarCHRSelectionR=1
 VarCHRSelectionT=0
 VarCHRSelectionB=1
 VarCHRCopyW=1
@@ -138,7 +138,7 @@ MetaspritePlayBackCursor=0
 FilterCHR=0
 FilterName=1
 FileNameCHR=C:\Users\bburke\OneDrive - Shihab Burke Attorneys at Law, LLC\Documents\GitHub\runningman\Runningman19
-FileNameName=C:\Users\bburke\Documents\GitHub\Marathon Runn\runningman\transitionmap
+FileNameName=C:\Users\bburke\OneDrive - Shihab Burke Attorneys at Law, LLC\Documents\GitHub\runningman\Finalscreens\waterend.nam
 FileNamePal=
 FileNameMetaSpriteBank=
 FileNameTileProps=
@@ -153,7 +153,7 @@ RadioAutoexport_UseSubDir_NEXXT=0
 CheckAutoexport_MetatileAsBMP=0
 
 
-VarCHRSelected=00[e]0100[f1]
+VarCHRSelected=0100[ff]
 
 
 Palette=0f001a100f111a210f2a1a090f161a050f1c21320f1122330f1223340f1324350f1324360f1526370f1627370f1928380f1829380f1b2a390f1b2b3c0f1c2c3b
@@ -171,13 +171,13 @@ CHRUndo=00[10]ff[8]00[10]ff[18]1c7edbcf4b263e631c3e5a7e7b26001c00[2]3c563c2c3e5d
 CHRCopy=7e[4]ff[3]7edb[3]ffbdc37e8100f0f9ff[3]8f0700f009f6fff877ff00fcfeff[3]9f0f00fc02fdfff16eff00[3fd0]
 
 
-NameTable=00[42]54494d453a00[a]4d50483a00[2d]53544550533a00[9]4b43414c3a00[2c]53504d3a00[b]53434f52453a00[2b]5e5f00[19]7e7f00[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c5d00[a2]0a0b090a[2]090b0c0a09[2]0a0b0c090a[2]090b0c0a0b0c0a090a0b0c090a[2]0f1b1a011a[2]011a011b011a011b011a011c011a011b1c011a[2]011b011c1b1e1f1b011c011c1b011a01[2]1c01[2]1c011b01[2]1a1b01[3]1b01[4]1b1e2e02011a01[3]1b011b01[2]1b1a01[4]1a01[2]1b1c1a01[2]1c011a[2]1e2e65022a2b0e2d2a2b[3]2a2d2b[2]0e2b[2]2a2b2a2b2d2b2a0e2b[2]2a2b2d2e02[2]63151617151617151617151617151617151617[2]151617[2]15161715161715161573[2]0173750173[3]7599[2]73[2]75a983[2]997375018373750199a90199d02583998373[2]75a9018301[2]7583[2]75[2]73[2]9901837501[3]750183a999d080837399a98373017399[2]7301[2]998373017501[2]737501[2]9973017301a9f0808301[4]738501[4]837501a901[2]75019901997501[2]83750199a983f02526272526252725262725262725262527252625[2]2627252625[2]2625[4]02[2]65646302[3]6402[2]6402[2]6402[3]6564636402[4]6302[2]650263767778767778767778767778767778767778767778767778767778767778767800[40]
+NameTable=00[102]5e5f00[19]7e7f00[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c5d00[a2]0a0b090a[2]090b0c0a09[2]0a0b0c090a[2]090b0c0a0b0c0a090a0b0c090a[2]0f1b1a011a[2]011a011b011a011b011a011c011a011b1c011a[2]011b011c1b1e1f1b011c011c1b011a01[2]1c01[2]1c011b01[2]1a1b01[3]1b01[4]1b1e2e02011a01[3]1b011b01[2]1b1a01[4]1a01[2]1b1c1a01[2]1c011a[2]1e2e65022a2b0e2d2a2b[3]2a2d2b[2]0e2b[2]2a2b2a2b2d2b2a0e2b[2]2a2b2d2e02[2]63151617151617151617151617151617151617[2]151617[2]15161715161715161573[2]0173750173[3]7599[2]73[2]75a983[2]997375018373750199a90199d02583998373[2]75a9018301[2]7583[2]75[2]73[2]9901837501[3]750183a999d080837399a98373017399[2]7301[2]998373017501[2]737501[2]9973017301a9f0808301[4]738501[4]837501a901[2]75019901997501[2]83750199a983f02526272526252725262725262725262527252625[2]2627252625[2]2625[4]02[2]65646302[3]6402[2]6402[2]6402[3]6564636402[4]6302[2]650263767778767778767778767778767778767778767778767778767778767778767800[40]
 
 
 NameCopy=767778a4[2]a5b3b4b5[2]b4b602c3c4[3]c50264026302[5]6302[11]6502a3a4[4]a56502[2]63868702[3]b3b4b5[2]b4b602[2]6302969702[2]6302c3c4[3]c5026502[3]656360[c]02[2]657383850173[3]85[3]7301d002630185[2]8301[2]83[3]848583e002[2]74838485017583848583[2]84f002[2]838485[7]75838485f0027271[2]7261[2]6261[3]71[2]61[2]700263[2]6563[2]65026402[5]637778[2]767778767778767778767879787677787677787677787678790200[2e0]
 
 
-NameUndo=00[42]54494d453a00[a]4d50483a00[2d]53544550533a00[9]4b43414c3a00[2c]53504d3a00[b]53434f52453a00[2b]5e5f00[19]7e7f00[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c5d00[a2]0a0b090a[2]090b0c0a09[2]0a0b0c090a[2]090b0c0a0b0c0a090a0b0c090a[2]0f1b1a011a[2]011a011b011a011b011a011c011a011b1c011a[2]011b011c1b1e1f1b011c011c1b011a01[2]1c01[2]1c011b01[2]1a1b01[3]1b01[4]1b1e2e02011a01[3]1b011b01[2]1b1a01[4]1a01[2]1b1c1a01[2]1c011a[2]1e2e65022a2b0e2d2a2b[3]2a2d2b[2]0e2b[2]2a2b2a2b2d2b2a2c2b[2]2a2b2d2e02[2]63151617151617151617151617151617151617[2]151617[2]15161715161715161573[2]0173750173[3]7599[2]73[2]75a983[2]997375018373750199a90199d02583998373[2]75a9018301[2]7583[2]75[2]73[2]9901837501[3]750183a999d080837399a98373017399[2]7301[2]998373017501[2]737501[2]9973017301a9f0808301[4]738501[4]837501a901[2]75019901997501[2]83750199a983f02526272526252725262725262725262527252625[2]2627252625[2]2625[4]02[2]65646302[3]6402[2]6402[2]6402[3]6564636402[4]6302[2]650263767778767778767778767778767778767778767778767778767778767778767800[40]
+NameUndo=00[42]54494d453a00[a]4d50483a00[2d]53544550533a00[9]4b43414c3a00[2c]53504d3a00[b]53434f52453a00[2b]5e5f00[19]7e7f00[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c6d[4]6c5d00[a2]0a0b090a[2]090b0c0a09[2]0a0b0c090a[2]090b0c0a0b0c0a090a0b0c090a[2]0f1b1a011a[2]011a011b011a011b011a011c011a011b1c011a[2]011b011c1b1e1f1b011c011c1b011a01[2]1c01[2]1c011b01[2]1a1b01[3]1b01[4]1b1e2e02011a01[3]1b011b01[2]1b1a01[4]1a01[2]1b1c1a01[2]1c011a[2]1e2e65022a2b0e2d2a2b[3]2a2d2b[2]0e2b[2]2a2b2a2b2d2b2a0e2b[2]2a2b2d2e02[2]63151617151617151617151617151617151617[2]151617[2]15161715161715161573[2]0173750173[3]7599[2]73[2]75a983[2]997375018373750199a90199d02583998373[2]75a9018301[2]7583[2]75[2]73[2]9901837501[3]750183a999d080837399a98373017399[2]7301[2]998373017501[2]737501[2]9973017301a9f0808301[4]738501[4]837501a901[2]75019901997501[2]83750199a983f02526272526252725262725262725262527252625[2]2627252625[2]2625[4]02[2]65646302[3]6402[2]6402[2]6402[3]6564636402[4]6302[2]650263767778767778767778767778767778767778767778767778767778767778767800[40]
 
 
 AttrTable=00[18]50[8]55[7]95ff[8]af[8]0f[7]0a
@@ -324,14 +324,14 @@ MetatileSet_8x8_props=00[2000]
 MetatileSet_8x8_propsUndo=00[2000]
 
 
-MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-MetatileSetLabels_8x8=Unlabeled,Unlabeled
-MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
+MetatileSetLabels_8x8=Unlabeled,Unlabeled
+MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
 
 CHRBankLabels=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
@@ -496,18 +496,18 @@ Checkpoint_MetatileSet_8x8_props=00[2000]
 Checkpoint_MetatileSet_8x8_propsUndo=00[2000]
 
 
-Checkpoint_MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-Checkpoint_MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-Checkpoint_MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-Checkpoint_MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-Checkpoint_MetatileSetLabels_8x8=Unlabeled,Unlabeled
-Checkpoint_MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_8x8=Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
 
-Checkpoint_CHRBankLabels=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_CHRBankLabels=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-Checkpoint_CHRBankLabelsUndo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_CHRBankLabelsUndo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
 
 Checkpoint_32_NTSC_MsprDuration=00000006[100]
