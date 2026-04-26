@@ -197,8 +197,26 @@ void main (void) {
 
 		process_controller();
 
+		if(steps >= total_steps_needed){
+			init_win_screen();
+			break;
+		}
+
 		
                 } // end MODE_GAME
+
+		while(game_mode == MODE_WIN){
+			ppu_wait_nmi();
+			oam_clear();
+
+			debug_controller = pad_poll(0);
+			debug_controller_new = get_pad_new(0);
+
+			if((debug_controller_new & PAD_START) || (debug_controller_new & PAD_A)){
+				load_title();
+			}
+		}
+
         } // end while(1)
 }
 
@@ -602,6 +620,42 @@ void init_options(void){
 	vram_put('T'); vram_put('H'); vram_put('O'); vram_put('N');
 
 	game_mode = MODE_OPTIONS;
+	set_scroll_x(0);
+	set_scroll_y(0);
+	ppu_on_all();
+}
+
+void init_win_screen(void){
+	ppu_off();
+	oam_clear();
+	clear_vram_buffer();
+
+	vram_adr(NAMETABLE_A);
+	vram_fill(0x00, 1024);
+
+	vram_adr(NTADR_A(11, 12));
+	vram_put('Y'); vram_put('O'); vram_put('U');
+	vram_put(' ');
+	vram_put('W'); vram_put('I'); vram_put('N');
+
+	vram_adr(NTADR_A(9, 15));
+	vram_put('T'); vram_put('I'); vram_put('M'); vram_put('E');
+	vram_put(':');
+	vram_put(0x30 + tens_hours);
+	vram_put(0x30 + ones_hours);
+	vram_put(':');
+	vram_put(0x30 + tens_minutes);
+	vram_put(0x30 + ones_minutes);
+	vram_put(':');
+	vram_put(0x30 + tens_seconds);
+	vram_put(0x30 + ones_seconds);
+
+	vram_adr(NTADR_A(6, 20));
+	vram_put('P'); vram_put('R'); vram_put('E'); vram_put('S'); vram_put('S');
+	vram_put(' ');
+	vram_put('S'); vram_put('T'); vram_put('A'); vram_put('R'); vram_put('T');
+
+	game_mode = MODE_WIN;
 	set_scroll_x(0);
 	set_scroll_y(0);
 	ppu_on_all();

@@ -68,7 +68,7 @@ unsigned int total_steps_needed;
 unsigned char game_mode;
 unsigned char selected_option;
 unsigned char race_type;
-enum {MODE_TITLE, MODE_OPTIONS, MODE_GAME};
+enum {MODE_TITLE, MODE_OPTIONS, MODE_GAME, MODE_WIN};
 enum {RACE_5K, RACE_10K, RACE_MARATHON};
 
 enum {
@@ -92,5 +92,6 @@ void update_steps_per_minute(void);
 void load_title(void);
 void init_mode_game(void);
 void init_options(void);
+void init_win_screen(void);
 void draw_options_screen(void);
 void set_signature_sprite(void);
