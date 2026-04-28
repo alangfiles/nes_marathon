@@ -27,6 +27,12 @@ const unsigned char palette_bg[16]={
 	0x0f,0x2a,0x1a,0x0a,
 	0x0f,0x17,0x1a,0x07 };
 
+const unsigned char button_tile_table[12]={
+	0x10, 0x11, 0x12, 0x13,
+	0x23, 0x33, 0x43, 0x53,
+	0x63, 0x73, 0x83, 0x82
+};
+
 
 // do after the read
 void process_powerpad(void){ 
@@ -35,6 +41,110 @@ void process_powerpad(void){
 	
 	powerpad_old = powerpad_cur;
 }	
+
+unsigned int get_powerpad_button_mask(unsigned char button){
+	switch(button){
+		case 1: return POWERPAD_1;
+		case 2: return POWERPAD_2;
+		case 3: return POWERPAD_3;
+		case 4: return POWERPAD_4;
+		case 5: return POWERPAD_5;
+		case 6: return POWERPAD_6;
+		case 7: return POWERPAD_7;
+		case 8: return POWERPAD_8;
+		case 9: return POWERPAD_9;
+		case 10: return POWERPAD_10;
+		case 11: return POWERPAD_11;
+		case 12: return POWERPAD_12;
+		default: return 0;
+	}
+}
+
+unsigned char random_button_value(void){
+	unsigned char value;
+
+	value = rand8() & 0x0f;
+	if(value >= 12){
+		value -= 12;
+	}
+	return value + 1;
+}
+
+void init_button_queue(void){
+	button_queue_0 = random_button_value();
+	button_queue_1 = random_button_value();
+	button_queue_2 = random_button_value();
+	button_queue_3 = random_button_value();
+	button_queue_4 = random_button_value();
+	button_queue_5 = random_button_value();
+	button_queue_6 = random_button_value();
+
+	button_tile_0 = button_tile_table[button_queue_0 - 1];
+	button_tile_1 = button_tile_table[button_queue_1 - 1];
+	button_tile_2 = button_tile_table[button_queue_2 - 1];
+	button_tile_3 = button_tile_table[button_queue_3 - 1];
+	button_tile_4 = button_tile_table[button_queue_4 - 1];
+	button_tile_5 = button_tile_table[button_queue_5 - 1];
+	button_tile_6 = button_tile_table[button_queue_6 - 1];
+
+	button_mask_0 = get_powerpad_button_mask(button_queue_0);
+}
+
+void advance_button_queue(void){
+	button_queue_0 = button_queue_1;
+	button_queue_1 = button_queue_2;
+	button_queue_2 = button_queue_3;
+	button_queue_3 = button_queue_4;
+	button_queue_4 = button_queue_5;
+	button_queue_5 = button_queue_6;
+	button_queue_6 = random_button_value();
+
+	button_tile_0 = button_tile_1;
+	button_tile_1 = button_tile_2;
+	button_tile_2 = button_tile_3;
+	button_tile_3 = button_tile_4;
+	button_tile_4 = button_tile_5;
+	button_tile_5 = button_tile_6;
+	button_tile_6 = button_tile_table[button_queue_6 - 1];
+
+	button_mask_0 = get_powerpad_button_mask(button_queue_0);
+}
+
+void add_score(unsigned char value){
+	score += value;
+
+	temp_int = score;
+	ones_score = temp_int % 10;
+	temp_int /= 10;
+	tens_score = temp_int % 10;
+	temp_int /= 10;
+	hundreds_score = temp_int % 10;
+	temp_int /= 10;
+	thousands_score = temp_int % 10;
+	temp_int /= 10;
+	ten_thousands_score = temp_int % 10;
+}
+
+void draw_button_queue(void){
+	oam_spr(36, 100, button_tile_0, 1);
+	oam_spr(64, 100, button_tile_1, 1);
+	oam_spr(92, 100, button_tile_2, 1);
+	oam_spr(120, 100, button_tile_3, 1);
+	oam_spr(148, 100, button_tile_4, 1);
+	oam_spr(176, 100, button_tile_5, 1);
+	oam_spr(204, 100, button_tile_6, 1);
+}
+
+void init_hud_labels(void){
+	vram_adr(NTADR_A(2, 4));
+	vram_put('S'); vram_put('T'); vram_put('E'); vram_put('P'); vram_put('S'); vram_put(':');
+
+	vram_adr(NTADR_A(2, 2));
+	vram_put('T'); vram_put('I'); vram_put('M'); vram_put('E'); vram_put(':');
+
+	vram_adr(NTADR_A(18, 2));
+	vram_put('S'); vram_put('C'); vram_put('O'); vram_put('R'); vram_put('E'); vram_put(':');
+}
 
 
 void init_mode_game(void){
@@ -46,16 +156,17 @@ void init_mode_game(void){
 	//set race type
 	race_type = selected_option;
 	if(race_type == RACE_5K){
-		total_steps_needed = 6000; 
+		total_steps_needed = 6000u; 
 	} else if (race_type == RACE_10K){
-		total_steps_needed = 12000;
+		total_steps_needed = 12000u;
 	} else {
-		total_steps_needed = 52000;
+		total_steps_needed = 52000u;
 	}
 
 	clear_vram_buffer();
 
 	steps = 0;
+	score = 0;
 	seconds = 0;
 	scroll_x = 0;
 	scroll_subpixel = 0;
@@ -68,12 +179,15 @@ void init_mode_game(void){
 	motion = STANDING;
 	powerpad_old = 0;
 	powerpad_new = 0;
+	add_score(0);
+	init_button_queue();
 
 	initial_steps_conversion();
 	initial_timer_conversion();
 
 	load_room();
 	ppu_off();
+	init_hud_labels();
 	set_sprite_zero();
 	// set_scroll_x(0);
 	set_scroll_y(0xff);
@@ -221,6 +335,11 @@ void main (void) {
 }
 
 void process_controller(void){
+	if(button_mask_0 != 0 && (powerpad_new & button_mask_0)){
+		add_score(10);
+		advance_button_queue();
+	}
+
 	if(debug_controller_new & PAD_A || debug_controller_new & PAD_B){
 		add_step();
 	}
@@ -497,6 +616,7 @@ void draw_sprite(){
 
 	// Draw progress cursor on the top race bar.
 	oam_meta_spr(progress_x + 5, 74, progress_cursor_data);
+	draw_button_queue();
 
 	if(motion == RUNNING){
 		// 6 frames, 10 ticks each = 60-frame cycle
@@ -532,8 +652,6 @@ void draw_sprite(){
 
 
 void draw_hud(void){
-
-	multi_vram_buffer_horz("@STEPS:@@", 9, NTADR_A(1, 4));
 	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
 	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
 	one_vram_buffer(',', NTADR_A(12, 4));
@@ -541,7 +659,6 @@ void draw_hud(void){
 	one_vram_buffer(0x30+tens_step, NTADR_A(14, 4));
 	one_vram_buffer(0x30+ones_step, NTADR_A(15, 4));
 
-	multi_vram_buffer_horz("@TIME:@", 7, NTADR_A(1, 2));
 	one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
 	one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
 	one_vram_buffer(':', NTADR_A(10, 2));
@@ -550,6 +667,12 @@ void draw_hud(void){
 	one_vram_buffer(':', NTADR_A(13, 2));
 	one_vram_buffer(0x30+tens_seconds, NTADR_A(14, 2));
 	one_vram_buffer(0x30+ones_seconds, NTADR_A(15, 2));
+
+	one_vram_buffer(0x30+ten_thousands_score, NTADR_A(24, 2));
+	one_vram_buffer(0x30+thousands_score, NTADR_A(25, 2));
+	one_vram_buffer(0x30+hundreds_score, NTADR_A(26, 2));
+	one_vram_buffer(0x30+tens_score, NTADR_A(27, 2));
+	one_vram_buffer(0x30+ones_score, NTADR_A(28, 2));
 }
 
 
@@ -609,13 +732,13 @@ void init_options(void){
 
 	// Draw option labels directly into VRAM while PPU is off
 	// "5K" at row 10
-	vram_adr(NTADR_A(10, 10));
+	vram_adr(NTADR_A(11, 10));
 	vram_put('5'); vram_put('K');
 	// "10K" at row 14
-	vram_adr(NTADR_A(10, 14));
+	vram_adr(NTADR_A(11, 14));
 	vram_put('1'); vram_put('0'); vram_put('K');
 	// "MARATHON" at row 18
-	vram_adr(NTADR_A(10, 18));
+	vram_adr(NTADR_A(11, 18));
 	vram_put('M'); vram_put('A'); vram_put('R'); vram_put('A');
 	vram_put('T'); vram_put('H'); vram_put('O'); vram_put('N');
 
@@ -638,7 +761,7 @@ void init_win_screen(void){
 	vram_put(' ');
 	vram_put('W'); vram_put('I'); vram_put('N');
 
-	vram_adr(NTADR_A(9, 15));
+	vram_adr(NTADR_A(10, 15));
 	vram_put('T'); vram_put('I'); vram_put('M'); vram_put('E');
 	vram_put(':');
 	vram_put(0x30 + tens_hours);

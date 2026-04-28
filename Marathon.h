@@ -17,11 +17,33 @@ unsigned int temp_int;
 unsigned char last_step;
 
 unsigned int steps;
+unsigned int score;
 unsigned char ones_step;
 unsigned char tens_step;
 unsigned char hundreds_step;
 unsigned char thousands_step;
 unsigned char ten_thousands_step;
+unsigned char ones_score;
+unsigned char tens_score;
+unsigned char hundreds_score;
+unsigned char thousands_score;
+unsigned char ten_thousands_score;
+
+unsigned char button_queue_0;
+unsigned char button_queue_1;
+unsigned char button_queue_2;
+unsigned char button_queue_3;
+unsigned char button_queue_4;
+unsigned char button_queue_5;
+unsigned char button_queue_6;
+unsigned char button_tile_0;
+unsigned char button_tile_1;
+unsigned char button_tile_2;
+unsigned char button_tile_3;
+unsigned char button_tile_4;
+unsigned char button_tile_5;
+unsigned char button_tile_6;
+unsigned int button_mask_0;
 
 unsigned int steps_per_minute;
 unsigned char hundreds_spm;
@@ -78,6 +100,7 @@ enum {
 };
 
 void add_step(void);
+void add_score(unsigned char value);
 void add_second(void);
 void initial_steps_conversion(void);
 void initial_timer_conversion(void);
@@ -87,6 +110,11 @@ void load_room(void);
 void draw_sprite(void);
 void draw_hud(void);
 void process_controller(void);
+void init_button_queue(void);
+void advance_button_queue(void);
+void draw_button_queue(void);
+unsigned int get_powerpad_button_mask(unsigned char button);
+unsigned char random_button_value(void);
 void set_sprite_zero(void);
 void update_steps_per_minute(void);
 void load_title(void);
