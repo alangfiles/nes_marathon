@@ -3,6 +3,8 @@
 
 #define FRAMES_PER_STEP 10
 #define MOTION_HOLD_FRAMES 180
+#define TARGET_RESPAWN_FRAMES 240
+#define TARGET_HIT_X 200
 
 // GLOBAL VARIABLES
 unsigned int powerpad_cur;
@@ -29,21 +31,15 @@ unsigned char hundreds_score;
 unsigned char thousands_score;
 unsigned char ten_thousands_score;
 
-unsigned char button_queue_0;
-unsigned char button_queue_1;
-unsigned char button_queue_2;
-unsigned char button_queue_3;
-unsigned char button_queue_4;
-unsigned char button_queue_5;
-unsigned char button_queue_6;
-unsigned char button_tile_0;
-unsigned char button_tile_1;
-unsigned char button_tile_2;
-unsigned char button_tile_3;
-unsigned char button_tile_4;
-unsigned char button_tile_5;
-unsigned char button_tile_6;
-unsigned int button_mask_0;
+unsigned char target_button;
+unsigned int target_mask;
+unsigned char target_x;
+unsigned char target_spawn_timer;
+unsigned int streak;
+unsigned char hundreds_streak;
+unsigned char tens_streak;
+unsigned char ones_streak;
+const unsigned char *target_sprite_data;
 
 unsigned int steps_per_minute;
 unsigned char hundreds_spm;
@@ -110,9 +106,13 @@ void load_room(void);
 void draw_sprite(void);
 void draw_hud(void);
 void process_controller(void);
-void init_button_queue(void);
-void advance_button_queue(void);
-void draw_button_queue(void);
+void init_target_button(void);
+void spawn_target_button(void);
+void update_target_button(void);
+void draw_target_button(void);
+void reset_streak(void);
+void add_streak_hit(void);
+const unsigned char *get_big_button_sprite(unsigned char button);
 unsigned int get_powerpad_button_mask(unsigned char button);
 unsigned char random_button_value(void);
 void set_sprite_zero(void);

@@ -27,12 +27,6 @@ const unsigned char palette_bg[16]={
 	0x0f,0x2a,0x1a,0x0a,
 	0x0f,0x17,0x1a,0x07 };
 
-const unsigned char button_tile_table[12]={
-	0x10, 0x11, 0x12, 0x13,
-	0x23, 0x33, 0x43, 0x53,
-	0x63, 0x73, 0x83, 0x82
-};
-
 
 // do after the read
 void process_powerpad(void){ 
@@ -70,44 +64,66 @@ unsigned char random_button_value(void){
 	return value + 1;
 }
 
-void init_button_queue(void){
-	button_queue_0 = random_button_value();
-	button_queue_1 = random_button_value();
-	button_queue_2 = random_button_value();
-	button_queue_3 = random_button_value();
-	button_queue_4 = random_button_value();
-	button_queue_5 = random_button_value();
-	button_queue_6 = random_button_value();
-
-	button_tile_0 = button_tile_table[button_queue_0 - 1];
-	button_tile_1 = button_tile_table[button_queue_1 - 1];
-	button_tile_2 = button_tile_table[button_queue_2 - 1];
-	button_tile_3 = button_tile_table[button_queue_3 - 1];
-	button_tile_4 = button_tile_table[button_queue_4 - 1];
-	button_tile_5 = button_tile_table[button_queue_5 - 1];
-	button_tile_6 = button_tile_table[button_queue_6 - 1];
-
-	button_mask_0 = get_powerpad_button_mask(button_queue_0);
+const unsigned char *get_big_button_sprite(unsigned char button){
+	switch(button){
+		case 1: return marathon_man_1big_data;
+		case 2: return marathon_man_2big_data;
+		case 3: return marathon_man_3big_data;
+		case 4: return marathon_man_4big_data;
+		case 5: return marathon_man_5big_data;
+		case 6: return marathon_man_6big_data;
+		case 7: return marathon_man_7big_data;
+		case 8: return marathon_man_8big_data;
+		case 9: return marathon_man_9big_data;
+		case 10: return marathon_man_10big_data;
+		case 11: return marathon_man_11big_data;
+		default: return marathon_man_12big_data;
+	}
 }
 
-void advance_button_queue(void){
-	button_queue_0 = button_queue_1;
-	button_queue_1 = button_queue_2;
-	button_queue_2 = button_queue_3;
-	button_queue_3 = button_queue_4;
-	button_queue_4 = button_queue_5;
-	button_queue_5 = button_queue_6;
-	button_queue_6 = random_button_value();
+void update_streak_digits(void){
+	temp_int = streak;
+	ones_streak = temp_int % 10;
+	temp_int /= 10;
+	tens_streak = temp_int % 10;
+	temp_int /= 10;
+	hundreds_streak = temp_int % 10;
+}
 
-	button_tile_0 = button_tile_1;
-	button_tile_1 = button_tile_2;
-	button_tile_2 = button_tile_3;
-	button_tile_3 = button_tile_4;
-	button_tile_4 = button_tile_5;
-	button_tile_5 = button_tile_6;
-	button_tile_6 = button_tile_table[button_queue_6 - 1];
+void reset_streak(void){
+	streak = 0;
+	update_streak_digits();
+}
 
-	button_mask_0 = get_powerpad_button_mask(button_queue_0);
+void add_streak_hit(void){
+	if(streak < 999u){
+		++streak;
+	}
+	update_streak_digits();
+}
+
+void spawn_target_button(void){
+	target_button = random_button_value();
+	target_mask = get_powerpad_button_mask(target_button);
+	target_sprite_data = get_big_button_sprite(target_button);
+	target_x = 248;
+	target_spawn_timer = 0;
+}
+
+void init_target_button(void){
+	spawn_target_button();
+}
+
+void update_target_button(void){
+	if(target_x > 0){
+		--target_x;
+	}
+
+	++target_spawn_timer;
+	if(target_spawn_timer >= TARGET_RESPAWN_FRAMES || target_x == 0){
+		reset_streak();
+		spawn_target_button();
+	}
 }
 
 void add_score(unsigned char value){
@@ -125,14 +141,8 @@ void add_score(unsigned char value){
 	ten_thousands_score = temp_int % 10;
 }
 
-void draw_button_queue(void){
-	oam_spr(36, 100, button_tile_0, 1);
-	oam_spr(64, 100, button_tile_1, 1);
-	oam_spr(92, 100, button_tile_2, 1);
-	oam_spr(120, 100, button_tile_3, 1);
-	oam_spr(148, 100, button_tile_4, 1);
-	oam_spr(176, 100, button_tile_5, 1);
-	oam_spr(204, 100, button_tile_6, 1);
+void draw_target_button(void){
+	oam_meta_spr(target_x, 88, target_sprite_data);
 }
 
 void init_hud_labels(void){
@@ -144,6 +154,10 @@ void init_hud_labels(void){
 
 	vram_adr(NTADR_A(18, 2));
 	vram_put('S'); vram_put('C'); vram_put('O'); vram_put('R'); vram_put('E'); vram_put(':');
+
+	vram_adr(NTADR_A(19, 4));
+	vram_put('S'); vram_put('T'); vram_put('R'); vram_put('E');
+	vram_put('A'); vram_put('K'); vram_put(':');
 }
 
 
@@ -180,7 +194,8 @@ void init_mode_game(void){
 	powerpad_old = 0;
 	powerpad_new = 0;
 	add_score(0);
-	init_button_queue();
+	reset_streak();
+	init_target_button();
 
 	initial_steps_conversion();
 	initial_timer_conversion();
@@ -304,6 +319,8 @@ void main (void) {
 							// powerpad_new isn't used here, but
 							// would be very useful for a game
 
+		update_target_button();
+
 		check_motion();
 
 		draw_sprite();
@@ -335,9 +352,10 @@ void main (void) {
 }
 
 void process_controller(void){
-	if(button_mask_0 != 0 && (powerpad_new & button_mask_0)){
+	if(target_mask != 0 && (powerpad_new & target_mask) && target_x <= TARGET_HIT_X){
 		add_score(10);
-		advance_button_queue();
+		add_streak_hit();
+		spawn_target_button();
 	}
 
 	if(debug_controller_new & PAD_A || debug_controller_new & PAD_B){
@@ -616,7 +634,7 @@ void draw_sprite(){
 
 	// Draw progress cursor on the top race bar.
 	oam_meta_spr(progress_x + 5, 74, progress_cursor_data);
-	draw_button_queue();
+	draw_target_button();
 
 	if(motion == RUNNING){
 		// 6 frames, 10 ticks each = 60-frame cycle
@@ -673,6 +691,10 @@ void draw_hud(void){
 	one_vram_buffer(0x30+hundreds_score, NTADR_A(26, 2));
 	one_vram_buffer(0x30+tens_score, NTADR_A(27, 2));
 	one_vram_buffer(0x30+ones_score, NTADR_A(28, 2));
+
+	one_vram_buffer(0x30+hundreds_streak, NTADR_A(26, 4));
+	one_vram_buffer(0x30+tens_streak, NTADR_A(27, 4));
+	one_vram_buffer(0x30+ones_streak, NTADR_A(28, 4));
 }
 
 
