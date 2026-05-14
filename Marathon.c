@@ -956,8 +956,39 @@ void load_room(){
 		}
 	}
 	// place a tile for sprite zero hit
-	// vram_adr(NTADR_A(00,9));
-	// vram_put(0x40);
+	vram_adr(NTADR_A(00,9));
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
+	vram_put(0x28);
 	ppu_on_all();
 
 }
@@ -966,5 +997,5 @@ void set_sprite_zero(void){
 	oam_set(0); // double check that this goes in the zero slot
 	
 	//oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
-	oam_spr(0x01,63,0x03,3 & OAM_BEHIND);
+	oam_spr(0x01,72,0x03,3 & OAM_BEHIND);
 }
