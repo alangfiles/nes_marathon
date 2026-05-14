@@ -102,11 +102,25 @@ void add_streak_hit(void){
 	update_streak_digits();
 }
 
+const unsigned int target_speed_table[11] = {
+	264, 319, 374, 429, 483, 539, 593, 648, 702, 758, 813
+};
+
+unsigned int get_target_speed_fp(void){
+	unsigned char idx = (unsigned char)streak;
+	if(idx > 10){
+		idx = 10;
+	}
+	return target_speed_table[idx];
+}
+
 void spawn_target_button(void){
 	target_button = random_button_value();
 	target_mask = get_powerpad_button_mask(target_button);
 	target_sprite_data = get_big_button_sprite(target_button);
-	target_x = 248;
+	target_x = TARGET_START_X;
+	target_x_fp = ((unsigned int)TARGET_START_X) << 8;
+	target_speed_fp = get_target_speed_fp();
 	target_spawn_timer = 0;
 }
 
@@ -115,9 +129,12 @@ void init_target_button(void){
 }
 
 void update_target_button(void){
-	if(target_x > 0){
-		--target_x;
+	if(target_x_fp > target_speed_fp){
+		target_x_fp -= target_speed_fp;
+	} else {
+		target_x_fp = 0;
 	}
+	target_x = (unsigned char)(target_x_fp >> 8);
 
 	++target_spawn_timer;
 	if(target_spawn_timer >= TARGET_RESPAWN_FRAMES || target_x == 0){
@@ -126,23 +143,42 @@ void update_target_button(void){
 	}
 }
 
-void add_score(unsigned char value){
-	score += value;
+void add_score(void){
+	
+	score += score_to_add;
 
-	temp_int = score;
-	ones_score = temp_int % 10;
-	temp_int /= 10;
-	tens_score = temp_int % 10;
-	temp_int /= 10;
-	hundreds_score = temp_int % 10;
-	temp_int /= 10;
-	thousands_score = temp_int % 10;
-	temp_int /= 10;
-	ten_thousands_score = temp_int % 10;
+	while(score_to_add > 0){
+		--score_to_add;
+		if(ones_score == 9){
+			ones_score = 0;
+			if(tens_score == 9){
+				tens_score = 0;
+				if(hundreds_score == 9){
+					hundreds_score = 0;
+					if(thousands_score == 9){
+						thousands_score = 0;
+						if(ten_thousands_score < 9){
+							++ten_thousands_score;
+						}
+					}else {
+						++thousands_score;
+					}
+				} else {
+					++hundreds_score;
+				}
+			} else {
+				++tens_score;
+			}
+		} else {
+			++ones_score;
+		}
+	}
 }
 
 void draw_target_button(void){
-	oam_meta_spr(target_x, 88, target_sprite_data);
+	if(target_x > 8){
+		oam_meta_spr(target_x, 88, target_sprite_data);
+	}
 }
 
 void init_hud_labels(void){
@@ -155,7 +191,7 @@ void init_hud_labels(void){
 	vram_adr(NTADR_A(18, 2));
 	vram_put('S'); vram_put('C'); vram_put('O'); vram_put('R'); vram_put('E'); vram_put(':');
 
-	vram_adr(NTADR_A(19, 4));
+	vram_adr(NTADR_A(18, 4));
 	vram_put('S'); vram_put('T'); vram_put('R'); vram_put('E');
 	vram_put('A'); vram_put('K'); vram_put(':');
 }
@@ -193,7 +229,11 @@ void init_mode_game(void){
 	motion = STANDING;
 	powerpad_old = 0;
 	powerpad_new = 0;
-	add_score(0);
+	ones_score = 0;
+	tens_score = 0;
+	hundreds_score = 0;
+	thousands_score = 0;
+	ten_thousands_score = 0;
 	reset_streak();
 	init_target_button();
 
@@ -353,7 +393,8 @@ void main (void) {
 
 void process_controller(void){
 	if(target_mask != 0 && (powerpad_new & target_mask) && target_x <= TARGET_HIT_X){
-		add_score(10);
+		score_to_add = (unsigned char)(1u + streak);
+		add_score();
 		add_streak_hit();
 		spawn_target_button();
 	}

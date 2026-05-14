@@ -5,6 +5,10 @@
 #define MOTION_HOLD_FRAMES 180
 #define TARGET_RESPAWN_FRAMES 240
 #define TARGET_HIT_X 200
+#define TARGET_START_X 248
+#define TARGET_MAX_SPEED_STREAK 10
+#define TARGET_BASE_SPEED_FP 264
+#define TARGET_FAST_SPEED_FP 813
 
 // GLOBAL VARIABLES
 unsigned int powerpad_cur;
@@ -20,6 +24,7 @@ unsigned char last_step;
 
 unsigned int steps;
 unsigned int score;
+unsigned char score_to_add;
 unsigned char ones_step;
 unsigned char tens_step;
 unsigned char hundreds_step;
@@ -34,6 +39,8 @@ unsigned char ten_thousands_score;
 unsigned char target_button;
 unsigned int target_mask;
 unsigned char target_x;
+unsigned int target_x_fp;
+unsigned int target_speed_fp;
 unsigned char target_spawn_timer;
 unsigned int streak;
 unsigned char hundreds_streak;
@@ -96,7 +103,7 @@ enum {
 };
 
 void add_step(void);
-void add_score(unsigned char value);
+void add_score(void);
 void add_second(void);
 void initial_steps_conversion(void);
 void initial_timer_conversion(void);
@@ -112,6 +119,7 @@ void update_target_button(void);
 void draw_target_button(void);
 void reset_streak(void);
 void add_streak_hit(void);
+unsigned int get_target_speed_fp(void);
 const unsigned char *get_big_button_sprite(unsigned char button);
 unsigned int get_powerpad_button_mask(unsigned char button);
 unsigned char random_button_value(void);
