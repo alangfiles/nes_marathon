@@ -676,7 +676,7 @@ void draw_sprite(){
 	}
 
 	// Draw progress cursor on the top race bar.
-	oam_meta_spr(progress_x + 5, 74, progress_cursor_data);
+	oam_meta_spr(progress_x + 5, 46, progress_cursor_data);
 	draw_target_button();
 
 	if(motion == RUNNING){

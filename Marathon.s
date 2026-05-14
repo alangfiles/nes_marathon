@@ -10443,7 +10443,7 @@ L262C:	ldy     #$07
 	ldy     #$08
 	sta     (sp),y
 ;
-; oam_meta_spr(progress_x + 5, 74, progress_cursor_data);
+; oam_meta_spr(progress_x + 5, 46, progress_cursor_data);
 ;
 L2627:	jsr     decsp2
 	ldy     #$0A
@@ -10452,7 +10452,7 @@ L2627:	jsr     decsp2
 	adc     #$05
 	ldy     #$01
 	sta     (sp),y
-	lda     #$4A
+	lda     #$2E
 	dey
 	sta     (sp),y
 	ldy     #$03
