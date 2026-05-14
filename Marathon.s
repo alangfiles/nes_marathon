@@ -2178,16 +2178,16 @@ _title:
 	.byte	$32
 	.byte	$36
 	.byte	$00
-	.byte	$41
-	.byte	$4C
+	.byte	$42
+	.byte	$52
+	.byte	$49
 	.byte	$41
 	.byte	$4E
 	.byte	$00
 	.byte	$3C
 	.byte	$00
-	.byte	$42
-	.byte	$52
-	.byte	$49
+	.byte	$41
+	.byte	$4C
 	.byte	$41
 	.byte	$4E
 	.byte	$00
@@ -11961,7 +11961,7 @@ L29B8:	sta     _total_steps_needed
 	sta     _scroll_subpixel
 	sta     _scroll_subpixel+1
 ;
-; velocity = 0;
+; velocity = 0; 
 ;
 	sta     _velocity
 	sta     _velocity+1

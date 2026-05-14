@@ -215,12 +215,14 @@ void init_mode_game(void){
 
 	clear_vram_buffer();
 
+	// mess with these for debug, but they should all be 0
 	steps = 0;
 	score = 0;
 	seconds = 0;
+
 	scroll_x = 0;
 	scroll_subpixel = 0;
-	velocity = 0;
+	velocity = 0; 
 	frame_counter = 0;
 	scroll_timer = 0;
 	step_button_lockout = 0;
@@ -736,7 +738,7 @@ void draw_hud(void){
 	one_vram_buffer(0x30+hundreds_streak, NTADR_A(26, 4));
 	one_vram_buffer(0x30+tens_streak, NTADR_A(27, 4));
 	one_vram_buffer(0x30+ones_streak, NTADR_A(28, 4));
-}
+} 
 
 
 void draw_options_screen(void){
