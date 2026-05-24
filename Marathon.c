@@ -1,7 +1,16 @@
-/*	example code for cc65, for NES
- *  test power pad
- *	Doug Fraker 2018
+/* Alan Files NES Marathon Runner
+ * Based off code and tutorials by NES Doug
  */	
+
+ /* 
+  TODO List:
+	- add scrolling to new maps
+	- add scrolling for ending
+	- add new header backgrounds from brian with weird switch
+	- test game
+	- fix flash whenever you step on the right button
+	- add SFX and music
+ */
 
  
  

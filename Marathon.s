@@ -11924,24 +11924,30 @@ L29AF:	sta     _total_steps_needed
 ;
 	jsr     _clear_vram_buffer
 ;
-; steps = 0;
+; steps = 12400;
 ;
-	lda     #$00
+	ldx     #$30
+	lda     #$70
 	sta     _steps
-	sta     _steps+1
+	stx     _steps+1
 ;
-; score = 0;
+; score = 0xAF;
 ;
+	ldx     #$00
+	lda     #$AF
 	sta     _score
-	sta     _score+1
+	stx     _score+1
 ;
-; seconds = 0;
+; seconds = 4050;
 ;
+	ldx     #$0F
+	lda     #$D2
 	sta     _seconds
-	sta     _seconds+1
+	stx     _seconds+1
 ;
 ; scroll_x = 0;
 ;
+	lda     #$00
 	sta     _scroll_x
 	sta     _scroll_x+1
 ;
