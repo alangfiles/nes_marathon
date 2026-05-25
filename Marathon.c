@@ -37,8 +37,7 @@
 #include "SCREENS/waterend.h"
 #include "SCREENS/watergeneric.h"
 #include "SCREENS/titlespecial.h"
-// #include "SCREENS/grandstand.h"
-#include "SCREENS/grandstsand.h"
+#include "SCREENS/grandstand.h"
 #include "sprites.h"
 
 enum {
@@ -671,9 +670,9 @@ void init_mode_game(void){
 	clear_vram_buffer();
 
 	// mess with these for debug, but they should all be 0
-	steps = 0;
+	steps = 5500;
 	score = 0;
-	seconds = 0;
+	seconds = 5500;
 
 	scroll_x = 0;
 	scroll_subpixel = 0;
@@ -1516,7 +1515,7 @@ void draw_screen_R(void){
 	if(stream_column == 0){
 		if(ending_sequence_active != 0){
 			if(ending_grandstand_active != 0){
-				screen_slots[stream_room_index] = grandstsand;
+				screen_slots[stream_room_index] = grandstand;
 			} else if(ending_queue_stage == 0){
 				screen_slots[stream_room_index] = ending_forced_end_screen;
 				ending_queue_stage = 1;
@@ -1525,7 +1524,7 @@ void draw_screen_R(void){
 				ending_queue_stage = 2;
 			} else {
 				pal_bg(palette_grandstand);
-				screen_slots[stream_room_index] = grandstsand;
+				screen_slots[stream_room_index] = grandstand;
 				ending_grandstand_active = 1;
 			}
 		} else {

@@ -182,7 +182,7 @@
 	.export		_waterend
 	.export		_watergeneric
 	.export		_titlespecial
-	.export		_grandstsand
+	.export		_grandstand
 	.export		_marathon_man_run1_data
 	.export		_marathon_man_run2_data
 	.export		_marathon_man_run3_data
@@ -10443,7 +10443,135 @@ _titlespecial:
 	.byte	$00
 	.byte	$0C
 	.byte	$0F
-_grandstsand:
+_grandstand:
+	.byte	$05
+	.byte	$06
+	.byte	$05
+	.byte	$04
+	.byte	$06
+	.byte	$05
+	.byte	$23
+	.byte	$04
+	.byte	$24
+	.byte	$05
+	.byte	$06
+	.byte	$04
+	.byte	$23
+	.byte	$04
+	.byte	$04
+	.byte	$06
+	.byte	$24
+	.byte	$04
+	.byte	$23
+	.byte	$04
+	.byte	$04
+	.byte	$23
+	.byte	$06
+	.byte	$04
+	.byte	$06
+	.byte	$04
+	.byte	$06
+	.byte	$04
+	.byte	$23
+	.byte	$24
+	.byte	$04
+	.byte	$23
+	.byte	$04
+	.byte	$24
+	.byte	$04
+	.byte	$05
+	.byte	$23
+	.byte	$04
+	.byte	$23
+	.byte	$04
+	.byte	$06
+	.byte	$04
+	.byte	$04
+	.byte	$23
+	.byte	$04
+	.byte	$05
+	.byte	$06
+	.byte	$05
+	.byte	$04
+	.byte	$04
+	.byte	$05
+	.byte	$04
+	.byte	$05
+	.byte	$23
+	.byte	$04
+	.byte	$05
+	.byte	$05
+	.byte	$04
+	.byte	$06
+	.byte	$04
+	.byte	$06
+	.byte	$06
+	.byte	$04
+	.byte	$04
+	.byte	$04
+	.byte	$05
+	.byte	$23
+	.byte	$05
+	.byte	$04
+	.byte	$06
+	.byte	$04
+	.byte	$23
+	.byte	$04
+	.byte	$23
+	.byte	$24
+	.byte	$05
+	.byte	$23
+	.byte	$04
+	.byte	$05
+	.byte	$24
+	.byte	$04
+	.byte	$23
+	.byte	$23
+	.byte	$24
+	.byte	$23
+	.byte	$24
+	.byte	$05
+	.byte	$23
+	.byte	$24
+	.byte	$06
+	.byte	$24
+	.byte	$04
+	.byte	$04
+	.byte	$24
+	.byte	$05
+	.byte	$23
+	.byte	$24
+	.byte	$23
+	.byte	$24
+	.byte	$23
+	.byte	$23
+	.byte	$24
+	.byte	$23
+	.byte	$05
+	.byte	$23
+	.byte	$24
+	.byte	$23
+	.byte	$04
+	.byte	$24
+	.byte	$24
+	.byte	$23
+	.byte	$24
+	.byte	$06
+	.byte	$04
+	.byte	$04
+	.byte	$24
+	.byte	$23
+	.byte	$04
+	.byte	$05
+	.byte	$24
+	.byte	$23
+	.byte	$24
+	.byte	$05
+	.byte	$23
+	.byte	$04
+	.byte	$23
+	.byte	$24
+	.byte	$06
 	.byte	$21
 	.byte	$11
 	.byte	$10
@@ -10476,70 +10604,6 @@ _grandstsand:
 	.byte	$10
 	.byte	$11
 	.byte	$22
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
-	.byte	$01
 	.byte	$D4
 	.byte	$D4
 	.byte	$D4
@@ -10572,70 +10636,6 @@ _grandstsand:
 	.byte	$D4
 	.byte	$D4
 	.byte	$D4
-	.byte	$02
-	.byte	$65
-	.byte	$65
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$65
-	.byte	$02
-	.byte	$02
-	.byte	$64
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$64
-	.byte	$02
-	.byte	$64
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$65
-	.byte	$02
-	.byte	$64
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$64
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$64
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$64
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$65
-	.byte	$02
-	.byte	$02
-	.byte	$02
-	.byte	$02
 	.byte	$60
 	.byte	$60
 	.byte	$60
@@ -10972,14 +10972,22 @@ _grandstsand:
 	.byte	$00
 	.byte	$00
 	.byte	$00
-	.byte	$50
-	.byte	$50
-	.byte	$50
-	.byte	$50
-	.byte	$50
-	.byte	$50
-	.byte	$50
-	.byte	$50
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$55
+	.byte	$55
+	.byte	$55
+	.byte	$55
+	.byte	$55
+	.byte	$55
+	.byte	$55
+	.byte	$55
 	.byte	$05
 	.byte	$05
 	.byte	$05
@@ -10988,14 +10996,6 @@ _grandstsand:
 	.byte	$05
 	.byte	$05
 	.byte	$05
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
 	.byte	$FF
 	.byte	$FF
 	.byte	$FF
@@ -20741,24 +20741,28 @@ L5035:	sta     _total_steps_needed
 ;
 	jsr     _clear_vram_buffer
 ;
-; steps = 0;
+; steps = 5500;
 ;
-	lda     #$00
+	ldx     #$15
+	lda     #$7C
 	sta     _steps
-	sta     _steps+1
+	stx     _steps+1
 ;
 ; score = 0;
 ;
+	lda     #$00
 	sta     _score
 	sta     _score+1
 ;
-; seconds = 0;
+; seconds = 5500;
 ;
+	lda     #$7C
 	sta     _seconds
-	sta     _seconds+1
+	stx     _seconds+1
 ;
 ; scroll_x = 0;
 ;
+	lda     #$00
 	sta     _scroll_x
 	sta     _scroll_x+1
 ;
@@ -22312,7 +22316,7 @@ L505C:	ldy     #$01
 	lda     _ending_grandstand_active
 	beq     L5057
 ;
-; screen_slots[stream_room_index] = grandstsand;
+; screen_slots[stream_room_index] = grandstand;
 ;
 	lda     _stream_room_index
 	asl     a
@@ -22324,10 +22328,10 @@ L5050:	adc     #<(_screen_slots)
 	txa
 	adc     #>(_screen_slots)
 	sta     ptr1+1
-	lda     #<(_grandstsand)
+	lda     #<(_grandstand)
 	sta     (ptr1),y
 	iny
-	lda     #>(_grandstsand)
+	lda     #>(_grandstand)
 	sta     (ptr1),y
 ;
 ; } else if(ending_queue_stage == 0){
@@ -22398,7 +22402,7 @@ L4FC8:	lda     #<(_palette_grandstand)
 	ldx     #>(_palette_grandstand)
 	jsr     _pal_bg
 ;
-; screen_slots[stream_room_index] = grandstsand;
+; screen_slots[stream_room_index] = grandstand;
 ;
 	ldx     #$00
 	lda     _stream_room_index
@@ -22411,11 +22415,11 @@ L5053:	adc     #<(_screen_slots)
 	txa
 	adc     #>(_screen_slots)
 	sta     ptr1+1
-	lda     #<(_grandstsand)
+	lda     #<(_grandstand)
 	ldy     #$00
 	sta     (ptr1),y
 	iny
-	lda     #>(_grandstsand)
+	lda     #>(_grandstand)
 	sta     (ptr1),y
 ;
 ; ending_grandstand_active = 1;
