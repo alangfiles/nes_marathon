@@ -17956,7 +17956,7 @@ _palette_bg:
 	.byte	$0F
 	.byte	$00
 	.byte	$1A
-	.byte	$3D
+	.byte	$10
 	.byte	$0F
 	.byte	$11
 	.byte	$1A
@@ -17966,7 +17966,7 @@ _palette_bg:
 	.byte	$1A
 	.byte	$09
 	.byte	$0F
-	.byte	$16
+	.byte	$17
 	.byte	$1A
 	.byte	$05
 _palette_title:
@@ -17983,7 +17983,7 @@ _palette_title:
 	.byte	$1A
 	.byte	$09
 	.byte	$0F
-	.byte	$16
+	.byte	$17
 	.byte	$1A
 	.byte	$05
 _palette_grandstand:
@@ -18000,7 +18000,7 @@ _palette_grandstand:
 	.byte	$1A
 	.byte	$09
 	.byte	$0F
-	.byte	$16
+	.byte	$17
 	.byte	$1A
 	.byte	$05
 _next_digit10:
