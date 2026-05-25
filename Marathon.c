@@ -506,10 +506,29 @@ void build_options_nametable(unsigned char nametable){
 	vram_put('T'); vram_put('H'); vram_put('O'); vram_put('N');
 }
 
+void clear_options_top_rows(unsigned char nametable){
+	unsigned char row;
+	unsigned int nt_base;
+
+	nt_base = ((unsigned int)nametable << 10);
+	for(row = 0; row < 14; ++row){
+		vram_adr(NAMETABLE_A + nt_base + (((unsigned int)row) << 5));
+		vram_fill(0x00, 32);
+	}
+}
+
 void begin_title_to_options(void){
 	ppu_off();
 	clear_vram_buffer();
 	build_options_nametable(1);
+	selected_option = 0;
+	options_cursor_frame = 0;
+	options_cursor_timer = 0;
+	options_phase = OPTIONS_PHASE_IDLE;
+	options_runner_x = 24;
+	options_runner_timer = 0;
+	options_runner_frame = 0;
+	options_runner_hold_timer = 0;
 	title_scroll_x = 0;
 	title_runner_x = 24;
 	title_transition_phase = 0;
@@ -525,7 +544,6 @@ void draw_title_to_options(void){
 	const unsigned char *runner;
 
 	oam_clear();
-	set_signature_sprite();
 
 	++title_frame_counter;
 	if(title_frame_counter >= 6){
@@ -550,27 +568,19 @@ void draw_title_to_options(void){
 		runner = marathon_man_run6_data;
 	}
 
-	if(title_transition_phase == 0){
-		oam_meta_spr(title_runner_x, 120, runner);
-		if(title_runner_x < 200){
-			title_runner_x += 2;
-		} else {
-			title_transition_phase = 1;
-		}
+	// After START: keep runner on the left and begin scrolling immediately.
+	oam_meta_spr(24, 120, runner);
+	if(title_scroll_x <= 253){
+		title_scroll_x += 2;
 	} else {
-		oam_meta_spr(24, 120, runner);
-		if(title_scroll_x <= 252){
-			title_scroll_x += 3;
-		} else {
-			title_scroll_x = 255;
-		}
+		title_scroll_x = 255;
 	}
 
 	set_scroll_x(title_scroll_x);
 	set_scroll_y(0);
 
 	if(title_scroll_x >= 255){
-		init_options();
+		game_mode = MODE_OPTIONS;
 	}
 }
 
@@ -672,12 +682,12 @@ void main (void) {
 
 			oam_clear();
 			set_signature_sprite();
-			oam_meta_spr(24, 136, marathon_man_walk1_data);
+			oam_meta_spr(24, 120, marathon_man_walk1_data);
 
 			debug_controller = pad_poll(0);
 			debug_controller_new = get_pad_new(0);
 
-			if(debug_controller_new & PAD_START){
+			if((debug_controller_new & PAD_START) && (title_animation_frame >= 54)){
 				begin_title_to_options();
 			}
 		}
@@ -702,6 +712,10 @@ void main (void) {
 			}
 			if((options_phase == OPTIONS_PHASE_IDLE) && (debug_controller_new & (PAD_START | PAD_A))){
 				race_type = selected_option;
+				ppu_off();
+				clear_options_top_rows(1);
+				ppu_on_all();
+				oam_clear();
 				options_phase = OPTIONS_PHASE_CONFIRM;
 				options_runner_timer = 0;
 				options_runner_frame = 0;
