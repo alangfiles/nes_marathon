@@ -34,21 +34,24 @@ unsigned char get_room_byte(unsigned char room_index, unsigned int room_offset){
 
 void queue_room_column(unsigned char room_index, unsigned char nametable, unsigned char column){
 	unsigned char row;
+	unsigned int attr_addr;
 
 	for(row = 0; row < 22; ++row){
 		column_buffer[row] = get_room_byte(room_index, column + (((unsigned int)(row + 8)) << 5));
 	}
 	multi_vram_buffer_vert(column_buffer, 22, NTADR_A(column, 8) + ((unsigned int)nametable << 10));
 
+	attr_addr = 0x23c0 + (column >> 2) + 16 + ((unsigned int)nametable << 10);
 	for(row = 0; row < 6; ++row){
 		attribute_buffer[row] = get_room_byte(room_index, 0x3c0 + (column >> 2) + (((unsigned int)(row + 2)) << 3));
+		one_vram_buffer(attribute_buffer[row], attr_addr + (((unsigned int)row) << 3));
 	}
-	multi_vram_buffer_vert(attribute_buffer, 6, 0x23c0 + (column >> 2) + 16 + ((unsigned int)nametable << 10));
 }
 
 unsigned char stream_column_chunk(void){
 	unsigned char row;
 	unsigned int nt_base;
+	unsigned int attr_addr;
 
 	if(stream_active == 0){
 		return 0;
@@ -83,10 +86,11 @@ unsigned char stream_column_chunk(void){
 		return 1;
 	}
 
+	attr_addr = 0x23c0 + (stream_column >> 2) + 16 + nt_base;
 	for(row = 0; row < 6; ++row){
 		attribute_buffer[row] = get_room_byte(stream_room_index, 0x3c0 + (stream_column >> 2) + (((unsigned int)(row + 2)) << 3));
+		one_vram_buffer(attribute_buffer[row], attr_addr + (((unsigned int)row) << 3));
 	}
-	multi_vram_buffer_vert(attribute_buffer, 6, 0x23c0 + (stream_column >> 2) + 16 + nt_base);
 	stream_active = 0;
 	stream_stage = 0;
 	return 1;
@@ -404,7 +408,6 @@ void main (void) {
 		}
 
 		while(game_mode == MODE_GAME){
-		unsigned char did_stream_column;
 
 		ppu_wait_nmi(); // wait till beginning of the frame
 
@@ -428,7 +431,11 @@ void main (void) {
 		scroll_subpixel += velocity;
 		scroll_x += (scroll_subpixel >> 8);
 		scroll_subpixel &= 0x00ff;
-		did_stream_column = 0;
+		if((velocity > 0) || (stream_active != 0)){
+			draw_screen_R();
+		} else {
+			did_stream_column = 0;
+		}
 		
 
 		if(step_button_lockout > 0){
@@ -457,7 +464,7 @@ void main (void) {
 		split(scroll_x);
 
 		draw_sprite();
-		if((did_stream_column == 0) || ((frame_counter & 1) == 0)){
+		if((did_stream_column == 0) || ((velocity >= 512) ? ((sprite_frame_counter & 3) == 0) : ((sprite_frame_counter & 1) == 0))){
 			draw_hud();
 		}
 
@@ -468,7 +475,7 @@ void main (void) {
 			break;
 		}
 
-		gray_line();
+		// gray_line(); // debug only, too expensive for regular gameplay
                 } // end MODE_GAME
 
 		while(game_mode == MODE_WIN){
@@ -1058,19 +1065,19 @@ void load_room_pair(void){
 	ppu_on_all();
 }
 
-unsigned char draw_screen_R(void){
+void draw_screen_R(void){
 	unsigned int column_progress;
-	unsigned char did_stream;
 
 	if((velocity == 0) && (stream_active == 0)){
-		return 0;
+		did_stream_column = 0;
+		return;
 	}
 
-	did_stream = stream_column_chunk();
+	did_stream_column = stream_column_chunk();
 
 	column_progress = scroll_x >> 3;
 	if((column_progress == last_stream_column) || (stream_active != 0)){
-		return did_stream;
+		return;
 	}
 	last_stream_column = column_progress;
 
@@ -1081,10 +1088,8 @@ unsigned char draw_screen_R(void){
 	stream_stage = 0;
 
 	if(stream_column_chunk() != 0){
-		did_stream = 1;
+		did_stream_column = 1;
 	}
-
-	return did_stream;
 }
 
 void set_sprite_zero(void){

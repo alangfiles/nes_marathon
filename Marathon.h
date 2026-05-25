@@ -97,6 +97,7 @@ unsigned char stream_room_index;
 unsigned char stream_nametable;
 unsigned char stream_column;
 unsigned char stream_stage;
+unsigned char did_stream_column;
 
 unsigned char game_mode;
 unsigned char selected_option;
@@ -140,4 +141,4 @@ void init_win_screen(void);
 void draw_options_screen(void);
 void set_signature_sprite(void);
 void load_room_pair(void);
-unsigned char draw_screen_R(void);
+void draw_screen_R(void);
