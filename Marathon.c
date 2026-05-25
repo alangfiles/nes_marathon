@@ -20,19 +20,101 @@
 
 
 #include "Marathon.h"
+#include "SCREENS/citybegin.h"
+#include "SCREENS/citybuilding.h"
+#include "SCREENS/cityend.h"
+#include "SCREENS/citygeneric.h"
 #include "SCREENS/trackflowers.h"
+#include "SCREENS/trackbegin.h"
+#include "SCREENS/trackend.h"
+#include "SCREENS/tracktrashcan.h"
 #include "SCREENS/trackgeneric.h"
 #include "SCREENS/title.h"
 #include "sprites.h"
+
+enum {
+	THEME_TRACK,
+	THEME_CITY
+};
+
+enum {
+	PHASE_BEGIN,
+	PHASE_MIDDLE,
+	PHASE_END
+};
+
+const unsigned char *screen_slots[2];
+unsigned char world_theme;
+unsigned char world_phase;
+unsigned char world_middle_remaining;
+
+const unsigned char *next_world_screen(void){
+	unsigned char roll;
+
+	if(world_phase == PHASE_BEGIN){
+		world_phase = PHASE_MIDDLE;
+		world_middle_remaining = (rand8() & 3) + 2;
+
+		if(world_theme == THEME_TRACK){
+			return trackbegin;
+		}
+		return citybegin;
+	}
+
+	if(world_phase == PHASE_MIDDLE){
+		const unsigned char *middle;
+
+		if(world_theme == THEME_TRACK){
+			roll = rand8() & 3;
+			if(roll == 0){
+				middle = trackflowers;
+			} else if(roll == 1){
+				middle = trackgeneric;
+			} else {
+				middle = tracktrashcan;
+			}
+		} else {
+			roll = rand8() & 1;
+			if(roll == 0){
+				middle = citybuilding;
+			} else {
+				middle = citygeneric;
+			}
+		}
+
+		if(world_middle_remaining > 0){
+			--world_middle_remaining;
+		}
+		if(world_middle_remaining == 0){
+			world_phase = PHASE_END;
+		}
+		return middle;
+	}
+
+	if(world_theme == THEME_TRACK){
+		world_theme = THEME_CITY;
+		world_phase = PHASE_BEGIN;
+		return trackend;
+	}
+
+	world_theme = THEME_TRACK;
+	world_phase = PHASE_BEGIN;
+	return cityend;
+}
+
+void init_world_sequence(void){
+	world_theme = THEME_TRACK;
+	world_phase = PHASE_BEGIN;
+	world_middle_remaining = 0;
+}
 
 void queue_room_column(unsigned char room_index, unsigned char nametable, unsigned char column){
 	unsigned char row;
 	unsigned int attr_addr;
 	const unsigned char *room_data;
 
-	if(room_index == 0){
-		room_data = trackflowers;
-	} else {
+	room_data = screen_slots[room_index & 1];
+	if(room_data == 0){
 		room_data = trackgeneric;
 	}
 
@@ -59,8 +141,11 @@ unsigned char stream_column_chunk(void){
 	}
 
 	if(stream_room_index == 0){
-		room_data = trackflowers;
+		room_data = screen_slots[0];
 	} else {
+		room_data = screen_slots[1];
+	}
+	if(room_data == 0){
 		room_data = trackgeneric;
 	}
 
@@ -103,12 +188,9 @@ unsigned char stream_column_chunk(void){
 	return 1;
 }
 
-void draw_full_room(unsigned char room_index, unsigned char nametable){
-	const unsigned char *room_data;
+void draw_full_room(const unsigned char *room_data, unsigned char nametable){
 
-	if(room_index == 0){
-		room_data = trackflowers;
-	} else {
+	if(room_data == 0){
 		room_data = trackgeneric;
 	}
 
@@ -1035,7 +1117,9 @@ void clear_background(void)
 void load_room(){
 	ppu_off();
 	clear_background();
-	draw_full_room(0, 0);
+	init_world_sequence();
+	screen_slots[0] = next_world_screen();
+	draw_full_room(screen_slots[0], 0);
 	// place a tile for sprite zero hit
 	
 	ppu_on_all();
@@ -1045,8 +1129,11 @@ void load_room(){
 void load_room_pair(void){
 	ppu_off();
 	clear_background();
-	draw_full_room(0, 0);
-	draw_full_room(1, 1);
+	init_world_sequence();
+	screen_slots[0] = next_world_screen();
+	screen_slots[1] = next_world_screen();
+	draw_full_room(screen_slots[0], 0);
+	draw_full_room(screen_slots[1], 1);
 	last_stream_column = 0xffff;
 	stream_active = 0;
 	stream_stage = 0;
@@ -1072,6 +1159,9 @@ void draw_screen_R(void){
 	stream_column = (unsigned char)((column_progress + 32u) & 31u);
 	stream_room_index = (unsigned char)(((scroll_x >> 8) + 1u) & 1u);
 	stream_nametable = (unsigned char)(((scroll_x >> 8) + 1u) & 1u);
+	if(stream_column == 0){
+		screen_slots[stream_room_index] = next_world_screen();
+	}
 	stream_active = 1;
 	stream_stage = 0;
 
