@@ -532,11 +532,8 @@ void clear_options_top_rows(unsigned char nametable){
 }
 
 void begin_title_to_options(void){
-	ppu_off();
 	pal_bg(palette_bg);
 	pal_spr(palette_sprites);
-	clear_vram_buffer();
-	build_options_nametable(1);
 	selected_option = 0;
 	options_cursor_frame = 0;
 	options_cursor_timer = 0;
@@ -553,7 +550,6 @@ void begin_title_to_options(void){
 	game_mode = MODE_TITLE_TO_OPTIONS;
 	set_scroll_x(0);
 	set_scroll_y(0);
-	ppu_on_all();
 }
 
 void draw_title_to_options(void){
@@ -1439,6 +1435,7 @@ void load_title(void){
 		vram_put(titlespecial[largeindex]);
 		flush_vram_update2(); 
 	}
+	build_options_nametable(1);
 	title_animation_frame = 0;
 	title_frame_counter = 0;
 	title_scroll_x = 0;
