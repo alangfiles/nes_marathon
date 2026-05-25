@@ -130,6 +130,10 @@ const unsigned char palette_bg[16]={
 	0x0f,0x2a,0x1a,0x0a,
 	0x0f,0x17,0x1a,0x07 };
 
+const unsigned char next_digit10[10] = {1,2,3,4,5,6,7,8,9,0};
+const unsigned char next_digit6[6] = {1,2,3,4,5,0};
+const unsigned char next_digit3[3] = {1,2,0};
+
 
 // do after the read
 void process_powerpad(void){ 
@@ -186,11 +190,20 @@ const unsigned char *get_big_button_sprite(unsigned char button){
 
 void update_streak_digits(void){
 	temp_int = streak;
-	ones_streak = temp_int % 10;
-	temp_int /= 10;
-	tens_streak = temp_int % 10;
-	temp_int /= 10;
-	hundreds_streak = temp_int % 10;
+
+	hundreds_streak = 0;
+	while(temp_int >= 100){
+		temp_int -= 100;
+		++hundreds_streak;
+	}
+
+	tens_streak = 0;
+	while(temp_int >= 10){
+		temp_int -= 10;
+		++tens_streak;
+	}
+
+	ones_streak = (unsigned char)temp_int;
 }
 
 void reset_streak(void){
@@ -252,28 +265,25 @@ void add_score(void){
 
 	while(score_to_add > 0){
 		--score_to_add;
-		if(ones_score == 9){
-			ones_score = 0;
-			if(tens_score == 9){
-				tens_score = 0;
-				if(hundreds_score == 9){
-					hundreds_score = 0;
-					if(thousands_score == 9){
-						thousands_score = 0;
-						if(ten_thousands_score < 9){
-							++ten_thousands_score;
-						}
-					}else {
-						++thousands_score;
-					}
-				} else {
-					++hundreds_score;
-				}
-			} else {
-				++tens_score;
-			}
-		} else {
-			++ones_score;
+
+		ones_score = next_digit10[ones_score];
+		if(ones_score != 0){
+			continue;
+		}
+
+		tens_score = next_digit10[tens_score];
+		if(tens_score != 0){
+			continue;
+		}
+
+		hundreds_score = next_digit10[hundreds_score];
+		if(hundreds_score != 0){
+			continue;
+		}
+
+		thousands_score = next_digit10[thousands_score];
+		if(thousands_score == 0 && ten_thousands_score < 9){
+			++ten_thousands_score;
 		}
 	}
 }
@@ -492,7 +502,7 @@ void main (void) {
 			break;
 		}
 
-		// gray_line(); // debug only, too expensive for regular gameplay
+		gray_line(); // debug only, too expensive for regular gameplay
                 } // end MODE_GAME
 
 		while(game_mode == MODE_WIN){
@@ -526,50 +536,33 @@ void process_controller(void){
 
 void add_second(void){
 	seconds++;
-	
-	if(ones_seconds == 9){
-		ones_seconds = 0;
 
-		if(tens_seconds == 5){
-			tens_seconds = 0;
-
-			if(ones_minutes == 9){
-				ones_minutes = 0;
-
-				if(tens_minutes == 5){
-					tens_minutes = 0;
-
-					if(ones_hours == 9){
-						ones_hours = 0;
-
-						if(tens_hours == 2){
-							tens_hours = 0;
-
-						} else {
-							tens_hours++;
-
-						}
-					} else {
-						ones_hours++;
-
-					}
-				} else {
-					tens_minutes++;
-
-				}
-			} else {
-				ones_minutes++;
-
-			}
-		} else {
-			tens_seconds++;
-
-		}
-	} else {
-		ones_seconds++;
+	ones_seconds = next_digit10[ones_seconds];
+	if(ones_seconds != 0){
+		return;
 	}
-	
-	 
+
+	tens_seconds = next_digit6[tens_seconds];
+	if(tens_seconds != 0){
+		return;
+	}
+
+	ones_minutes = next_digit10[ones_minutes];
+	if(ones_minutes != 0){
+		return;
+	}
+
+	tens_minutes = next_digit6[tens_minutes];
+	if(tens_minutes != 0){
+		return;
+	}
+
+	ones_hours = next_digit10[ones_hours];
+	if(ones_hours != 0){
+		return;
+	}
+
+	tens_hours = next_digit3[tens_hours];
 }
 
 void add_step(void){
@@ -642,31 +635,56 @@ void update_steps_per_minute(void){
 	} else {
 		steps_per_minute = 0;
 	}
+
 	temp_int = steps_per_minute;
-	ones_spm = temp_int % 10;
-	temp_int /= 10;
-	tens_spm = temp_int % 10;
-	temp_int /= 10;
-	hundreds_spm = temp_int % 10;
+	while(temp_int >= 1000){
+		temp_int -= 1000;
+	}
+
+	hundreds_spm = 0;
+	while(temp_int >= 100){
+		temp_int -= 100;
+		++hundreds_spm;
+	}
+
+	tens_spm = 0;
+	while(temp_int >= 10){
+		temp_int -= 10;
+		++tens_spm;
+	}
+
+	ones_spm = (unsigned char)temp_int;
 }
 
 void initial_steps_conversion(void){
 	
 	temp_int = steps;
-	
-	ones_step = temp_int % 10;
-	temp_int = temp_int / 10;
-	
-	tens_step = temp_int % 10;
-	temp_int = temp_int / 10;
-	
-	hundreds_step = temp_int % 10;
-	temp_int = temp_int / 10;
-	
-	thousands_step = temp_int % 10;
-	temp_int = temp_int / 10;
-	
-	ten_thousands_step = temp_int % 10;
+
+	ten_thousands_step = 0;
+	while(temp_int >= 10000){
+		temp_int -= 10000;
+		++ten_thousands_step;
+	}
+
+	thousands_step = 0;
+	while(temp_int >= 1000){
+		temp_int -= 1000;
+		++thousands_step;
+	}
+
+	hundreds_step = 0;
+	while(temp_int >= 100){
+		temp_int -= 100;
+		++hundreds_step;
+	}
+
+	tens_step = 0;
+	while(temp_int >= 10){
+		temp_int -= 10;
+		++tens_step;
+	}
+
+	ones_step = (unsigned char)temp_int;
 
 	one_vram_buffer(0x30+ten_thousands_step, NTADR_A(10, 4));
 	one_vram_buffer(0x30+thousands_step, NTADR_A(11, 4));
@@ -678,23 +696,36 @@ void initial_steps_conversion(void){
 void initial_timer_conversion(void){
 	
 	temp_int = seconds;
-	
-	ones_seconds = temp_int % 10;
-	temp_int = temp_int / 10;
-	
-	tens_seconds = temp_int % 6;
-	temp_int = temp_int / 6;
-	
-	ones_minutes = temp_int % 10;
-	temp_int = temp_int / 10;
-	
-	tens_minutes = temp_int % 6;
-	temp_int = temp_int / 6;
-	
-	ones_hours = temp_int % 10;
-	temp_int = temp_int / 10;
-	
-	tens_hours = temp_int % 3;
+
+	tens_hours = 0;
+	ones_hours = 0;
+	tens_minutes = 0;
+	ones_minutes = 0;
+	tens_seconds = 0;
+	ones_seconds = 0;
+
+	while(temp_int >= 3600){
+		temp_int -= 3600;
+		ones_hours = next_digit10[ones_hours];
+		if(ones_hours == 0){
+			tens_hours = next_digit3[tens_hours];
+		}
+	}
+
+	while(temp_int >= 60){
+		temp_int -= 60;
+		ones_minutes = next_digit10[ones_minutes];
+		if(ones_minutes == 0){
+			tens_minutes = next_digit6[tens_minutes];
+		}
+	}
+
+	while(temp_int >= 10){
+		temp_int -= 10;
+		tens_seconds = next_digit6[tens_seconds];
+	}
+
+	ones_seconds = (unsigned char)temp_int;
 
 	one_vram_buffer(0x30+tens_hours, NTADR_A(8, 2));
 	one_vram_buffer(0x30+ones_hours, NTADR_A(9, 2));
