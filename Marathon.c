@@ -400,13 +400,13 @@ void add_streak_hit(void){
 }
 
 const unsigned int target_speed_table[11] = {
-	264, 319, 374, 429, 483, 539, 593, 648, 702, 758, 813
+	205, 226, 246, 267, 287, 308, 328, 349, 369, 390, 410
 };
 
 unsigned int get_target_speed_fp(void){
 	unsigned char idx = (unsigned char)streak;
-	if(idx > 10){
-		idx = 10;
+	if(idx > TARGET_MAX_SPEED_STREAK){
+		idx = TARGET_MAX_SPEED_STREAK;
 	}
 	return target_speed_table[idx];
 }

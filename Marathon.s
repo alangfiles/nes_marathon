@@ -18147,17 +18147,17 @@ _big_button_sprites:
 	.addr	_marathon_man_11big_data
 	.addr	_marathon_man_12big_data
 _target_speed_table:
-	.word	$0108
-	.word	$013F
-	.word	$0176
-	.word	$01AD
-	.word	$01E3
-	.word	$021B
-	.word	$0251
-	.word	$0288
-	.word	$02BE
-	.word	$02F6
-	.word	$032D
+	.word	$00CD
+	.word	$00E2
+	.word	$00F6
+	.word	$010B
+	.word	$011F
+	.word	$0134
+	.word	$0148
+	.word	$015D
+	.word	$0171
+	.word	$0186
+	.word	$019A
 
 .segment	"BSS"
 
@@ -20194,7 +20194,7 @@ L4755:	jmp     _update_streak_digits
 	lda     _streak
 	jsr     pusha
 ;
-; if(idx > 10){
+; if(idx > TARGET_MAX_SPEED_STREAK){
 ;
 	ldy     #$00
 	lda     (sp),y
@@ -20202,7 +20202,7 @@ L4755:	jmp     _update_streak_digits
 	ldx     #$00
 	bcc     L5023
 ;
-; idx = 10;
+; idx = TARGET_MAX_SPEED_STREAK;
 ;
 	lda     #$0A
 	sta     (sp),y
