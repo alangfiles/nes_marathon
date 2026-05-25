@@ -20641,28 +20641,24 @@ L4FE1:	sta     _total_steps_needed
 ;
 	jsr     _clear_vram_buffer
 ;
-; steps = 5500;
+; steps = 0;
 ;
-	ldx     #$15
-	lda     #$7C
+	lda     #$00
 	sta     _steps
-	stx     _steps+1
+	sta     _steps+1
 ;
 ; score = 0;
 ;
-	lda     #$00
 	sta     _score
 	sta     _score+1
 ;
-; seconds = 5500;
+; seconds = 0;
 ;
-	lda     #$7C
 	sta     _seconds
-	stx     _seconds+1
+	sta     _seconds+1
 ;
 ; scroll_x = 0;
 ;
-	lda     #$00
 	sta     _scroll_x
 	sta     _scroll_x+1
 ;
@@ -23242,19 +23238,16 @@ L48C3:	bcs     L5038
 ;
 L5038:	lda     _ending_runoff_active
 	bne     L48C6
-	ldy     #$01
+	tay
 	lda     (sp),y
+	iny
+	ora     (sp),y
 	cmp     #$00
-	bne     L48CB
-	dey
-	lda     (sp),y
-	cmp     #$0B
-L48CB:	jcs     incsp2
+	jne     incsp2
 ;
 ; ending_runoff_active = 1;
 ;
-	lda     #$01
-	sta     _ending_runoff_active
+	sty     _ending_runoff_active
 ;
 ; runner_screen_x = 120;
 ;

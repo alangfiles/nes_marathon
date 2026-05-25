@@ -10,7 +10,7 @@
 #define TARGET_BASE_SPEED_FP 264
 #define TARGET_FAST_SPEED_FP 813
 #define ENDING_SEQUENCE_STEPS 350u
-#define FINAL_RUNOFF_STEPS 10u
+#define FINAL_RUNOFF_STEPS 0u
 
 // GLOBAL VARIABLES
 unsigned int powerpad_cur;
