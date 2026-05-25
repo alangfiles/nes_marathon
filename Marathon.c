@@ -108,7 +108,7 @@ const unsigned char *next_world_screen(void){
 					if(roll == 0){
 						middle = citybuilding;
 					} else {
-						middle = citygeneric;
+						middle = citygeneric; 
 					}
 				} else if(roll == 0){
 					middle = citybuilding;

@@ -1283,38 +1283,38 @@ _citybuilding:
 	.byte	$01
 	.byte	$01
 	.byte	$E3
-	.byte	$76
-	.byte	$77
-	.byte	$78
-	.byte	$76
-	.byte	$77
-	.byte	$78
-	.byte	$76
-	.byte	$77
-	.byte	$78
-	.byte	$76
-	.byte	$77
-	.byte	$78
-	.byte	$76
-	.byte	$77
-	.byte	$78
-	.byte	$76
-	.byte	$77
-	.byte	$78
-	.byte	$76
-	.byte	$77
-	.byte	$78
-	.byte	$76
-	.byte	$77
-	.byte	$78
-	.byte	$76
-	.byte	$77
-	.byte	$78
-	.byte	$76
-	.byte	$77
-	.byte	$78
-	.byte	$76
-	.byte	$78
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
 	.byte	$00
 	.byte	$00
 	.byte	$00
@@ -1427,14 +1427,14 @@ _citybuilding:
 	.byte	$00
 	.byte	$00
 	.byte	$00
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
-	.byte	$A0
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
+	.byte	$00
 	.byte	$0F
 	.byte	$0F
 	.byte	$0F
@@ -21535,7 +21535,7 @@ L425D:	jsr     _rand8
 ;
 	jmp     L4BDC
 ;
-; middle = citygeneric;
+; middle = citygeneric; 
 ;
 L426A:	lda     #<(_citygeneric)
 	ldx     #>(_citygeneric)
