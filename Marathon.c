@@ -22,6 +22,8 @@
 #include "Marathon.h"
 #include "SCREENS/citybegin.h"
 #include "SCREENS/citybuilding.h"
+#include "SCREENS/citycross.h"
+#include "SCREENS/citycross2.h"
 #include "SCREENS/cityend.h"
 #include "SCREENS/citygeneric.h"
 #include "SCREENS/trackflowers.h"
@@ -37,6 +39,8 @@ enum {
 	THEME_CITY
 };
 
+#define HUD_TILE_BYTES 192u
+
 enum {
 	PHASE_BEGIN,
 	PHASE_MIDDLE,
@@ -44,6 +48,7 @@ enum {
 };
 
 const unsigned char *screen_slots[2];
+unsigned char screen_slots_compact[2];
 unsigned char world_theme;
 unsigned char world_phase;
 unsigned char world_middle_remaining;
@@ -73,10 +78,14 @@ const unsigned char *next_world_screen(void){
 			} else {
 				middle = tracktrashcan;
 			}
-		} else {
-			roll = rand8() & 1;
+		} else if(world_theme == THEME_CITY){
+			roll = rand8() & 3;
 			if(roll == 0){
 				middle = citybuilding;
+			} else if(roll == 1){
+				middle = citycross;
+			} else if(roll == 2){
+				middle = citycross2;
 			} else {
 				middle = citygeneric;
 			}
@@ -111,21 +120,23 @@ void init_world_sequence(void){
 void queue_room_column(unsigned char room_index, unsigned char nametable, unsigned char column){
 	unsigned char row;
 	unsigned int attr_addr;
+	unsigned int data_adjust;
 	const unsigned char *room_data;
 
 	room_data = screen_slots[room_index & 1];
 	if(room_data == 0){
 		room_data = trackgeneric;
 	}
+	data_adjust = (screen_slots_compact[room_index & 1] != 0) ? HUD_TILE_BYTES : 0;
 
 	for(row = 0; row < 22; ++row){
-		column_buffer[row] = room_data[column + (((unsigned int)(row + 8)) << 5)];
+		column_buffer[row] = room_data[column + (((unsigned int)(row + 8)) << 5) - data_adjust];
 	}
 	multi_vram_buffer_vert(column_buffer, 22, NTADR_A(column, 8) + ((unsigned int)nametable << 10));
 
 	attr_addr = 0x23c0 + (column >> 2) + 16 + ((unsigned int)nametable << 10);
 	for(row = 0; row < 6; ++row){
-		attribute_buffer[row] = room_data[0x3c0 + (column >> 2) + (((unsigned int)(row + 2)) << 3)];
+		attribute_buffer[row] = room_data[0x3c0 + (column >> 2) + (((unsigned int)(row + 2)) << 3) - data_adjust];
 		one_vram_buffer(attribute_buffer[row], attr_addr + (((unsigned int)row) << 3));
 	}
 }
@@ -134,6 +145,7 @@ unsigned char stream_column_chunk(void){
 	unsigned char row;
 	unsigned int nt_base;
 	unsigned int attr_addr;
+	unsigned int data_adjust;
 	const unsigned char *room_data;
 
 	if(stream_active == 0){
@@ -148,12 +160,13 @@ unsigned char stream_column_chunk(void){
 	if(room_data == 0){
 		room_data = trackgeneric;
 	}
+	data_adjust = (screen_slots_compact[stream_room_index & 1] != 0) ? HUD_TILE_BYTES : 0;
 
 	nt_base = ((unsigned int)stream_nametable << 10);
 
 	if(stream_stage == 0){
 		for(row = 0; row < 8; ++row){
-			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 8)) << 5)];
+			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 8)) << 5) - data_adjust];
 		}
 		multi_vram_buffer_vert(column_buffer, 8, NTADR_A(stream_column, 8) + nt_base);
 		stream_stage = 1;
@@ -162,7 +175,7 @@ unsigned char stream_column_chunk(void){
 
 	if(stream_stage == 1){
 		for(row = 0; row < 8; ++row){
-			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 16)) << 5)];
+			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 16)) << 5) - data_adjust];
 		}
 		multi_vram_buffer_vert(column_buffer, 8, NTADR_A(stream_column, 16) + nt_base);
 		stream_stage = 2;
@@ -171,7 +184,7 @@ unsigned char stream_column_chunk(void){
 
 	if(stream_stage == 2){
 		for(row = 0; row < 6; ++row){
-			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 24)) << 5)];
+			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 24)) << 5) - data_adjust];
 		}
 		multi_vram_buffer_vert(column_buffer, 6, NTADR_A(stream_column, 24) + nt_base);
 		stream_stage = 3;
@@ -180,7 +193,7 @@ unsigned char stream_column_chunk(void){
 
 	attr_addr = 0x23c0 + (stream_column >> 2) + 16 + nt_base;
 	for(row = 0; row < 6; ++row){
-		attribute_buffer[row] = room_data[0x3c0 + (stream_column >> 2) + (((unsigned int)(row + 2)) << 3)];
+		attribute_buffer[row] = room_data[0x3c0 + (stream_column >> 2) + (((unsigned int)(row + 2)) << 3) - data_adjust];
 		one_vram_buffer(attribute_buffer[row], attr_addr + (((unsigned int)row) << 3));
 	}
 	stream_active = 0;
@@ -188,7 +201,7 @@ unsigned char stream_column_chunk(void){
 	return 1;
 }
 
-void draw_full_room(const unsigned char *room_data, unsigned char nametable){
+void draw_full_room(const unsigned char *room_data, unsigned char room_compact, unsigned char nametable){
 
 	if(room_data == 0){
 		room_data = trackgeneric;
@@ -196,7 +209,13 @@ void draw_full_room(const unsigned char *room_data, unsigned char nametable){
 
 	vram_adr(NAMETABLE_A + ((unsigned int)nametable << 10));
 	for(largeindex = 0; largeindex < 1024; ++largeindex){
-		vram_put(room_data[largeindex]);
+		if((room_compact != 0) && (largeindex < HUD_TILE_BYTES)){
+			vram_put(0x00);
+		} else if(room_compact != 0) {
+			vram_put(room_data[largeindex - HUD_TILE_BYTES]);
+		} else {
+			vram_put(room_data[largeindex]);
+		}
 	}
 }
 
@@ -1119,7 +1138,8 @@ void load_room(){
 	clear_background();
 	init_world_sequence();
 	screen_slots[0] = next_world_screen();
-	draw_full_room(screen_slots[0], 0);
+	screen_slots_compact[0] = (screen_slots[0] == trackbegin) ? 0 : 1;
+	draw_full_room(screen_slots[0], screen_slots_compact[0], 0);
 	// place a tile for sprite zero hit
 	
 	ppu_on_all();
@@ -1132,8 +1152,10 @@ void load_room_pair(void){
 	init_world_sequence();
 	screen_slots[0] = next_world_screen();
 	screen_slots[1] = next_world_screen();
-	draw_full_room(screen_slots[0], 0);
-	draw_full_room(screen_slots[1], 1);
+	screen_slots_compact[0] = (screen_slots[0] == trackbegin) ? 0 : 1;
+	screen_slots_compact[1] = (screen_slots[1] == trackbegin) ? 0 : 1;
+	draw_full_room(screen_slots[0], screen_slots_compact[0], 0);
+	draw_full_room(screen_slots[1], screen_slots_compact[1], 1);
 	last_stream_column = 0xffff;
 	stream_active = 0;
 	stream_stage = 0;
@@ -1161,6 +1183,7 @@ void draw_screen_R(void){
 	stream_nametable = (unsigned char)(((scroll_x >> 8) + 1u) & 1u);
 	if(stream_column == 0){
 		screen_slots[stream_room_index] = next_world_screen();
+		screen_slots_compact[stream_room_index] = (screen_slots[stream_room_index] == trackbegin) ? 0 : 1;
 	}
 	stream_active = 1;
 	stream_stage = 0;
