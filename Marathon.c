@@ -477,6 +477,104 @@ void init_hud_labels(void){
 }
 
 
+void build_options_nametable(unsigned char nametable){
+	unsigned char row;
+	unsigned int nt_base;
+
+	nt_base = ((unsigned int)nametable << 10);
+	draw_full_room(trackbegin, 1, nametable);
+
+	// Keep the track-begin lower section, but clear the upper section for menu text.
+	for(row = 0; row < 14; ++row){
+		vram_adr(NAMETABLE_A + nt_base + (((unsigned int)row) << 5));
+		vram_fill(0x00, 32);
+	}
+
+	vram_adr(NTADR_A(7, 3) + nt_base);
+	vram_put('S'); vram_put('E'); vram_put('L'); vram_put('E'); vram_put('C'); vram_put('T');
+	vram_put(' ');
+	vram_put('R'); vram_put('A'); vram_put('C'); vram_put('E');
+
+	vram_adr(NTADR_A(8, 6) + nt_base);
+	vram_put('5'); vram_put('K');
+
+	vram_adr(NTADR_A(8, 9) + nt_base);
+	vram_put('1'); vram_put('0'); vram_put('K');
+
+	vram_adr(NTADR_A(8, 12) + nt_base);
+	vram_put('M'); vram_put('A'); vram_put('R'); vram_put('A');
+	vram_put('T'); vram_put('H'); vram_put('O'); vram_put('N');
+}
+
+void begin_title_to_options(void){
+	ppu_off();
+	clear_vram_buffer();
+	build_options_nametable(1);
+	title_scroll_x = 0;
+	title_runner_x = 24;
+	title_transition_phase = 0;
+	title_animation_frame = 0;
+	title_frame_counter = 0;
+	game_mode = MODE_TITLE_TO_OPTIONS;
+	set_scroll_x(0);
+	set_scroll_y(0);
+	ppu_on_all();
+}
+
+void draw_title_to_options(void){
+	const unsigned char *runner;
+
+	oam_clear();
+	set_signature_sprite();
+
+	++title_frame_counter;
+	if(title_frame_counter >= 6){
+		title_frame_counter = 0;
+		++title_animation_frame;
+		if(title_animation_frame >= 6){
+			title_animation_frame = 0;
+		}
+	}
+
+	if(title_animation_frame == 0){
+		runner = marathon_man_run1_data;
+	} else if(title_animation_frame == 1){
+		runner = marathon_man_run2_data;
+	} else if(title_animation_frame == 2){
+		runner = marathon_man_run3_data;
+	} else if(title_animation_frame == 3){
+		runner = marathon_man_run4_data;
+	} else if(title_animation_frame == 4){
+		runner = marathon_man_run5_data;
+	} else {
+		runner = marathon_man_run6_data;
+	}
+
+	if(title_transition_phase == 0){
+		oam_meta_spr(title_runner_x, 120, runner);
+		if(title_runner_x < 200){
+			title_runner_x += 2;
+		} else {
+			title_transition_phase = 1;
+		}
+	} else {
+		oam_meta_spr(24, 120, runner);
+		if(title_scroll_x <= 252){
+			title_scroll_x += 3;
+		} else {
+			title_scroll_x = 255;
+		}
+	}
+
+	set_scroll_x(title_scroll_x);
+	set_scroll_y(0);
+
+	if(title_scroll_x >= 255){
+		init_options();
+	}
+}
+
+
 void init_mode_game(void){
 	ppu_off();
 	pal_bg(palette_bg);
@@ -531,10 +629,11 @@ void init_mode_game(void){
 	ppu_off();
 	init_hud_labels();
 	set_sprite_zero();
+	game_intro_timer = 0;
 	// set_scroll_x(0);
 	set_scroll_y(0);
 
-	game_mode = MODE_GAME;
+	game_mode = MODE_GAME_INTRO;
 	ppu_on_all();
 }
 
@@ -573,13 +672,19 @@ void main (void) {
 
 			oam_clear();
 			set_signature_sprite();
+			oam_meta_spr(24, 136, marathon_man_walk1_data);
 
 			debug_controller = pad_poll(0);
 			debug_controller_new = get_pad_new(0);
 
 			if(debug_controller_new & PAD_START){
-				init_options();
+				begin_title_to_options();
 			}
+		}
+
+		while(game_mode == MODE_TITLE_TO_OPTIONS){
+			ppu_wait_nmi();
+			draw_title_to_options();
 		}
 
 		while(game_mode == MODE_OPTIONS){
@@ -589,15 +694,34 @@ void main (void) {
 			debug_controller = pad_poll(0);
 			debug_controller_new = get_pad_new(0);
 
-			if(debug_controller_new & PAD_UP){
+			if((options_phase == OPTIONS_PHASE_IDLE) && (debug_controller_new & PAD_UP)){
 				if(selected_option > 0) --selected_option;
 			}
-			if(debug_controller_new & PAD_DOWN){
+			if((options_phase == OPTIONS_PHASE_IDLE) && (debug_controller_new & PAD_DOWN)){
 				if(selected_option < 2) ++selected_option;
 			}
-			if(debug_controller_new & PAD_START || debug_controller_new & PAD_A){
+			if((options_phase == OPTIONS_PHASE_IDLE) && (debug_controller_new & (PAD_START | PAD_A))){
 				race_type = selected_option;
-				init_mode_game();
+				options_phase = OPTIONS_PHASE_CONFIRM;
+				options_runner_timer = 0;
+				options_runner_frame = 0;
+				options_runner_hold_timer = 0;
+			}
+		}
+
+		while(game_mode == MODE_GAME_INTRO){
+
+			ppu_wait_nmi();
+
+			set_scroll_x(0);
+			set_scroll_y(0);
+
+			draw_sprite();
+			draw_hud();
+
+			++game_intro_timer;
+			if(game_intro_timer >= 40){
+				game_mode = MODE_GAME;
 			}
 		}
 
@@ -669,7 +793,7 @@ void main (void) {
 			break;
 		}
 
-		gray_line(); // debug only, too expensive for regular gameplay
+		// gray_line(); // debug only, too expensive for regular gameplay
                 } // end MODE_GAME
 
 		while(game_mode == MODE_WIN){
@@ -998,6 +1122,7 @@ void draw_hud(void){
 
 void draw_options_screen(void){
 	unsigned char cursor_y;
+	const unsigned char *runner_data;
 	const unsigned char *cursor_data;
 
 	++options_cursor_timer;
@@ -1010,11 +1135,11 @@ void draw_options_screen(void){
 	}
 
 	if(selected_option == 0){
-		cursor_y = 80;
+		cursor_y = 48;
 	} else if(selected_option == 1){
-		cursor_y = 112;
+		cursor_y = 72;
 	} else {
-		cursor_y = 144;
+		cursor_y = 96;
 	}
 
 	if(options_cursor_frame == 0){
@@ -1029,7 +1154,46 @@ void draw_options_screen(void){
 
 	oam_clear();
 	oam_set(0);
-	oam_meta_spr(68, cursor_y - 2, cursor_data);
+
+	if(options_phase == OPTIONS_PHASE_IDLE){
+		runner_data = marathon_man_walk1_data;
+		oam_meta_spr(56, cursor_y - 2, cursor_data);
+	} else {
+		if(options_runner_x < 112){
+			++options_runner_timer;
+			if(options_runner_timer >= 6){
+				options_runner_timer = 0;
+				++options_runner_frame;
+				if(options_runner_frame >= 6){
+					options_runner_frame = 0;
+				}
+				options_runner_x += 3;
+			}
+
+			if(options_runner_frame == 0){
+				runner_data = marathon_man_run1_data;
+			} else if(options_runner_frame == 1){
+				runner_data = marathon_man_run2_data;
+			} else if(options_runner_frame == 2){
+				runner_data = marathon_man_run3_data;
+			} else if(options_runner_frame == 3){
+				runner_data = marathon_man_run4_data;
+			} else if(options_runner_frame == 4){
+				runner_data = marathon_man_run5_data;
+			} else {
+				runner_data = marathon_man_run6_data;
+			}
+		} else {
+			runner_data = marathon_man_walk1_data;
+			++options_runner_hold_timer;
+			if(options_runner_hold_timer >= 8){
+				init_mode_game();
+				return;
+			}
+		}
+	}
+
+	oam_meta_spr(options_runner_x, 120, runner_data);
 }
 
 void init_options(void){
@@ -1041,26 +1205,14 @@ void init_options(void){
 
 	selected_option = 0;
 	options_cursor_frame = 0;
-	options_cursor_timer = 0;  
+	options_cursor_timer = 0;
+	options_phase = OPTIONS_PHASE_IDLE;
+	options_runner_x = 24;
+	options_runner_timer = 0;
+	options_runner_frame = 0;
+	options_runner_hold_timer = 0;
 
-	// Write blank nametable
-	vram_adr(NAMETABLE_A);
-	for(largeindex = 0; largeindex < 1024; ++largeindex){
-		vram_put(0x00);
-		flush_vram_update2();
-	}
-
-	// Draw option labels directly into VRAM while PPU is off
-	// "5K" at row 10
-	vram_adr(NTADR_A(11, 10));
-	vram_put('5'); vram_put('K');
-	// "10K" at row 14
-	vram_adr(NTADR_A(11, 14));
-	vram_put('1'); vram_put('0'); vram_put('K');
-	// "MARATHON" at row 18
-	vram_adr(NTADR_A(11, 18));
-	vram_put('M'); vram_put('A'); vram_put('R'); vram_put('A');
-	vram_put('T'); vram_put('H'); vram_put('O'); vram_put('N');
+	build_options_nametable(0);
 
 	game_mode = MODE_OPTIONS;
 	set_scroll_x(0);
@@ -1163,7 +1315,9 @@ void set_signature_sprite(){
 		case 54: pointer = marathon_man_alan54_data; break; 
 		default: pointer = marathon_man_alan54_data; break;
 	}
-	oam_meta_spr(40, 10, pointer);
+	if((title_animation_frame < 54) || ((title_frame_counter & 1) == 0)){
+		oam_meta_spr(40, 10, pointer);
+	}
 }
 
 void load_title(void){
@@ -1179,6 +1333,9 @@ void load_title(void){
 	}
 	title_animation_frame = 0;
 	title_frame_counter = 0;
+	title_scroll_x = 0;
+	title_runner_x = 24;
+	title_transition_phase = 0;
 	game_mode = MODE_TITLE;
 	set_scroll_x(0);
 	set_scroll_y(0);

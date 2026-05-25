@@ -78,8 +78,17 @@ unsigned char sprite_frame_counter;
 
 unsigned char title_animation_frame;
 unsigned char title_frame_counter;
+unsigned char title_scroll_x;
+unsigned char title_runner_x;
+unsigned char title_transition_phase;
 unsigned char options_cursor_frame;
 unsigned char options_cursor_timer;
+unsigned char options_phase;
+unsigned char options_runner_x;
+unsigned char options_runner_timer;
+unsigned char options_runner_frame;
+unsigned char options_runner_hold_timer;
+unsigned char game_intro_timer;
 
 unsigned int scroll_x;
 unsigned int scroll_subpixel;
@@ -104,8 +113,9 @@ unsigned char did_stream_column;
 unsigned char game_mode;
 unsigned char selected_option;
 unsigned char race_type;
-enum {MODE_TITLE, MODE_OPTIONS, MODE_GAME, MODE_WIN};
+enum {MODE_TITLE, MODE_TITLE_TO_OPTIONS, MODE_OPTIONS, MODE_GAME_INTRO, MODE_GAME, MODE_WIN};
 enum {RACE_5K, RACE_10K, RACE_MARATHON};
+enum {OPTIONS_PHASE_IDLE, OPTIONS_PHASE_CONFIRM};
 
 enum {
   RUNNING,
@@ -144,3 +154,6 @@ void draw_options_screen(void);
 void set_signature_sprite(void);
 void load_room_pair(void);
 void draw_screen_R(void);
+void build_options_nametable(unsigned char nametable);
+void begin_title_to_options(void);
+void draw_title_to_options(void);
