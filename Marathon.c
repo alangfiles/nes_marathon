@@ -31,15 +31,21 @@
 #include "SCREENS/trackend.h"
 #include "SCREENS/tracktrashcan.h"
 #include "SCREENS/trackgeneric.h"
+#include "SCREENS/waterbegin.h"
+#include "SCREENS/waterbench.h"
+#include "SCREENS/waterend.h"
+#include "SCREENS/watergeneric.h"
 #include "SCREENS/title.h"
 #include "sprites.h"
 
 enum {
 	THEME_TRACK,
-	THEME_CITY
+	THEME_CITY,
+	THEME_WATER
 };
 
-#define HUD_TILE_BYTES 192u
+#define HUD_TILE_BYTES 448u
+#define COMPACT_ROOM_FIRST_ROW (HUD_TILE_BYTES >> 5)
 
 enum {
 	PHASE_BEGIN,
@@ -52,6 +58,7 @@ unsigned char screen_slots_compact[2];
 unsigned char world_theme;
 unsigned char world_phase;
 unsigned char world_middle_remaining;
+unsigned char world_pending_citycross2;
 
 const unsigned char *next_world_screen(void){
 	unsigned char roll;
@@ -62,8 +69,10 @@ const unsigned char *next_world_screen(void){
 
 		if(world_theme == THEME_TRACK){
 			return trackbegin;
+		} else if(world_theme == THEME_CITY){
+			return citybegin;
 		}
-		return citybegin;
+		return waterbegin;
 	}
 
 	if(world_phase == PHASE_MIDDLE){
@@ -79,15 +88,33 @@ const unsigned char *next_world_screen(void){
 				middle = tracktrashcan;
 			}
 		} else if(world_theme == THEME_CITY){
-			roll = rand8() & 3;
-			if(roll == 0){
-				middle = citybuilding;
-			} else if(roll == 1){
-				middle = citycross;
-			} else if(roll == 2){
+			if(world_pending_citycross2 != 0){
+				world_pending_citycross2 = 0;
 				middle = citycross2;
 			} else {
-				middle = citygeneric;
+				roll = rand8() & 3;
+				if(world_middle_remaining <= 1){
+					roll &= 1;
+					if(roll == 0){
+						middle = citybuilding;
+					} else {
+						middle = citygeneric;
+					}
+				} else if(roll == 0){
+					middle = citybuilding;
+				} else if(roll == 1){
+					world_pending_citycross2 = 1;
+					middle = citycross;
+				} else {
+					middle = citygeneric;
+				}
+			}
+		} else {
+			roll = rand8() & 1;
+			if(roll == 0){
+				middle = waterbench;
+			} else {
+				middle = watergeneric;
 			}
 		}
 
@@ -106,19 +133,27 @@ const unsigned char *next_world_screen(void){
 		return trackend;
 	}
 
+	if(world_theme == THEME_CITY){
+		world_theme = THEME_WATER;
+		world_phase = PHASE_BEGIN;
+		return cityend;
+	}
+
 	world_theme = THEME_TRACK;
 	world_phase = PHASE_BEGIN;
-	return cityend;
+	return waterend;
 }
 
 void init_world_sequence(void){
 	world_theme = THEME_TRACK;
 	world_phase = PHASE_BEGIN;
 	world_middle_remaining = 0;
+	world_pending_citycross2 = 0;
 }
 
 void queue_room_column(unsigned char room_index, unsigned char nametable, unsigned char column){
 	unsigned char row;
+	unsigned char source_row;
 	unsigned int attr_addr;
 	unsigned int data_adjust;
 	const unsigned char *room_data;
@@ -130,7 +165,12 @@ void queue_room_column(unsigned char room_index, unsigned char nametable, unsign
 	data_adjust = (screen_slots_compact[room_index & 1] != 0) ? HUD_TILE_BYTES : 0;
 
 	for(row = 0; row < 22; ++row){
-		column_buffer[row] = room_data[column + (((unsigned int)(row + 8)) << 5) - data_adjust];
+		source_row = row + 8;
+		if((data_adjust != 0) && (source_row < COMPACT_ROOM_FIRST_ROW)){
+			column_buffer[row] = trackbegin[column + (((unsigned int)source_row) << 5)];
+		} else {
+			column_buffer[row] = room_data[column + (((unsigned int)source_row) << 5) - data_adjust];
+		}
 	}
 	multi_vram_buffer_vert(column_buffer, 22, NTADR_A(column, 8) + ((unsigned int)nametable << 10));
 
@@ -143,6 +183,7 @@ void queue_room_column(unsigned char room_index, unsigned char nametable, unsign
 
 unsigned char stream_column_chunk(void){
 	unsigned char row;
+	unsigned char source_row;
 	unsigned int nt_base;
 	unsigned int attr_addr;
 	unsigned int data_adjust;
@@ -166,7 +207,12 @@ unsigned char stream_column_chunk(void){
 
 	if(stream_stage == 0){
 		for(row = 0; row < 8; ++row){
-			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 8)) << 5) - data_adjust];
+			source_row = row + 8;
+			if((data_adjust != 0) && (source_row < COMPACT_ROOM_FIRST_ROW)){
+				column_buffer[row] = trackbegin[stream_column + (((unsigned int)source_row) << 5)];
+			} else {
+				column_buffer[row] = room_data[stream_column + (((unsigned int)source_row) << 5) - data_adjust];
+			}
 		}
 		multi_vram_buffer_vert(column_buffer, 8, NTADR_A(stream_column, 8) + nt_base);
 		stream_stage = 1;
@@ -175,7 +221,12 @@ unsigned char stream_column_chunk(void){
 
 	if(stream_stage == 1){
 		for(row = 0; row < 8; ++row){
-			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 16)) << 5) - data_adjust];
+			source_row = row + 16;
+			if((data_adjust != 0) && (source_row < COMPACT_ROOM_FIRST_ROW)){
+				column_buffer[row] = trackbegin[stream_column + (((unsigned int)source_row) << 5)];
+			} else {
+				column_buffer[row] = room_data[stream_column + (((unsigned int)source_row) << 5) - data_adjust];
+			}
 		}
 		multi_vram_buffer_vert(column_buffer, 8, NTADR_A(stream_column, 16) + nt_base);
 		stream_stage = 2;
@@ -184,7 +235,12 @@ unsigned char stream_column_chunk(void){
 
 	if(stream_stage == 2){
 		for(row = 0; row < 6; ++row){
-			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 24)) << 5) - data_adjust];
+			source_row = row + 24;
+			if((data_adjust != 0) && (source_row < COMPACT_ROOM_FIRST_ROW)){
+				column_buffer[row] = trackbegin[stream_column + (((unsigned int)source_row) << 5)];
+			} else {
+				column_buffer[row] = room_data[stream_column + (((unsigned int)source_row) << 5) - data_adjust];
+			}
 		}
 		multi_vram_buffer_vert(column_buffer, 6, NTADR_A(stream_column, 24) + nt_base);
 		stream_stage = 3;
@@ -210,7 +266,7 @@ void draw_full_room(const unsigned char *room_data, unsigned char room_compact, 
 	vram_adr(NAMETABLE_A + ((unsigned int)nametable << 10));
 	for(largeindex = 0; largeindex < 1024; ++largeindex){
 		if((room_compact != 0) && (largeindex < HUD_TILE_BYTES)){
-			vram_put(0x00);
+			vram_put(trackbegin[largeindex]);
 		} else if(room_compact != 0) {
 			vram_put(room_data[largeindex - HUD_TILE_BYTES]);
 		} else {
