@@ -36,7 +36,7 @@
 #include "SCREENS/waterbench.h"
 #include "SCREENS/waterend.h"
 #include "SCREENS/watergeneric.h"
-#include "SCREENS/title.h"
+#include "SCREENS/titlespecial.h"
 // #include "SCREENS/grandstand.h"
 #include "SCREENS/grandstsand.h"
 #include "sprites.h"
@@ -759,7 +759,7 @@ void main (void) {
 
 			oam_clear();
 			set_signature_sprite();
-			oam_meta_spr(24, 120, marathon_man_walk1_data);
+			oam_meta_spr(24, 120, marathon_man_walk1title_data);
 
 			debug_controller = pad_poll(0);
 			debug_controller_new = get_pad_new(0);
@@ -1425,9 +1425,7 @@ void set_signature_sprite(){
 		case 54: pointer = marathon_man_alan54_data; break; 
 		default: pointer = marathon_man_alan54_data; break;
 	}
-	if((title_animation_frame < 54) || ((title_frame_counter & 1) == 0)){
 		oam_meta_spr(40, 10, pointer);
-	}
 }
 
 void load_title(void){
@@ -1438,8 +1436,8 @@ void load_title(void){
 	vram_adr(NAMETABLE_A);
 	for (largeindex = 0; largeindex < 1024; ++largeindex)
 	{
-		vram_put(title[largeindex]);
-		flush_vram_update2();
+		vram_put(titlespecial[largeindex]);
+		flush_vram_update2(); 
 	}
 	title_animation_frame = 0;
 	title_frame_counter = 0;

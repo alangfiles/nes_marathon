@@ -228,6 +228,40 @@ const unsigned char marathon_man_run6_data[]={
 
 };
 
+const unsigned char marathon_man_walk1title_data[]={
+
+11, 22,0x08,0,
+ 7,  2,0x05,0,
+ 7, 10,0x15,0,
+ 0,  2,0x06,2,
+
+ 8,  2,0x07,2,
+ 0, 10,0x16,2,
+ 8, 10,0x17,2,
+ 8, 16,0x0e,2,
+
+ 0, 16,0x0d,2,
+ 8, 24,0x1e,2,
+ 0, 24,0x1d,2,
+ 8, 32,0x2e,2,
+
+ 0, 32,0x2d,2,
+ 8, 40,0x3e,2,
+ 0, 40,0x3d,2,
+- 8, 40,0x3c,2,
+
+ 0, 48,0x4d,2,
+- 8, 48,0x4c,2,
+- 8, 56,0x5c,2,
+ 0, 56,0x5d,2,
+
+ 8, 56,0x5e,2,
+16, 56,0x5f,2,
+ 8, 48,0x4e,2,
+0x80
+
+};
+
 const unsigned char marathon_man_runtitle1_data[]={
 
 	  7,  2,0x05,0,
