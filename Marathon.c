@@ -1227,6 +1227,11 @@ void draw_screen_R(void){
 	}
 
 	did_stream_column = stream_column_chunk();
+	if(stream_active != 0){
+		if(stream_column_chunk() != 0){
+			did_stream_column = 1;
+		}
+	}
 
 	column_progress = scroll_x >> 3;
 	if((column_progress == last_stream_column) || (stream_active != 0)){
@@ -1246,6 +1251,9 @@ void draw_screen_R(void){
 
 	if(stream_column_chunk() != 0){
 		did_stream_column = 1;
+		if(stream_active != 0){
+			stream_column_chunk();
+		}
 	}
 }
 
