@@ -89,6 +89,8 @@ unsigned int largeindex;
 const unsigned char *pointer;
 unsigned char scroll_timer;
 unsigned int total_steps_needed;
+unsigned int progress_remainder;
+unsigned char progress_pixels;
 unsigned int last_stream_column;
 unsigned char column_buffer[30];
 unsigned char attribute_buffer[8];

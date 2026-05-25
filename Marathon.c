@@ -25,25 +25,25 @@
 #include "SCREENS/title.h"
 #include "sprites.h"
 
-unsigned char get_room_byte(unsigned char room_index, unsigned int room_offset){
-	if(room_index == 0){
-		return trackflowers[room_offset];
-	}
-	return trackgeneric[room_offset]; 
-}
-
 void queue_room_column(unsigned char room_index, unsigned char nametable, unsigned char column){
 	unsigned char row;
 	unsigned int attr_addr;
+	const unsigned char *room_data;
+
+	if(room_index == 0){
+		room_data = trackflowers;
+	} else {
+		room_data = trackgeneric;
+	}
 
 	for(row = 0; row < 22; ++row){
-		column_buffer[row] = get_room_byte(room_index, column + (((unsigned int)(row + 8)) << 5));
+		column_buffer[row] = room_data[column + (((unsigned int)(row + 8)) << 5)];
 	}
 	multi_vram_buffer_vert(column_buffer, 22, NTADR_A(column, 8) + ((unsigned int)nametable << 10));
 
 	attr_addr = 0x23c0 + (column >> 2) + 16 + ((unsigned int)nametable << 10);
 	for(row = 0; row < 6; ++row){
-		attribute_buffer[row] = get_room_byte(room_index, 0x3c0 + (column >> 2) + (((unsigned int)(row + 2)) << 3));
+		attribute_buffer[row] = room_data[0x3c0 + (column >> 2) + (((unsigned int)(row + 2)) << 3)];
 		one_vram_buffer(attribute_buffer[row], attr_addr + (((unsigned int)row) << 3));
 	}
 }
@@ -52,16 +52,23 @@ unsigned char stream_column_chunk(void){
 	unsigned char row;
 	unsigned int nt_base;
 	unsigned int attr_addr;
+	const unsigned char *room_data;
 
 	if(stream_active == 0){
 		return 0;
+	}
+
+	if(stream_room_index == 0){
+		room_data = trackflowers;
+	} else {
+		room_data = trackgeneric;
 	}
 
 	nt_base = ((unsigned int)stream_nametable << 10);
 
 	if(stream_stage == 0){
 		for(row = 0; row < 8; ++row){
-			column_buffer[row] = get_room_byte(stream_room_index, stream_column + (((unsigned int)(row + 8)) << 5));
+			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 8)) << 5)];
 		}
 		multi_vram_buffer_vert(column_buffer, 8, NTADR_A(stream_column, 8) + nt_base);
 		stream_stage = 1;
@@ -70,7 +77,7 @@ unsigned char stream_column_chunk(void){
 
 	if(stream_stage == 1){
 		for(row = 0; row < 8; ++row){
-			column_buffer[row] = get_room_byte(stream_room_index, stream_column + (((unsigned int)(row + 16)) << 5));
+			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 16)) << 5)];
 		}
 		multi_vram_buffer_vert(column_buffer, 8, NTADR_A(stream_column, 16) + nt_base);
 		stream_stage = 2;
@@ -79,7 +86,7 @@ unsigned char stream_column_chunk(void){
 
 	if(stream_stage == 2){
 		for(row = 0; row < 6; ++row){
-			column_buffer[row] = get_room_byte(stream_room_index, stream_column + (((unsigned int)(row + 24)) << 5));
+			column_buffer[row] = room_data[stream_column + (((unsigned int)(row + 24)) << 5)];
 		}
 		multi_vram_buffer_vert(column_buffer, 6, NTADR_A(stream_column, 24) + nt_base);
 		stream_stage = 3;
@@ -88,7 +95,7 @@ unsigned char stream_column_chunk(void){
 
 	attr_addr = 0x23c0 + (stream_column >> 2) + 16 + nt_base;
 	for(row = 0; row < 6; ++row){
-		attribute_buffer[row] = get_room_byte(stream_room_index, 0x3c0 + (stream_column >> 2) + (((unsigned int)(row + 2)) << 3));
+		attribute_buffer[row] = room_data[0x3c0 + (stream_column >> 2) + (((unsigned int)(row + 2)) << 3)];
 		one_vram_buffer(attribute_buffer[row], attr_addr + (((unsigned int)row) << 3));
 	}
 	stream_active = 0;
@@ -97,9 +104,17 @@ unsigned char stream_column_chunk(void){
 }
 
 void draw_full_room(unsigned char room_index, unsigned char nametable){
+	const unsigned char *room_data;
+
+	if(room_index == 0){
+		room_data = trackflowers;
+	} else {
+		room_data = trackgeneric;
+	}
+
 	vram_adr(NAMETABLE_A + ((unsigned int)nametable << 10));
 	for(largeindex = 0; largeindex < 1024; ++largeindex){
-		vram_put(get_room_byte(room_index, largeindex));
+		vram_put(room_data[largeindex]);
 	}
 }
 
@@ -124,22 +139,17 @@ void process_powerpad(void){
 	powerpad_old = powerpad_cur;
 }	
 
+const unsigned int powerpad_button_masks[12] = {
+	POWERPAD_1, POWERPAD_2, POWERPAD_3, POWERPAD_4,
+	POWERPAD_5, POWERPAD_6, POWERPAD_7, POWERPAD_8,
+	POWERPAD_9, POWERPAD_10, POWERPAD_11, POWERPAD_12
+};
+
 unsigned int get_powerpad_button_mask(unsigned char button){
-	switch(button){
-		case 1: return POWERPAD_1;
-		case 2: return POWERPAD_2;
-		case 3: return POWERPAD_3;
-		case 4: return POWERPAD_4;
-		case 5: return POWERPAD_5;
-		case 6: return POWERPAD_6;
-		case 7: return POWERPAD_7;
-		case 8: return POWERPAD_8;
-		case 9: return POWERPAD_9;
-		case 10: return POWERPAD_10;
-		case 11: return POWERPAD_11;
-		case 12: return POWERPAD_12;
-		default: return 0;
+	if((button >= 1) && (button <= 12)){
+		return powerpad_button_masks[button - 1];
 	}
+	return 0;
 }
 
 unsigned char random_button_value(void){
@@ -152,21 +162,26 @@ unsigned char random_button_value(void){
 	return value + 1;
 }
 
+const unsigned char * const big_button_sprites[12] = {
+	marathon_man_1big_data,
+	marathon_man_2big_data,
+	marathon_man_3big_data,
+	marathon_man_4big_data,
+	marathon_man_5big_data,
+	marathon_man_6big_data,
+	marathon_man_7big_data,
+	marathon_man_8big_data,
+	marathon_man_9big_data,
+	marathon_man_10big_data,
+	marathon_man_11big_data,
+	marathon_man_12big_data
+};
+
 const unsigned char *get_big_button_sprite(unsigned char button){
-	switch(button){
-		case 1: return marathon_man_1big_data;
-		case 2: return marathon_man_2big_data;
-		case 3: return marathon_man_3big_data;
-		case 4: return marathon_man_4big_data;
-		case 5: return marathon_man_5big_data;
-		case 6: return marathon_man_6big_data;
-		case 7: return marathon_man_7big_data;
-		case 8: return marathon_man_8big_data;
-		case 9: return marathon_man_9big_data;
-		case 10: return marathon_man_10big_data;
-		case 11: return marathon_man_11big_data;
-		default: return marathon_man_12big_data;
+	if((button >= 1) && (button <= 12)){
+		return big_button_sprites[button - 1];
 	}
+	return big_button_sprites[11];
 }
 
 void update_streak_digits(void){
@@ -317,6 +332,8 @@ void init_mode_game(void){
 	frame_counter = 0;
 	scroll_timer = 0;
 	step_button_lockout = 0;
+	progress_remainder = 0;
+	progress_pixels = 0;
 	sprite_frame_counter = 0;
 	time_since_button_press = 255;
 	motion = STANDING;
@@ -501,68 +518,9 @@ void process_controller(void){
 		spawn_target_button();
 	}
 
-	if(debug_controller_new & PAD_A || debug_controller_new & PAD_B){
+	if((debug_controller_new & (PAD_A | PAD_B)) || (powerpad_new & 0x0fff)){
 		add_step();
 	}
-	//if a new button is pressed down, we call it a step.
-		if(powerpad_new & POWERPAD_1){
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_2){
-			
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_3){
-			
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_4){
-			
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_5){
-			
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_6){
-			
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_7){
-			
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_8){
-			
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_9){
-			
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_10){
-			
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_11){
-			
-			add_step();
-		}
-		
-		if(powerpad_new & POWERPAD_12){
-			
-			add_step();
-		}
 		
 }
 
@@ -628,6 +586,15 @@ void add_step(void){
 
 	time_since_button_press = 0;
 	steps++;
+
+	if(progress_pixels < 212){
+		progress_remainder += 212;
+		if(progress_remainder >= total_steps_needed){
+			progress_remainder -= total_steps_needed;
+			++progress_pixels;
+		}
+	}
+
 	step_button_lockout = FRAMES_PER_STEP; //lock out for a few frames to avoid double counting
 
 	if(ones_step == 9){
@@ -740,8 +707,6 @@ void initial_timer_conversion(void){
 
 void draw_sprite(){
 	unsigned char progress_x;
-	unsigned int clamped_steps;
-	unsigned long progress_scaled;
 	const unsigned char *progress_cursor_data;
 
 	oam_clear();
@@ -765,15 +730,7 @@ void draw_sprite(){
 		progress_cursor_data = marathon_man_cursor2_data;
 	}
 
-	progress_x = 16;
-	if(total_steps_needed > 0){
-		clamped_steps = steps;
-		if(clamped_steps > total_steps_needed){
-			clamped_steps = total_steps_needed;
-		}
-		progress_scaled = ((unsigned long)clamped_steps * 212UL) / (unsigned long)total_steps_needed;
-		progress_x = 16 + (unsigned char)progress_scaled;
-	}
+	progress_x = 16 + progress_pixels;
 
 	// Draw progress cursor on the top race bar.
 	oam_meta_spr(progress_x + 5, 46, progress_cursor_data);
