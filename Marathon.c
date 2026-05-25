@@ -21,8 +21,83 @@
 
 #include "Marathon.h"
 #include "SCREENS/trackflowers.h"
+#include "SCREENS/trackgeneric.h"
 #include "SCREENS/title.h"
 #include "sprites.h"
+
+unsigned char get_room_byte(unsigned char room_index, unsigned int room_offset){
+	if(room_index == 0){
+		return trackflowers[room_offset];
+	}
+	return trackgeneric[room_offset]; 
+}
+
+void queue_room_column(unsigned char room_index, unsigned char nametable, unsigned char column){
+	unsigned char row;
+
+	for(row = 0; row < 22; ++row){
+		column_buffer[row] = get_room_byte(room_index, column + (((unsigned int)(row + 8)) << 5));
+	}
+	multi_vram_buffer_vert(column_buffer, 22, NTADR_A(column, 8) + ((unsigned int)nametable << 10));
+
+	for(row = 0; row < 6; ++row){
+		attribute_buffer[row] = get_room_byte(room_index, 0x3c0 + (column >> 2) + (((unsigned int)(row + 2)) << 3));
+	}
+	multi_vram_buffer_vert(attribute_buffer, 6, 0x23c0 + (column >> 2) + 16 + ((unsigned int)nametable << 10));
+}
+
+unsigned char stream_column_chunk(void){
+	unsigned char row;
+	unsigned int nt_base;
+
+	if(stream_active == 0){
+		return 0;
+	}
+
+	nt_base = ((unsigned int)stream_nametable << 10);
+
+	if(stream_stage == 0){
+		for(row = 0; row < 8; ++row){
+			column_buffer[row] = get_room_byte(stream_room_index, stream_column + (((unsigned int)(row + 8)) << 5));
+		}
+		multi_vram_buffer_vert(column_buffer, 8, NTADR_A(stream_column, 8) + nt_base);
+		stream_stage = 1;
+		return 1;
+	}
+
+	if(stream_stage == 1){
+		for(row = 0; row < 8; ++row){
+			column_buffer[row] = get_room_byte(stream_room_index, stream_column + (((unsigned int)(row + 16)) << 5));
+		}
+		multi_vram_buffer_vert(column_buffer, 8, NTADR_A(stream_column, 16) + nt_base);
+		stream_stage = 2;
+		return 1;
+	}
+
+	if(stream_stage == 2){
+		for(row = 0; row < 6; ++row){
+			column_buffer[row] = get_room_byte(stream_room_index, stream_column + (((unsigned int)(row + 24)) << 5));
+		}
+		multi_vram_buffer_vert(column_buffer, 6, NTADR_A(stream_column, 24) + nt_base);
+		stream_stage = 3;
+		return 1;
+	}
+
+	for(row = 0; row < 6; ++row){
+		attribute_buffer[row] = get_room_byte(stream_room_index, 0x3c0 + (stream_column >> 2) + (((unsigned int)(row + 2)) << 3));
+	}
+	multi_vram_buffer_vert(attribute_buffer, 6, 0x23c0 + (stream_column >> 2) + 16 + nt_base);
+	stream_active = 0;
+	stream_stage = 0;
+	return 1;
+}
+
+void draw_full_room(unsigned char room_index, unsigned char nametable){
+	vram_adr(NAMETABLE_A + ((unsigned int)nametable << 10));
+	for(largeindex = 0; largeindex < 1024; ++largeindex){
+		vram_put(get_room_byte(room_index, largeindex));
+	}
+}
 
 const unsigned char palette_sprites[16]={
 	 0x0f,0x26,0x07,0x21,
@@ -231,6 +306,9 @@ void init_mode_game(void){
 
 	scroll_x = 0;
 	scroll_subpixel = 0;
+	last_stream_column = 0xffff;
+	stream_active = 0;
+	stream_stage = 0;
 	velocity = 0; 
 	frame_counter = 0;
 	scroll_timer = 0;
@@ -251,12 +329,12 @@ void init_mode_game(void){
 	initial_steps_conversion();
 	initial_timer_conversion();
 
-	load_room();
+	load_room_pair();
 	ppu_off();
 	init_hud_labels();
 	set_sprite_zero();
 	// set_scroll_x(0);
-	set_scroll_y(0xff);
+	set_scroll_y(0);
 
 	game_mode = MODE_GAME;
 	ppu_on_all();
@@ -326,13 +404,13 @@ void main (void) {
 		}
 
 		while(game_mode == MODE_GAME){
+		unsigned char did_stream_column;
 
 		ppu_wait_nmi(); // wait till beginning of the frame
-		
-		set_sprite_zero();
-		split(scroll_x);
+
 		set_scroll_x(0);
-		set_scroll_y(0xff);
+		set_scroll_y(0);
+		did_stream_column = 0;
 
 		//timer stuff
 		++frame_counter;
@@ -348,7 +426,9 @@ void main (void) {
 
 		// Accumulate subpixel camera movement so low velocity still scrolls.
 		scroll_subpixel += velocity;
-		scroll_x = (scroll_subpixel >> 8);
+		scroll_x += (scroll_subpixel >> 8);
+		scroll_subpixel &= 0x00ff;
+		did_stream_column = 0;
 		
 
 		if(step_button_lockout > 0){
@@ -374,8 +454,12 @@ void main (void) {
 
 		check_motion();
 
+		split(scroll_x);
+
 		draw_sprite();
-		draw_hud();
+		if((did_stream_column == 0) || ((frame_counter & 1) == 0)){
+			draw_hud();
+		}
 
 		process_controller();
 
@@ -384,7 +468,7 @@ void main (void) {
 			break;
 		}
 
-		
+		gray_line();
                 } // end MODE_GAME
 
 		while(game_mode == MODE_WIN){
@@ -941,38 +1025,71 @@ void load_title(void){
 
 void clear_background(void)
 {
+	unsigned char nt;
+
 	// draw all 0x00 into the bg
-	vram_adr(NAMETABLE_A);
-	for (largeindex = 0; largeindex < 1024; ++largeindex)
-	{
-		vram_put(0x00);
-		flush_vram_update2();
+	for(nt = 0; nt < 2; ++nt){
+		vram_adr(NAMETABLE_A + ((unsigned int)nt << 10));
+		for (largeindex = 0; largeindex < 1024; ++largeindex)
+		{
+			vram_put(0x00);
+		}
 	}
 }
 
 void load_room(){
 	ppu_off();
 	clear_background();
-	vram_adr(NAMETABLE_A);
-	for (largeindex = 0; largeindex < 1024; ++largeindex)
-	{ 
-		vram_put(trackflowers[largeindex]);
-		++index;
-		if (index > 1)
-		{ // don't put too much in the vram_buffer
-			flush_vram_update2();
-			index = 0;
-		}
-	}
+	draw_full_room(0, 0);
 	// place a tile for sprite zero hit
 	
 	ppu_on_all();
 
 }
 
+void load_room_pair(void){
+	ppu_off();
+	clear_background();
+	draw_full_room(0, 0);
+	draw_full_room(1, 1);
+	last_stream_column = 0xffff;
+	stream_active = 0;
+	stream_stage = 0;
+	ppu_on_all();
+}
+
+unsigned char draw_screen_R(void){
+	unsigned int column_progress;
+	unsigned char did_stream;
+
+	if((velocity == 0) && (stream_active == 0)){
+		return 0;
+	}
+
+	did_stream = stream_column_chunk();
+
+	column_progress = scroll_x >> 3;
+	if((column_progress == last_stream_column) || (stream_active != 0)){
+		return did_stream;
+	}
+	last_stream_column = column_progress;
+
+	stream_column = (unsigned char)((column_progress + 32u) & 31u);
+	stream_room_index = (unsigned char)(((scroll_x >> 8) + 1u) & 1u);
+	stream_nametable = (unsigned char)(((scroll_x >> 8) + 1u) & 1u);
+	stream_active = 1;
+	stream_stage = 0;
+
+	if(stream_column_chunk() != 0){
+		did_stream = 1;
+	}
+
+	return did_stream;
+}
+
 void set_sprite_zero(void){
 	oam_set(0); // double check that this goes in the zero slot
 	
 	//oam_spr(unsigned char x,unsigned char y,unsigned char chrnum,unsigned char attr);
-	oam_spr(0x01,64,0x03,3 & OAM_BEHIND);
+	oam_spr(0xf0,70,0xfa,3 | OAM_BEHIND);
 }
