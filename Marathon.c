@@ -713,7 +713,7 @@ void init_mode_game(void){
 	init_hud_labels();
 	set_sprite_zero();
 	game_intro_timer = 0;
-	// set_scroll_x(0);
+	set_scroll_x(0);
 	set_scroll_y(0);
 
 	game_mode = MODE_GAME_INTRO;
@@ -1487,7 +1487,6 @@ void load_room_pair(void){
 	last_stream_column = 0xffff;
 	stream_active = 0;
 	stream_stage = 0;
-	ppu_on_all();
 }
 
 void draw_screen_R(void){
