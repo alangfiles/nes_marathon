@@ -28,6 +28,7 @@
 #include "SCREENS/citygeneric.h"
 #include "SCREENS/trackflowers.h"
 #include "SCREENS/trackbegin.h"
+#include "SCREENS/trackhud.h"
 #include "SCREENS/trackend.h"
 #include "SCREENS/tracktrashcan.h"
 #include "SCREENS/trackgeneric.h"
@@ -46,6 +47,15 @@ enum {
 
 #define HUD_TILE_BYTES 448u
 #define COMPACT_ROOM_FIRST_ROW (HUD_TILE_BYTES >> 5)
+
+/*
+ * Room data contract:
+ * - All gameplay screen headers are compact (576 bytes).
+ * - The trimmed top region (first HUD_TILE_BYTES of a full 1024-byte nametable)
+ *   is stored once in trackhud[] and used as the shared donor.
+ * - Compact room reads subtract HUD_TILE_BYTES; rows above that boundary use
+ *   trackhud[] so sprite-zero split/HUD seams stay stable.
+ */
 
 enum {
 	PHASE_BEGIN,
@@ -167,7 +177,7 @@ void queue_room_column(unsigned char room_index, unsigned char nametable, unsign
 	for(row = 0; row < 22; ++row){
 		source_row = row + 8;
 		if((data_adjust != 0) && (source_row < COMPACT_ROOM_FIRST_ROW)){
-			column_buffer[row] = trackbegin[column + (((unsigned int)source_row) << 5)];
+			column_buffer[row] = trackhud[column + (((unsigned int)source_row) << 5)];
 		} else {
 			column_buffer[row] = room_data[column + (((unsigned int)source_row) << 5) - data_adjust];
 		}
@@ -209,7 +219,7 @@ unsigned char stream_column_chunk(void){
 		for(row = 0; row < 8; ++row){
 			source_row = row + 8;
 			if((data_adjust != 0) && (source_row < COMPACT_ROOM_FIRST_ROW)){
-				column_buffer[row] = trackbegin[stream_column + (((unsigned int)source_row) << 5)];
+				column_buffer[row] = trackhud[stream_column + (((unsigned int)source_row) << 5)];
 			} else {
 				column_buffer[row] = room_data[stream_column + (((unsigned int)source_row) << 5) - data_adjust];
 			}
@@ -223,7 +233,7 @@ unsigned char stream_column_chunk(void){
 		for(row = 0; row < 8; ++row){
 			source_row = row + 16;
 			if((data_adjust != 0) && (source_row < COMPACT_ROOM_FIRST_ROW)){
-				column_buffer[row] = trackbegin[stream_column + (((unsigned int)source_row) << 5)];
+				column_buffer[row] = trackhud[stream_column + (((unsigned int)source_row) << 5)];
 			} else {
 				column_buffer[row] = room_data[stream_column + (((unsigned int)source_row) << 5) - data_adjust];
 			}
@@ -237,7 +247,7 @@ unsigned char stream_column_chunk(void){
 		for(row = 0; row < 6; ++row){
 			source_row = row + 24;
 			if((data_adjust != 0) && (source_row < COMPACT_ROOM_FIRST_ROW)){
-				column_buffer[row] = trackbegin[stream_column + (((unsigned int)source_row) << 5)];
+				column_buffer[row] = trackhud[stream_column + (((unsigned int)source_row) << 5)];
 			} else {
 				column_buffer[row] = room_data[stream_column + (((unsigned int)source_row) << 5) - data_adjust];
 			}
@@ -266,7 +276,7 @@ void draw_full_room(const unsigned char *room_data, unsigned char room_compact, 
 	vram_adr(NAMETABLE_A + ((unsigned int)nametable << 10));
 	for(largeindex = 0; largeindex < 1024; ++largeindex){
 		if((room_compact != 0) && (largeindex < HUD_TILE_BYTES)){
-			vram_put(trackbegin[largeindex]);
+			vram_put(trackhud[largeindex]);
 		} else if(room_compact != 0) {
 			vram_put(room_data[largeindex - HUD_TILE_BYTES]);
 		} else {
@@ -1031,7 +1041,7 @@ void init_options(void){
 
 	selected_option = 0;
 	options_cursor_frame = 0;
-	options_cursor_timer = 0;
+	options_cursor_timer = 0;  
 
 	// Write blank nametable
 	vram_adr(NAMETABLE_A);
@@ -1194,7 +1204,7 @@ void load_room(){
 	clear_background();
 	init_world_sequence();
 	screen_slots[0] = next_world_screen();
-	screen_slots_compact[0] = (screen_slots[0] == trackbegin) ? 0 : 1;
+	screen_slots_compact[0] = 1;
 	draw_full_room(screen_slots[0], screen_slots_compact[0], 0);
 	// place a tile for sprite zero hit
 	
@@ -1208,8 +1218,8 @@ void load_room_pair(void){
 	init_world_sequence();
 	screen_slots[0] = next_world_screen();
 	screen_slots[1] = next_world_screen();
-	screen_slots_compact[0] = (screen_slots[0] == trackbegin) ? 0 : 1;
-	screen_slots_compact[1] = (screen_slots[1] == trackbegin) ? 0 : 1;
+	screen_slots_compact[0] = 1;
+	screen_slots_compact[1] = 1;
 	draw_full_room(screen_slots[0], screen_slots_compact[0], 0);
 	draw_full_room(screen_slots[1], screen_slots_compact[1], 1);
 	last_stream_column = 0xffff;
@@ -1244,7 +1254,7 @@ void draw_screen_R(void){
 	stream_nametable = (unsigned char)(((scroll_x >> 8) + 1u) & 1u);
 	if(stream_column == 0){
 		screen_slots[stream_room_index] = next_world_screen();
-		screen_slots_compact[stream_room_index] = (screen_slots[stream_room_index] == trackbegin) ? 0 : 1;
+		screen_slots_compact[stream_room_index] = 1;
 	}
 	stream_active = 1;
 	stream_stage = 0;
