@@ -9,6 +9,8 @@
 #define TARGET_MAX_SPEED_STREAK 10
 #define TARGET_BASE_SPEED_FP 264
 #define TARGET_FAST_SPEED_FP 813
+#define ENDING_SEQUENCE_STEPS 350u
+#define FINAL_RUNOFF_STEPS 10u
 
 // GLOBAL VARIABLES
 unsigned int powerpad_cur;
@@ -89,6 +91,12 @@ unsigned char options_runner_timer;
 unsigned char options_runner_frame;
 unsigned char options_runner_hold_timer;
 unsigned char game_intro_timer;
+unsigned char ending_sequence_active;
+unsigned char ending_queue_stage;
+unsigned char ending_grandstand_active;
+unsigned char ending_runoff_active;
+unsigned char runner_screen_x;
+const unsigned char *ending_forced_end_screen;
 
 unsigned int scroll_x;
 unsigned int scroll_subpixel;
@@ -157,3 +165,6 @@ void draw_screen_R(void);
 void build_options_nametable(unsigned char nametable);
 void begin_title_to_options(void);
 void draw_title_to_options(void);
+const unsigned char *get_end_screen_for_room(const unsigned char *room_data);
+void activate_grandstand_section(void);
+void update_endgame_state(void);

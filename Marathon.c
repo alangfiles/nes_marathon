@@ -37,7 +37,8 @@
 #include "SCREENS/waterend.h"
 #include "SCREENS/watergeneric.h"
 #include "SCREENS/title.h"
-#include "SCREENS/grandstand.h"
+// #include "SCREENS/grandstand.h"
+#include "SCREENS/grandstsand.h"
 #include "sprites.h"
 
 enum {
@@ -599,6 +600,61 @@ void draw_title_to_options(void){
 	}
 }
 
+const unsigned char *get_end_screen_for_room(const unsigned char *room_data){
+	if((room_data == trackbegin) || (room_data == trackflowers) || (room_data == tracktrashcan) ||
+	   (room_data == trackgeneric) || (room_data == trackend)){
+		return trackend;
+	}
+
+	if((room_data == citybegin) || (room_data == citybuilding) || (room_data == citycross) ||
+	   (room_data == citycross2) || (room_data == citygeneric) || (room_data == cityend)){
+		return cityend;
+	}
+
+	if((room_data == waterbegin) || (room_data == waterbench) ||
+	   (room_data == watergeneric) || (room_data == waterend)){
+		return waterend;
+	}
+
+	return trackend;
+}
+
+void activate_grandstand_section(void){
+	unsigned char current_room_index;
+	const unsigned char *current_room;
+
+	ending_sequence_active = 1;
+	ending_queue_stage = 0;
+	ending_grandstand_active = 0;
+	current_room_index = (unsigned char)((scroll_x >> 8) & 1u);
+	current_room = screen_slots[current_room_index];
+	ending_forced_end_screen = get_end_screen_for_room(current_room);
+}
+
+void update_endgame_state(void){
+	unsigned int remaining_steps;
+
+	if(steps >= total_steps_needed){
+		remaining_steps = 0;
+	} else {
+		remaining_steps = total_steps_needed - steps;
+	}
+
+	if((ending_sequence_active == 0) && (remaining_steps <= ENDING_SEQUENCE_STEPS)){
+		activate_grandstand_section();
+	}
+
+	if((ending_runoff_active == 0) && (remaining_steps <= FINAL_RUNOFF_STEPS)){
+		ending_runoff_active = 1;
+		runner_screen_x = 120;
+		velocity = 0;
+		scroll_subpixel = 0;
+		stream_active = 0;
+		stream_stage = 0;
+		motion = RUNNING;
+	}
+}
+
 
 void init_mode_game(void){
 	ppu_off();
@@ -634,6 +690,12 @@ void init_mode_game(void){
 	step_button_lockout = 0;
 	progress_remainder = 0;
 	progress_pixels = 0;
+	ending_sequence_active = 0;
+	ending_queue_stage = 0;
+	ending_forced_end_screen = trackend;
+	ending_grandstand_active = 0;
+	ending_runoff_active = 0;
+	runner_screen_x = 120;
 	sprite_frame_counter = 0;
 	time_since_button_press = 255;
 	motion = STANDING;
@@ -774,14 +836,24 @@ void main (void) {
 			velocity = 0;
 		}
 
-		// Accumulate subpixel camera movement so low velocity still scrolls.
-		scroll_subpixel += velocity;
-		scroll_x += (scroll_subpixel >> 8);
-		scroll_subpixel &= 0x00ff;
-		if((velocity > 0) || (stream_active != 0)){
-			draw_screen_R();
+		if(ending_runoff_active == 0){
+			// Accumulate subpixel camera movement so low velocity still scrolls.
+			scroll_subpixel += velocity;
+			scroll_x += (scroll_subpixel >> 8);
+			scroll_subpixel &= 0x00ff;
+			if((velocity > 0) || (stream_active != 0)){
+				draw_screen_R();
+			} else {
+				did_stream_column = 0;
+			}
 		} else {
+			velocity = 0;
+			scroll_subpixel = 0;
+			stream_active = 0;
 			did_stream_column = 0;
+			if(runner_screen_x <= 250){
+				runner_screen_x += 2;
+			}
 		}
 		
 
@@ -816,8 +888,9 @@ void main (void) {
 		}
 
 		process_controller();
+			update_endgame_state();
 
-		if(steps >= total_steps_needed){
+			if((ending_runoff_active != 0) && (runner_screen_x > 250)){
 			init_win_screen();
 			break;
 		}
@@ -1058,6 +1131,8 @@ void initial_timer_conversion(void){
 
 void draw_sprite(){
 	unsigned char progress_x;
+	unsigned char runner_x;
+	unsigned char effective_motion;
 	const unsigned char *progress_cursor_data;
 
 	oam_clear();
@@ -1087,35 +1162,41 @@ void draw_sprite(){
 	oam_meta_spr(progress_x + 5, 46, progress_cursor_data);
 	draw_target_button();
 
-	if(motion == RUNNING){
+	runner_x = runner_screen_x;
+	effective_motion = motion;
+	if(ending_runoff_active != 0){
+		effective_motion = RUNNING;
+	}
+
+	if(effective_motion == RUNNING){
 		// 6 frames, 10 ticks each = 60-frame cycle
 		if(sprite_frame_counter < 10){
-			oam_meta_spr(120, 120, marathon_man_run1_data);
+			oam_meta_spr(runner_x, 120, marathon_man_run1_data);
 		} else if(sprite_frame_counter < 20){
-			oam_meta_spr(120, 120, marathon_man_run2_data);
+			oam_meta_spr(runner_x, 120, marathon_man_run2_data);
 		} else if(sprite_frame_counter < 30){
-			oam_meta_spr(120, 120, marathon_man_run3_data);
+			oam_meta_spr(runner_x, 120, marathon_man_run3_data);
 		} else if(sprite_frame_counter < 40){
-			oam_meta_spr(120, 120, marathon_man_run4_data);
+			oam_meta_spr(runner_x, 120, marathon_man_run4_data);
 		} else if(sprite_frame_counter < 50){
-			oam_meta_spr(120, 120, marathon_man_run5_data);
+			oam_meta_spr(runner_x, 120, marathon_man_run5_data);
 		} else {
-			oam_meta_spr(120, 120, marathon_man_run6_data);
+			oam_meta_spr(runner_x, 120, marathon_man_run6_data);
 		}
-	} else if(motion == WALKING){
+	} else if(effective_motion == WALKING){
 		// 4 frames, 15 ticks each = 60-frame cycle
 		if(sprite_frame_counter < 15){
-			oam_meta_spr(120, 120, marathon_man_walk1_data);
+			oam_meta_spr(runner_x, 120, marathon_man_walk1_data);
 		} else if(sprite_frame_counter < 30){
-			oam_meta_spr(120, 120, marathon_man_walk2_data);
+			oam_meta_spr(runner_x, 120, marathon_man_walk2_data);
 		} else if(sprite_frame_counter < 45){
-			oam_meta_spr(120, 120, marathon_man_walk3_data);
+			oam_meta_spr(runner_x, 120, marathon_man_walk3_data);
 		} else {
-			oam_meta_spr(120, 120, marathon_man_walk4_data);
+			oam_meta_spr(runner_x, 120, marathon_man_walk4_data);
 		}
 	} else {
 		// STANDING - hold a neutral walking pose
-		oam_meta_spr(120, 120, marathon_man_walk1_data);
+		oam_meta_spr(runner_x, 120, marathon_man_walk1_data);
 	}
 }
 
@@ -1188,7 +1269,7 @@ void draw_options_screen(void){
 		runner_data = marathon_man_walk1_data;
 		oam_meta_spr(56, cursor_y - 2, cursor_data);
 	} else {
-		if(options_runner_x < 112){
+		if(options_runner_x < 120){
 			++options_runner_timer;
 			if(options_runner_timer >= 6){
 				options_runner_timer = 0;
@@ -1439,7 +1520,23 @@ void draw_screen_R(void){
 	stream_room_index = (unsigned char)(((scroll_x >> 8) + 1u) & 1u);
 	stream_nametable = (unsigned char)(((scroll_x >> 8) + 1u) & 1u);
 	if(stream_column == 0){
-		screen_slots[stream_room_index] = next_world_screen();
+		if(ending_sequence_active != 0){
+			if(ending_grandstand_active != 0){
+				screen_slots[stream_room_index] = grandstsand;
+			} else if(ending_queue_stage == 0){
+				screen_slots[stream_room_index] = ending_forced_end_screen;
+				ending_queue_stage = 1;
+			} else if(ending_queue_stage == 1){
+				screen_slots[stream_room_index] = trackbegin;
+				ending_queue_stage = 2;
+			} else {
+				pal_bg(palette_grandstand);
+				screen_slots[stream_room_index] = grandstsand;
+				ending_grandstand_active = 1;
+			}
+		} else {
+			screen_slots[stream_room_index] = next_world_screen();
+		}
 		screen_slots_compact[stream_room_index] = 1;
 	}
 	stream_active = 1;
