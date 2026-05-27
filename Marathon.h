@@ -3,7 +3,7 @@
 
 #define FRAMES_PER_STEP 10
 #define MOTION_HOLD_FRAMES 180
-#define TARGET_RESPAWN_FRAMES 240
+#define TARGET_RESPAWN_FRAMES 320
 #define TARGET_HIT_X 200
 #define TARGET_START_X 248
 #define TARGET_MAX_SPEED_STREAK 10
@@ -43,7 +43,7 @@ unsigned int target_mask;
 unsigned char target_x;
 unsigned int target_x_fp;
 unsigned int target_speed_fp;
-unsigned char target_spawn_timer;
+unsigned int target_spawn_timer;
 unsigned int streak;
 unsigned char hundreds_streak;
 unsigned char tens_streak;
