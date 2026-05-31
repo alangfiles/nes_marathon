@@ -18101,7 +18101,7 @@ _palette_grandstand:
 	.byte	$10
 	.byte	$0F
 	.byte	$27
-	.byte	$14
+	.byte	$1C
 	.byte	$36
 	.byte	$0F
 	.byte	$2A

@@ -4,9 +4,6 @@
 
  /* 
   TODO List:
-	- add scrolling to new maps
-	- add scrolling for ending
-	- add new header backgrounds from brian with weird switch
 	- test game
 	- fix flash whenever you step on the right button
 	- add SFX and music
@@ -306,9 +303,9 @@ const unsigned char palette_title[16]={
 
 const unsigned char palette_grandstand[16]={
 	0x0f,0x21,0x15,0x10,
-	0x0f,0x27,0x14,0x36,
+	0x0f,0x27,0x1c,0x36,
 	0x0f,0x2a,0x1a,0x09,
-	0x0f,0x17,0x1a,0x05 };
+	0x0f,0x17,0x1a,0x05};
 
 const unsigned char next_digit10[10] = {1,2,3,4,5,6,7,8,9,0};
 const unsigned char next_digit6[6] = {1,2,3,4,5,0};
