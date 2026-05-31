@@ -20155,13 +20155,13 @@ L5248:	jsr     _reset_streak
 	cmp     #$09
 	bcc     L47BA
 ;
-; oam_meta_spr(target_x, 88, target_sprite_data);
+; oam_meta_spr(target_x, 83, target_sprite_data);
 ;
 	jsr     decsp2
 	lda     _target_x
 	ldy     #$01
 	sta     (sp),y
-	lda     #$58
+	lda     #$53
 	dey
 	sta     (sp),y
 	lda     _target_sprite_data
