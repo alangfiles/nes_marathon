@@ -1095,8 +1095,38 @@ void main (void) {
                 } // end MODE_GAME
 
 		while(game_mode == MODE_WIN){
+			const unsigned char *win_runner_data;
+
 			ppu_wait_nmi();
 			oam_clear();
+
+			++sprite_frame_counter;
+			if(sprite_frame_counter >= 60){
+				sprite_frame_counter = 0;
+			}
+
+			if(sprite_frame_counter < 10){
+				win_runner_data = marathon_man_run1_data;
+			} else if(sprite_frame_counter < 20){
+				win_runner_data = marathon_man_run2_data;
+			} else if(sprite_frame_counter < 30){
+				win_runner_data = marathon_man_run3_data;
+			} else if(sprite_frame_counter < 40){
+				win_runner_data = marathon_man_run4_data;
+			} else if(sprite_frame_counter < 50){
+				win_runner_data = marathon_man_run5_data;
+			} else {
+				win_runner_data = marathon_man_run6_data;
+			}
+
+			
+			if(runner_screen_x <= 248u){
+				oam_meta_spr(runner_screen_x, 120, win_runner_data);
+				runner_screen_x += 2;
+				
+			}
+			oam_meta_spr(184, 170, marathon_man_gate_data);
+			
 
 			debug_controller = pad_poll(0);
 			debug_controller_new = get_pad_new(0);
@@ -1533,14 +1563,16 @@ void init_win_screen(void){
 	unsigned char race_line_len;
 
 	ppu_off();
+	pal_bg(palette_grandstand);
+	pal_spr(palette_sprites);
 	oam_clear();
 	clear_vram_buffer();
 
-	vram_adr(NAMETABLE_A);
-	vram_fill(0x00, 1024);
+	draw_full_room(grandstand, 1, 0);
+	clear_options_top_rows(0);
 
-	multi_vram_buffer_horz("CONGRATULATIONS", 15, NTADR_A(8, 7));
-	multi_vram_buffer_horz("YOU FINISHED", 12, NTADR_A(10, 9));
+	multi_vram_buffer_horz("CONGRATULATIONS", 15, NTADR_A(8, 3));
+	multi_vram_buffer_horz("YOU FINISHED", 12, NTADR_A(10, 5));
 
 	if(race_type == RACE_5K){
 		race_line = "THE 5K RACE";
@@ -1552,7 +1584,7 @@ void init_win_screen(void){
 		race_line = "THE MARATHON";
 		race_line_len = 12;
 	}
-	multi_vram_buffer_horz(race_line, race_line_len, NTADR_A(9, 11));
+	multi_vram_buffer_horz(race_line, race_line_len, NTADR_A(9, 7));
 
 	time_line[0] = 'T';
 	time_line[1] = 'I';
@@ -1568,7 +1600,7 @@ void init_win_screen(void){
 	time_line[11] = ':';
 	time_line[12] = (char)(0x30 + tens_seconds);
 	time_line[13] = (char)(0x30 + ones_seconds);
-	multi_vram_buffer_horz(time_line, 14, NTADR_A(8, 14));
+	multi_vram_buffer_horz(time_line, 14, NTADR_A(8, 9));
 
 	score_line[0] = 'S';
 	score_line[1] = 'C';
@@ -1582,7 +1614,10 @@ void init_win_screen(void){
 	score_line[9] = (char)(0x30 + hundreds_score);
 	score_line[10] = (char)(0x30 + tens_score);
 	score_line[11] = (char)(0x30 + ones_score);
-	multi_vram_buffer_horz(score_line, 12, NTADR_A(9, 16));
+	multi_vram_buffer_horz(score_line, 12, NTADR_A(9, 11));
+
+	runner_screen_x = 0;
+	sprite_frame_counter = 0;
 
 	game_mode = MODE_WIN;
 	set_scroll_x(0);
