@@ -4,9 +4,7 @@
 
  /* 
   TODO List:
-	- update victory screen.
 	- test game
-	- fix flash whenever you step on the right button
 	- add SFX and music
  */
 
