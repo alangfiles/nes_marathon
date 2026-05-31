@@ -530,6 +530,180 @@ void clear_options_top_rows(unsigned char nametable){
 	}
 }
 
+void reset_secret_start_values(void){
+	secret_steps_digits[0] = 0;
+	secret_steps_digits[1] = 0;
+	secret_steps_digits[2] = 0;
+	secret_steps_digits[3] = 0;
+	secret_steps_digits[4] = 0;
+	secret_time_hours = 0;
+	secret_time_minutes_tens = 0;
+	secret_time_minutes_ones = 0;
+	secret_cursor_index = 0;
+}
+
+void apply_secret_start_values(void){
+	unsigned char i;
+	unsigned char digit;
+	unsigned int step_value;
+	unsigned int minute_value;
+
+	step_value = 0;
+	for(i = 0; i < 5; ++i){
+		digit = secret_steps_digits[i];
+		if((step_value > 6553u) || ((step_value == 6553u) && (digit > 5u))){
+			step_value = 65535u;
+		} else {
+			step_value = (unsigned int)(step_value * 10u + digit);
+		}
+	}
+
+	minute_value = (unsigned int)(secret_time_minutes_tens * 10u + secret_time_minutes_ones);
+	configured_start_steps = step_value;
+	configured_start_seconds = (unsigned int)(secret_time_hours * 3600u + minute_value * 60u);
+	secret_start_override_active = 1;
+}
+
+void init_secret_screen(void){
+	ppu_off();
+	pal_bg(palette_bg);
+	pal_spr(palette_sprites);
+	oam_clear();
+	clear_vram_buffer();
+
+	vram_adr(NAMETABLE_A);
+	vram_fill(0x00, 1024);
+
+	reset_secret_start_values();
+
+	multi_vram_buffer_horz("MARATHON RESTART", 16, NTADR_A(7, 9));
+	multi_vram_buffer_horz("STEPS: 00000", 12, NTADR_A(8, 11));
+	multi_vram_buffer_horz("TIME 0H, 00M", 12, NTADR_A(8, 13));
+
+	game_mode = MODE_SECRET;
+	set_scroll_x(0);
+	set_scroll_y(0);
+	ppu_on_all();
+}
+
+void draw_secret_screen(void){
+	unsigned char cursor_col;
+	unsigned char cursor_row;
+
+	oam_clear();
+
+	debug_controller = pad_poll(0);
+	debug_controller_new = get_pad_new(0);
+
+	if(debug_controller_new & PAD_LEFT){
+		if(secret_cursor_index > 0){
+			--secret_cursor_index;
+		}
+	}
+
+	if(debug_controller_new & PAD_RIGHT){
+		if(secret_cursor_index < 7){
+			++secret_cursor_index;
+		}
+	}
+
+	if((debug_controller_new & PAD_UP) || (debug_controller_new & PAD_A)){
+		if(secret_cursor_index < 5){
+			++secret_steps_digits[secret_cursor_index];
+			if(secret_steps_digits[secret_cursor_index] > 9){
+				secret_steps_digits[secret_cursor_index] = 0;
+			}
+		} else if(secret_cursor_index == 5){
+			++secret_time_hours;
+			if(secret_time_hours > 9){
+				secret_time_hours = 0;
+			}
+		} else if(secret_cursor_index == 6){
+			++secret_time_minutes_tens;
+			if(secret_time_minutes_tens > 5){
+				secret_time_minutes_tens = 0;
+			}
+		} else {
+			++secret_time_minutes_ones;
+			if(secret_time_minutes_ones > 9){
+				secret_time_minutes_ones = 0;
+			}
+		}
+	}
+
+	if((debug_controller_new & PAD_DOWN) || (debug_controller_new & PAD_B)){
+		if(secret_cursor_index < 5){
+			if(secret_steps_digits[secret_cursor_index] == 0){
+				secret_steps_digits[secret_cursor_index] = 9;
+			} else {
+				--secret_steps_digits[secret_cursor_index];
+			}
+		} else if(secret_cursor_index == 5){
+			if(secret_time_hours == 0){
+				secret_time_hours = 9;
+			} else {
+				--secret_time_hours;
+			}
+		} else if(secret_cursor_index == 6){
+			if(secret_time_minutes_tens == 0){
+				secret_time_minutes_tens = 5;
+			} else {
+				--secret_time_minutes_tens;
+			}
+		} else {
+			if(secret_time_minutes_ones == 0){
+				secret_time_minutes_ones = 9;
+			} else {
+				--secret_time_minutes_ones;
+			}
+		}
+	}
+
+	if(debug_controller_new & PAD_SELECT){
+		reset_secret_start_values();
+	}
+
+	one_vram_buffer(0x30 + secret_steps_digits[0], NTADR_A(15, 11));
+	one_vram_buffer(0x30 + secret_steps_digits[1], NTADR_A(16, 11));
+	one_vram_buffer(0x30 + secret_steps_digits[2], NTADR_A(17, 11));
+	one_vram_buffer(0x30 + secret_steps_digits[3], NTADR_A(18, 11));
+	one_vram_buffer(0x30 + secret_steps_digits[4], NTADR_A(19, 11));
+	one_vram_buffer(0x30 + secret_time_hours, NTADR_A(13, 13));
+	one_vram_buffer(0x30 + secret_time_minutes_tens, NTADR_A(17, 13));
+	one_vram_buffer(0x30 + secret_time_minutes_ones, NTADR_A(18, 13));
+
+	one_vram_buffer(0x00, NTADR_A(15, 12));
+	one_vram_buffer(0x00, NTADR_A(16, 12));
+	one_vram_buffer(0x00, NTADR_A(17, 12));
+	one_vram_buffer(0x00, NTADR_A(18, 12));
+	one_vram_buffer(0x00, NTADR_A(19, 12));
+	one_vram_buffer(0x00, NTADR_A(13, 14));
+	one_vram_buffer(0x00, NTADR_A(17, 14));
+	one_vram_buffer(0x00, NTADR_A(18, 14));
+
+	if(secret_cursor_index < 5){
+		cursor_col = (unsigned char)(15 + secret_cursor_index);
+		cursor_row = 12;
+	} else if(secret_cursor_index == 5){
+		cursor_col = 13;
+		cursor_row = 14;
+	} else if(secret_cursor_index == 6){
+		cursor_col = 17;
+		cursor_row = 14;
+	} else {
+		cursor_col = 18;
+		cursor_row = 14;
+	}
+
+	one_vram_buffer(0x3f, NTADR_A(cursor_col, cursor_row));
+
+	if(debug_controller_new & PAD_START){
+		apply_secret_start_values();
+		selected_option = RACE_MARATHON;
+		init_mode_game();
+	}
+}
+
 void begin_title_to_options(void){
 	pal_bg(palette_bg);
 	pal_spr(palette_sprites);
@@ -652,6 +826,8 @@ void update_endgame_state(void){
 
 
 void init_mode_game(void){
+	unsigned int steps_per_pixel;
+
 	ppu_off();
 	pal_bg(palette_bg);
 	pal_spr(palette_sprites);
@@ -669,10 +845,18 @@ void init_mode_game(void){
 
 	clear_vram_buffer();
 
+	// Optional debug override from secret title menu.
+	if(secret_start_override_active != 0){
+		steps = configured_start_steps;
+		seconds = configured_start_seconds;
+		secret_start_override_active = 0;
+	} else {
+		steps = 0;
+		seconds = 0;
+	}
+
 	// mess with these for debug, but they should all be 0
-	steps = 5500;
 	score = 0;
-	seconds = 5500;
 
 	scroll_x = 0;
 	scroll_subpixel = 0;
@@ -683,8 +867,20 @@ void init_mode_game(void){
 	frame_counter = 0;
 	scroll_timer = 0;
 	step_button_lockout = 0;
-	progress_remainder = 0;
-	progress_pixels = 0;
+	if(steps >= total_steps_needed){
+		progress_pixels = 212;
+		progress_remainder = 0;
+	} else {
+		steps_per_pixel = total_steps_needed / 212u;
+		if(steps_per_pixel == 0){
+			steps_per_pixel = 1;
+		}
+		progress_pixels = (unsigned char)(steps / steps_per_pixel);
+		if(progress_pixels > 212){
+			progress_pixels = 212;
+		}
+		progress_remainder = 0;
+	}
 	ending_sequence_active = 0;
 	ending_queue_stage = 0;
 	ending_forced_end_screen = trackend;
@@ -759,8 +955,12 @@ void main (void) {
 			debug_controller = pad_poll(0);
 			debug_controller_new = get_pad_new(0);
 
-			if((debug_controller_new & PAD_START) && (title_animation_frame >= 54)){
-				begin_title_to_options();
+			if(debug_controller_new & PAD_START){
+				if((debug_controller & (PAD_SELECT | PAD_A | PAD_B)) == (PAD_SELECT | PAD_A | PAD_B)){
+					init_secret_screen();
+				} else if(title_animation_frame >= 54){
+					begin_title_to_options();
+				}
 			}
 		}
 
@@ -793,6 +993,11 @@ void main (void) {
 				options_runner_frame = 0;
 				options_runner_hold_timer = 0;
 			}
+		}
+
+		while(game_mode == MODE_SECRET){
+			ppu_wait_nmi();
+			draw_secret_screen();
 		}
 
 		while(game_mode == MODE_GAME_INTRO){
