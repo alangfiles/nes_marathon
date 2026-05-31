@@ -4,6 +4,7 @@
 
  /* 
   TODO List:
+	- update victory screen.
 	- test game
 	- fix flash whenever you step on the right button
 	- add SFX and music
@@ -1528,6 +1529,11 @@ void init_options(void){
 }
 
 void init_win_screen(void){
+	char time_line[14];
+	char score_line[12];
+	const char *race_line;
+	unsigned char race_line_len;
+
 	ppu_off();
 	oam_clear();
 	clear_vram_buffer();
@@ -1535,27 +1541,50 @@ void init_win_screen(void){
 	vram_adr(NAMETABLE_A);
 	vram_fill(0x00, 1024);
 
-	vram_adr(NTADR_A(11, 12));
-	vram_put('Y'); vram_put('O'); vram_put('U');
-	vram_put(' ');
-	vram_put('W'); vram_put('I'); vram_put('N');
+	multi_vram_buffer_horz("CONGRATULATIONS", 15, NTADR_A(8, 7));
+	multi_vram_buffer_horz("YOU FINISHED", 12, NTADR_A(10, 9));
 
-	vram_adr(NTADR_A(10, 15));
-	vram_put('T'); vram_put('I'); vram_put('M'); vram_put('E');
-	vram_put(':');
-	vram_put(0x30 + tens_hours);
-	vram_put(0x30 + ones_hours);
-	vram_put(':');
-	vram_put(0x30 + tens_minutes);
-	vram_put(0x30 + ones_minutes);
-	vram_put(':');
-	vram_put(0x30 + tens_seconds);
-	vram_put(0x30 + ones_seconds);
+	if(race_type == RACE_5K){
+		race_line = "THE 5K RACE";
+		race_line_len = 11;
+	} else if(race_type == RACE_10K){
+		race_line = "THE 10K RACE";
+		race_line_len = 12;
+	} else {
+		race_line = "THE MARATHON";
+		race_line_len = 12;
+	}
+	multi_vram_buffer_horz(race_line, race_line_len, NTADR_A(9, 11));
 
-	vram_adr(NTADR_A(6, 20));
-	vram_put('P'); vram_put('R'); vram_put('E'); vram_put('S'); vram_put('S');
-	vram_put(' ');
-	vram_put('S'); vram_put('T'); vram_put('A'); vram_put('R'); vram_put('T');
+	time_line[0] = 'T';
+	time_line[1] = 'I';
+	time_line[2] = 'M';
+	time_line[3] = 'E';
+	time_line[4] = ':';
+	time_line[5] = ' ';
+	time_line[6] = (char)(0x30 + tens_hours);
+	time_line[7] = (char)(0x30 + ones_hours);
+	time_line[8] = ':';
+	time_line[9] = (char)(0x30 + tens_minutes);
+	time_line[10] = (char)(0x30 + ones_minutes);
+	time_line[11] = ':';
+	time_line[12] = (char)(0x30 + tens_seconds);
+	time_line[13] = (char)(0x30 + ones_seconds);
+	multi_vram_buffer_horz(time_line, 14, NTADR_A(8, 14));
+
+	score_line[0] = 'S';
+	score_line[1] = 'C';
+	score_line[2] = 'O';
+	score_line[3] = 'R';
+	score_line[4] = 'E';
+	score_line[5] = ':';
+	score_line[6] = ' ';
+	score_line[7] = (char)(0x30 + ten_thousands_score);
+	score_line[8] = (char)(0x30 + thousands_score);
+	score_line[9] = (char)(0x30 + hundreds_score);
+	score_line[10] = (char)(0x30 + tens_score);
+	score_line[11] = (char)(0x30 + ones_score);
+	multi_vram_buffer_horz(score_line, 12, NTADR_A(9, 16));
 
 	game_mode = MODE_WIN;
 	set_scroll_x(0);
