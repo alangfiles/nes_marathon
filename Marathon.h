@@ -12,6 +12,15 @@
 #define ENDING_SEQUENCE_STEPS 350u
 #define FINAL_RUNOFF_STEPS 0u
 
+
+enum{
+  SFX_START,
+  SFX_STEP,
+  SFX_STEP2,
+  SFX_TARGET_HIT,
+  SFX_STREAK_END
+};
+
 // GLOBAL VARIABLES
 unsigned int powerpad_cur;
 unsigned int powerpad_old; //don't use this

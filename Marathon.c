@@ -430,6 +430,9 @@ void update_target_button(void){
 
 	++target_spawn_timer;
 	if(target_spawn_timer >= TARGET_RESPAWN_FRAMES || target_x == 0){
+		if(streak > 0){
+			sfx_play(SFX_STREAK_END, 0);
+		}
 		reset_streak();
 		spawn_target_button();
 	}
@@ -827,6 +830,8 @@ void init_mode_game(void){
 	ppu_off();
 	pal_bg(palette_bg);
 	pal_spr(palette_sprites);
+	music_stop();
+	sfx_play(SFX_START, 0);
 
 
 	//set race type
@@ -888,6 +893,7 @@ void init_mode_game(void){
 	motion = STANDING;
 	powerpad_old = 0;
 	powerpad_new = 0;
+	last_step = 0;
 	ones_score = 0;
 	tens_score = 0;
 	hundreds_score = 0;
@@ -1141,6 +1147,7 @@ void main (void) {
 
 void process_controller(void){
 	if(target_mask != 0 && (powerpad_new & target_mask) && target_x <= TARGET_HIT_X){
+		sfx_play(SFX_TARGET_HIT, 0);
 		score_to_add = (unsigned char)(1u + streak);
 		add_score();
 		add_streak_hit();
@@ -1188,6 +1195,13 @@ void add_step(void){
 	
 	if(step_button_lockout > 0){
 		return; //still in lockout period
+	}
+	if(last_step == 0){
+		sfx_play(SFX_STEP, 0);
+		last_step = 1;
+	} else {
+		sfx_play(SFX_STEP2, 0);
+		last_step = 0;
 	}
 	update_steps_per_minute(); // calculate SPM before resetting the timer
 	sprite_timer = 0; //used for animation
@@ -1691,6 +1705,7 @@ void load_title(void){
 	ppu_off();
 	pal_bg(palette_title);
 	pal_spr(palette_sprites);
+	music_play(0);
 	oam_clear();
 	vram_adr(NAMETABLE_A);
 	for (largeindex = 0; largeindex < 1024; ++largeindex)
