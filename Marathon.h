@@ -87,6 +87,7 @@ unsigned char mph;
 unsigned char sprite_timer;
 unsigned char sprite_frame_counter;
 
+unsigned char play_step_sfx;
 unsigned char title_animation_frame;
 unsigned char title_frame_counter;
 unsigned char title_scroll_x;
@@ -139,7 +140,7 @@ unsigned char race_type;
 unsigned int configured_start_steps;
 unsigned int configured_start_seconds;
 enum {MODE_TITLE, MODE_TITLE_TO_OPTIONS, MODE_OPTIONS, MODE_SECRET, MODE_GAME_INTRO, MODE_GAME, MODE_WIN};
-enum {RACE_5K, RACE_10K, RACE_MARATHON};
+enum {RACE_1K, RACE_5K, RACE_10K, RACE_MARATHON};
 enum {OPTIONS_PHASE_IDLE, OPTIONS_PHASE_CONFIRM};
 
 enum {

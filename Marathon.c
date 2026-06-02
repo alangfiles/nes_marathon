@@ -325,6 +325,11 @@ const unsigned int powerpad_button_masks[12] = {
 	POWERPAD_9, POWERPAD_10, POWERPAD_11, POWERPAD_12
 };
 
+const unsigned int powerpad_any_button_mask =
+	POWERPAD_1 | POWERPAD_2 | POWERPAD_3 | POWERPAD_4 |
+	POWERPAD_5 | POWERPAD_6 | POWERPAD_7 | POWERPAD_8 |
+	POWERPAD_9 | POWERPAD_10 | POWERPAD_11 | POWERPAD_12;
+
 unsigned int get_powerpad_button_mask(unsigned char button){
 	if((button >= 1) && (button <= 12)){
 		return powerpad_button_masks[button - 1];
@@ -474,18 +479,10 @@ void draw_target_button(void){
 }
 
 void init_hud_labels(void){
-	vram_adr(NTADR_A(2, 4));
-	vram_put('S'); vram_put('T'); vram_put('E'); vram_put('P'); vram_put('S'); vram_put(':');
-
-	vram_adr(NTADR_A(2, 2));
-	vram_put('T'); vram_put('I'); vram_put('M'); vram_put('E'); vram_put(':');
-
-	vram_adr(NTADR_A(18, 2));
-	vram_put('S'); vram_put('C'); vram_put('O'); vram_put('R'); vram_put('E'); vram_put(':');
-
-	vram_adr(NTADR_A(18, 4));
-	vram_put('S'); vram_put('T'); vram_put('R'); vram_put('E');
-	vram_put('A'); vram_put('K'); vram_put(':');
+	multi_vram_buffer_horz("STEPS:", 6, NTADR_A(2, 4));
+	multi_vram_buffer_horz("TIME:", 5, NTADR_A(2, 2));
+	multi_vram_buffer_horz("SCORE:", 6, NTADR_A(18, 2));
+	multi_vram_buffer_horz("STREAK:", 7, NTADR_A(18, 4));
 }
 
 
@@ -502,20 +499,15 @@ void build_options_nametable(unsigned char nametable){
 		vram_fill(0x00, 32);
 	}
 
-	vram_adr(NTADR_A(7, 3) + nt_base);
-	vram_put('S'); vram_put('E'); vram_put('L'); vram_put('E'); vram_put('C'); vram_put('T');
-	vram_put(' ');
-	vram_put('R'); vram_put('A'); vram_put('C'); vram_put('E');
+	multi_vram_buffer_horz("SELECT RACE", 11, NTADR_A(7, 3) + nt_base);
 
-	vram_adr(NTADR_A(8, 6) + nt_base);
-	vram_put('5'); vram_put('K');
+	multi_vram_buffer_horz("1K", 2, NTADR_A(8, 6) + nt_base);
 
-	vram_adr(NTADR_A(8, 9) + nt_base);
-	vram_put('1'); vram_put('0'); vram_put('K');
+	multi_vram_buffer_horz("5K", 2, NTADR_A(8, 8) + nt_base);
 
-	vram_adr(NTADR_A(8, 12) + nt_base);
-	vram_put('M'); vram_put('A'); vram_put('R'); vram_put('A');
-	vram_put('T'); vram_put('H'); vram_put('O'); vram_put('N');
+	multi_vram_buffer_horz("10K", 3, NTADR_A(8, 10) + nt_base);
+
+	multi_vram_buffer_horz("MARATHON", 8, NTADR_A(8, 12) + nt_base);
 }
 
 void clear_options_top_rows(unsigned char nametable){
@@ -706,7 +698,7 @@ void draw_secret_screen(void){
 void begin_title_to_options(void){
 	pal_bg(palette_bg);
 	pal_spr(palette_sprites);
-	selected_option = 0;
+	selected_option = RACE_5K;
 	options_cursor_frame = 0;
 	options_cursor_timer = 0;
 	options_phase = OPTIONS_PHASE_IDLE;
@@ -724,6 +716,36 @@ void begin_title_to_options(void){
 	set_scroll_y(0);
 }
 
+const unsigned char *get_run_frame_0_to_5(unsigned char frame_index){
+	if(frame_index == 0){
+		return marathon_man_run1_data;
+	} else if(frame_index == 1){
+		return marathon_man_run2_data;
+	} else if(frame_index == 2){
+		return marathon_man_run3_data;
+	} else if(frame_index == 3){
+		return marathon_man_run4_data;
+	} else if(frame_index == 4){
+		return marathon_man_run5_data;
+	}
+	return marathon_man_run6_data;
+}
+
+const unsigned char *get_run_frame_0_to_59(unsigned char frame_counter){
+	if(frame_counter < 10){
+		return marathon_man_run1_data;
+	} else if(frame_counter < 20){
+		return marathon_man_run2_data;
+	} else if(frame_counter < 30){
+		return marathon_man_run3_data;
+	} else if(frame_counter < 40){
+		return marathon_man_run4_data;
+	} else if(frame_counter < 50){
+		return marathon_man_run5_data;
+	}
+	return marathon_man_run6_data;
+}
+
 void draw_title_to_options(void){
 	const unsigned char *runner;
 
@@ -738,19 +760,7 @@ void draw_title_to_options(void){
 		}
 	}
 
-	if(title_animation_frame == 0){
-		runner = marathon_man_run1_data;
-	} else if(title_animation_frame == 1){
-		runner = marathon_man_run2_data;
-	} else if(title_animation_frame == 2){
-		runner = marathon_man_run3_data;
-	} else if(title_animation_frame == 3){
-		runner = marathon_man_run4_data;
-	} else if(title_animation_frame == 4){
-		runner = marathon_man_run5_data;
-	} else {
-		runner = marathon_man_run6_data;
-	}
+	runner = get_run_frame_0_to_5(title_animation_frame);
 
 	// After START: keep runner on the left and begin scrolling immediately.
 	oam_meta_spr(24, 120, runner);
@@ -801,6 +811,7 @@ void activate_grandstand_section(void){
 
 void update_endgame_state(void){
 	unsigned int remaining_steps;
+	unsigned int ending_sequence_trigger_steps;
 
 	if(steps >= total_steps_needed){
 		remaining_steps = 0;
@@ -808,7 +819,12 @@ void update_endgame_state(void){
 		remaining_steps = total_steps_needed - steps;
 	}
 
-	if((ending_sequence_active == 0) && (remaining_steps <= ENDING_SEQUENCE_STEPS)){
+	ending_sequence_trigger_steps = ENDING_SEQUENCE_STEPS;
+	if(race_type == RACE_1K){
+		ending_sequence_trigger_steps = 100u;
+	}
+
+	if((ending_sequence_active == 0) && (remaining_steps <= ending_sequence_trigger_steps)){
 		activate_grandstand_section();
 	}
 
@@ -836,12 +852,14 @@ void init_mode_game(void){
 
 	//set race type
 	race_type = selected_option;
-	if(race_type == RACE_5K){
-		total_steps_needed = 6000u; 
+	if(race_type == RACE_1K){
+		total_steps_needed = 1000u;
+	} else if(race_type == RACE_5K){
+		total_steps_needed = 5000u; 
 	} else if (race_type == RACE_10K){
-		total_steps_needed = 12000u;
+		total_steps_needed = 10000u;
 	} else {
-		total_steps_needed = 52000u;
+		total_steps_needed = 42195u;
 	}
 
 	clear_vram_buffer();
@@ -982,7 +1000,7 @@ void main (void) {
 				if(selected_option > 0) --selected_option;
 			}
 			if((options_phase == OPTIONS_PHASE_IDLE) && (debug_controller_new & PAD_DOWN)){
-				if(selected_option < 2) ++selected_option;
+				if(selected_option < 3) ++selected_option;
 			}
 			if((options_phase == OPTIONS_PHASE_IDLE) && (debug_controller_new & (PAD_START | PAD_A))){
 				race_type = selected_option;
@@ -1111,19 +1129,7 @@ void main (void) {
 				sprite_frame_counter = 0;
 			}
 
-			if(sprite_frame_counter < 10){
-				win_runner_data = marathon_man_run1_data;
-			} else if(sprite_frame_counter < 20){
-				win_runner_data = marathon_man_run2_data;
-			} else if(sprite_frame_counter < 30){
-				win_runner_data = marathon_man_run3_data;
-			} else if(sprite_frame_counter < 40){
-				win_runner_data = marathon_man_run4_data;
-			} else if(sprite_frame_counter < 50){
-				win_runner_data = marathon_man_run5_data;
-			} else {
-				win_runner_data = marathon_man_run6_data;
-			}
+			win_runner_data = get_run_frame_0_to_59(sprite_frame_counter);
 
 			
 			if(runner_screen_x <= 248u){
@@ -1146,15 +1152,20 @@ void main (void) {
 }
 
 void process_controller(void){
+	unsigned char target_hit;
+
+	target_hit = 0;
 	if(target_mask != 0 && (powerpad_new & target_mask) && target_x <= TARGET_HIT_X){
 		sfx_play(SFX_TARGET_HIT, 0);
 		score_to_add = (unsigned char)(1u + streak);
 		add_score();
 		add_streak_hit();
 		spawn_target_button();
+		target_hit = 1;
 	}
 
-	if((debug_controller_new & (PAD_A | PAD_B)) || (powerpad_new & 0x0fff)){
+	if((debug_controller_new & (PAD_A | PAD_B)) || (powerpad_new & powerpad_any_button_mask)){
+		play_step_sfx = target_hit ==0;
 		add_step();
 	}
 		
@@ -1191,16 +1202,20 @@ void add_second(void){
 	tens_hours = next_digit3[tens_hours];
 }
 
-void add_step(void){
+void add_step(){
 	
 	if(step_button_lockout > 0){
 		return; //still in lockout period
 	}
 	if(last_step == 0){
-		sfx_play(SFX_STEP, 0);
+		if(play_step_sfx != 0){
+			sfx_play(SFX_STEP, 0);
+		}
 		last_step = 1;
 	} else {
-		sfx_play(SFX_STEP2, 0);
+		if(play_step_sfx != 0){
+			sfx_play(SFX_STEP2, 0);
+		}
 		last_step = 0;
 	}
 	update_steps_per_minute(); // calculate SPM before resetting the timer
@@ -1410,19 +1425,7 @@ void draw_sprite(){
 
 	if(effective_motion == RUNNING){
 		// 6 frames, 10 ticks each = 60-frame cycle
-		if(sprite_frame_counter < 10){
-			oam_meta_spr(runner_x, 120, marathon_man_run1_data);
-		} else if(sprite_frame_counter < 20){
-			oam_meta_spr(runner_x, 120, marathon_man_run2_data);
-		} else if(sprite_frame_counter < 30){
-			oam_meta_spr(runner_x, 120, marathon_man_run3_data);
-		} else if(sprite_frame_counter < 40){
-			oam_meta_spr(runner_x, 120, marathon_man_run4_data);
-		} else if(sprite_frame_counter < 50){
-			oam_meta_spr(runner_x, 120, marathon_man_run5_data);
-		} else {
-			oam_meta_spr(runner_x, 120, marathon_man_run6_data);
-		}
+		oam_meta_spr(runner_x, 120, get_run_frame_0_to_59(sprite_frame_counter));
 	} else if(effective_motion == WALKING){
 		// 4 frames, 15 ticks each = 60-frame cycle
 		if(sprite_frame_counter < 15){
@@ -1487,7 +1490,9 @@ void draw_options_screen(void){
 	if(selected_option == 0){
 		cursor_y = 48;
 	} else if(selected_option == 1){
-		cursor_y = 72;
+		cursor_y = 64;
+	} else if(selected_option == 2){
+		cursor_y = 80;
 	} else {
 		cursor_y = 96;
 	}
@@ -1520,19 +1525,7 @@ void draw_options_screen(void){
 				options_runner_x += 3;
 			}
 
-			if(options_runner_frame == 0){
-				runner_data = marathon_man_run1_data;
-			} else if(options_runner_frame == 1){
-				runner_data = marathon_man_run2_data;
-			} else if(options_runner_frame == 2){
-				runner_data = marathon_man_run3_data;
-			} else if(options_runner_frame == 3){
-				runner_data = marathon_man_run4_data;
-			} else if(options_runner_frame == 4){
-				runner_data = marathon_man_run5_data;
-			} else {
-				runner_data = marathon_man_run6_data;
-			}
+			runner_data = get_run_frame_0_to_5(options_runner_frame);
 		} else {
 			runner_data = marathon_man_walk1_data;
 			++options_runner_hold_timer;
@@ -1553,7 +1546,7 @@ void init_options(void){
 	oam_clear();
 	clear_vram_buffer();
 
-	selected_option = 0;
+	selected_option = RACE_5K;
 	options_cursor_frame = 0;
 	options_cursor_timer = 0;
 	options_phase = OPTIONS_PHASE_IDLE;
@@ -1588,7 +1581,10 @@ void init_win_screen(void){
 	multi_vram_buffer_horz("CONGRATULATIONS", 15, NTADR_A(8, 3));
 	multi_vram_buffer_horz("YOU FINISHED", 12, NTADR_A(10, 5));
 
-	if(race_type == RACE_5K){
+	if(race_type == RACE_1K){
+		race_line = "THE 1K RACE";
+		race_line_len = 11;
+	} else if(race_type == RACE_5K){
 		race_line = "THE 5K RACE";
 		race_line_len = 11;
 	} else if(race_type == RACE_10K){
@@ -1713,6 +1709,7 @@ void load_title(void){
 		vram_put(titlespecial[largeindex]);
 		flush_vram_update2(); 
 	}
+	multi_vram_buffer_horz("BRIAN & ALAN", 13, NTADR_A(9, 25));
 	build_options_nametable(1);
 	title_animation_frame = 0;
 	title_frame_counter = 0;
