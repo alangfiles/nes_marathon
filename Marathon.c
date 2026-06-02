@@ -698,7 +698,7 @@ void draw_secret_screen(void){
 void begin_title_to_options(void){
 	pal_bg(palette_bg);
 	pal_spr(palette_sprites);
-	selected_option = RACE_5K;
+	selected_option = RACE_1K;
 	options_cursor_frame = 0;
 	options_cursor_timer = 0;
 	options_phase = OPTIONS_PHASE_IDLE;
@@ -1709,7 +1709,6 @@ void load_title(void){
 		vram_put(titlespecial[largeindex]);
 		flush_vram_update2(); 
 	}
-	multi_vram_buffer_horz("BRIAN & ALAN", 13, NTADR_A(9, 25));
 	build_options_nametable(1);
 	title_animation_frame = 0;
 	title_frame_counter = 0;
