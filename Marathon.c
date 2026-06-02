@@ -1572,6 +1572,7 @@ void init_win_screen(void){
 	ppu_off();
 	pal_bg(palette_grandstand);
 	pal_spr(palette_sprites);
+	sfx_play(SFX_START, 0);
 	oam_clear();
 	clear_vram_buffer();
 
