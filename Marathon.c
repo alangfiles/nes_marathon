@@ -1143,7 +1143,7 @@ void main (void) {
 			debug_controller = pad_poll(0);
 			debug_controller_new = get_pad_new(0);
 
-			if((debug_controller_new & PAD_START) || (debug_controller_new & PAD_A)){
+			if((debug_controller_new & PAD_START)){
 				load_title();
 			}
 		}
