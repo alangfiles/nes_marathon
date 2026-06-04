@@ -473,7 +473,7 @@ void add_score(void){
 }
 
 void draw_target_button(void){
-	if(target_x > 8){
+	if(target_x > 8 && target_x <= 240u){
 		oam_meta_spr(target_x, 83, target_sprite_data);
 	}
 }
