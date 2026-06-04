@@ -26523,10 +26523,10 @@ L49B1:	lda     _sprite_frame_counter
 	jsr     _get_run_frame_0_to_59
 	jsr     stax0sp
 ;
-; if(runner_screen_x <= 248u){
+; if(runner_screen_x <= 224u){
 ;
 	lda     _runner_screen_x
-	cmp     #$F9
+	cmp     #$E1
 	bcs     L49B8
 ;
 ; oam_meta_spr(runner_screen_x, 120, win_runner_data);
