@@ -1157,7 +1157,7 @@ void process_controller(void){
 	target_hit = 0;
 	if(target_mask != 0 && (powerpad_new & target_mask) && target_x <= TARGET_HIT_X){
 		sfx_play(SFX_TARGET_HIT, 0);
-		score_to_add = (unsigned char)(1u + streak);
+		score_to_add = (unsigned char)(1u + ((streak > 10u) ? 10u : streak));
 		add_score();
 		add_streak_hit();
 		spawn_target_button();
