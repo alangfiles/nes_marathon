@@ -17505,16 +17505,16 @@ _big_button_sprites:
 	.addr	_marathon_man_12big_data
 _target_speed_table:
 	.word	$00CD
-	.word	$00FF
-	.word	$0131
-	.word	$0163
-	.word	$0195
-	.word	$01C8
-	.word	$01FA
+	.word	$00F0
+	.word	$0113
+	.word	$0136
+	.word	$0159
+	.word	$017D
+	.word	$01A0
+	.word	$01C3
+	.word	$01E6
+	.word	$0209
 	.word	$022C
-	.word	$025E
-	.word	$0290
-	.word	$02C2
 L4629:
 	.byte	$4D,$41,$52,$41,$54,$48,$4F,$4E,$20,$52,$45,$53,$54,$41,$52,$54
 	.byte	$00

@@ -400,7 +400,7 @@ void add_streak_hit(void){
 }
 
 const unsigned int target_speed_table[11] = {
-	205, 255, 305, 355, 405, 456, 506, 556, 606, 656, 706
+	205, 240, 275, 310, 345, 381, 416, 451, 486, 521, 556
 };
 
 unsigned int get_target_speed_fp(void){
