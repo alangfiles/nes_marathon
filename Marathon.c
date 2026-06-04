@@ -1132,7 +1132,7 @@ void main (void) {
 			win_runner_data = get_run_frame_0_to_59(sprite_frame_counter);
 
 			
-			if(runner_screen_x <= 224u){
+			if(runner_screen_x <= 240u){
 				oam_meta_spr(runner_screen_x, 120, win_runner_data);
 				runner_screen_x += 2;
 				
